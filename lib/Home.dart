@@ -106,17 +106,33 @@ class ExamplesWidget extends StatelessWidget {
 
   Widget buildBurgers1() => Row(
         children: [
-          Expanded(child: buildBurger1()),
+          Expanded(child: InkWell(
+              onTap: (){},
+              child: buildBurger1(),
+            )
+          ),
           const SizedBox(width: 12),
-          Expanded(child: buildBurger2()),
+          Expanded(child: InkWell(
+              onTap: (){},
+              child: buildBurger2(),
+            )
+          ),
         ],
       );
   
    Widget buildBurgers2() => Row(
         children: [
-          Expanded(child: buildBurger3()),
+          Expanded(child: InkWell(
+              onTap: (){},
+              child: buildBurger3(),
+            )
+          ),
           const SizedBox(width: 12),
-          Expanded(child: buildBurger4()),
+          Expanded(child: InkWell(
+              onTap: (){},
+              child: buildBurger4(),
+            )
+          ),
         ],
       );
 
