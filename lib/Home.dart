@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/Home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import "package:flutter_application_1/Samyang-Cheese.dart";
+import 'package:carousel_slider/carousel_slider.dart';
 
 class Page1 extends StatelessWidget {
 
@@ -82,9 +83,37 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 }
 
 class ExamplesWidget extends StatelessWidget {
+
+  final ImageList = [
+    'Assets/16.png',
+    'Assets/17.png',
+    'Assets/15.png',
+  ];
+
   @override
   Widget build(BuildContext context) => ListView(
         children: [
+          CarouselSlider.builder(
+            itemCount: ImageList.length, 
+            itemBuilder: (context, index, realIndex) {
+              final ImageList2 = ImageList[index];
+
+              return buildimage(ImageList2, index);
+            },  options: CarouselOptions(
+                    height: 180,
+                    aspectRatio: 32/9,
+                    viewportFraction: 1,
+                    initialPage: 0,
+                    enableInfiniteScroll: true,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: Duration(seconds: 3),
+                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: true,
+                    scrollDirection: Axis.horizontal,
+                )
+          ),
           Padding(padding: EdgeInsets.only(top: 10)),
           Wrap(
             direction: Axis.horizontal,
@@ -114,14 +143,6 @@ class ExamplesWidget extends StatelessWidget {
                     context, MaterialPageRoute(builder: (context) => SamyangCheese()));
                 },  
                 borderRadius: BorderRadius.circular(20),
-                child: BuildBanner(),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => SamyangCheese()));
-                },  
-                borderRadius: BorderRadius.circular(20),
                 child: buildBurger1(),
               ),
               InkWell(
@@ -131,30 +152,6 @@ class ExamplesWidget extends StatelessWidget {
                 },  
                 borderRadius: BorderRadius.circular(20),
                 child: buildBurger1(),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => SamyangCheese()));
-                },  
-                borderRadius: BorderRadius.circular(20),
-                child: buildBurger1(),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => SamyangCheese()));
-                },  
-                borderRadius: BorderRadius.circular(20),
-                child: buildBurger1(),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => SamyangCheese()));
-                },  
-                borderRadius: BorderRadius.circular(20),
-                child: BuildBanner2(),
               ),
               InkWell(
                 onTap: () {
@@ -194,9 +191,16 @@ class ExamplesWidget extends StatelessWidget {
                     context, MaterialPageRoute(builder: (context) => SamyangCheese()));
                 },  
                 borderRadius: BorderRadius.circular(20),
-                child: BuildBanner3(),
+                child: buildBurger1(),
               ),
-              
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },  
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
             ],
           ),
         ],
@@ -207,7 +211,13 @@ class ExamplesWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       child: Container(
         padding: EdgeInsets.all(12),
-        color: Color.fromARGB(122, 247, 5, 5),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [Color.fromARGB(255,226,5,19), Color.fromARGB(255,53,2,1)]
+          )
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -279,4 +289,15 @@ class ExamplesWidget extends StatelessWidget {
         ),
       );
   }
+
+  Widget buildimage(String ImageList, int index) => ClipRRect(
+    borderRadius: BorderRadius.circular(20),
+    child: Container(
+        margin: EdgeInsets.all(5), color: Colors.amber,
+        child: Image.asset(
+          ImageList,
+          fit: BoxFit.cover
+        )
+    )
+  );
 }
