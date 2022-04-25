@@ -114,6 +114,14 @@ class ExamplesWidget extends StatelessWidget {
                     context, MaterialPageRoute(builder: (context) => SamyangCheese()));
                 },  
                 borderRadius: BorderRadius.circular(20),
+                child: BuildBanner(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },  
+                borderRadius: BorderRadius.circular(20),
                 child: buildBurger1(),
               ),
               InkWell(
@@ -123,6 +131,14 @@ class ExamplesWidget extends StatelessWidget {
                 },  
                 borderRadius: BorderRadius.circular(20),
                 child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },  
+                borderRadius: BorderRadius.circular(20),
+                child: BuildBanner2(),
               ),
             ],
           ),
@@ -166,5 +182,31 @@ class ExamplesWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget BuildBanner() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+          child:
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              child: Image(image: AssetImage('Assets/16.png',),width: 380, height: 180,),
+            )
+        ),
+      );
+  }
+
+  Widget BuildBanner2() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+          child:
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              child: Image(image: AssetImage('Assets/15.png',),width: 380, height: 180,),
+            )
+        ),
+      );
   }
 }
