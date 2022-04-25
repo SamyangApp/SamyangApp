@@ -211,13 +211,7 @@ class ExamplesWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       child: Container(
         padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [Color.fromARGB(255,226,5,19), Color.fromARGB(255,53,2,1)]
-          )
-        ),
+        color: Color.fromARGB(122, 247, 5, 5),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/Home.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_application_1/Login.dart';
+import 'package:flutter/services.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(Myapp());
   await Firebase.initializeApp();
 }
@@ -89,7 +96,7 @@ class MyHomepage extends StatelessWidget {
           case 3:
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(
-                child: Page4(),
+                child: LoginPage(),
               );
             });
           default:
@@ -136,12 +143,7 @@ class Page4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Text(
-        'Hello 4.',
-        style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-      )),
-      backgroundColor: Color.fromARGB(255, 3, 0, 0),
+      body:LoginPage()
     );
   }
 }
