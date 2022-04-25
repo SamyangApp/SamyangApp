@@ -138,8 +138,65 @@ class ExamplesWidget extends StatelessWidget {
                     context, MaterialPageRoute(builder: (context) => SamyangCheese()));
                 },  
                 borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },  
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },  
+                borderRadius: BorderRadius.circular(20),
                 child: BuildBanner2(),
               ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },  
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },  
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },  
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },  
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },  
+                borderRadius: BorderRadius.circular(20),
+                child: BuildBanner3(),
+              ),
+              
             ],
           ),
         ],
@@ -205,6 +262,19 @@ class ExamplesWidget extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(30)),
               child: Image(image: AssetImage('Assets/15.png',),width: 380, height: 180,),
+            )
+        ),
+      );
+  }
+
+  Widget BuildBanner3() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+          child:
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              child: Image(image: AssetImage('Assets/17.png',),width: 380, height: 180,),
             )
         ),
       );
