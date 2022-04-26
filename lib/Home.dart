@@ -5,6 +5,8 @@ import 'package:flutter_application_1/Home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import "package:flutter_application_1/Samyang-Cheese.dart";
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_application_1/Setting.dart';
+import 'package:flutter_application_1/Setting.dart';
 
 class Page1 extends StatelessWidget {
 
@@ -61,7 +63,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 child: IconButton(
                   onPressed: () { 
                     Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Page1()
+                    .push(MaterialPageRoute(builder: (context) => Settings()
                     ));
                   },
                   icon: Icon(
@@ -253,32 +255,6 @@ class ExamplesWidget extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(30)),
               child: Image(image: AssetImage('Assets/16.png',),width: 380, height: 180,),
-            )
-        ),
-      );
-  }
-
-  Widget BuildBanner2() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-          child:
-            ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(30)),
-              child: Image(image: AssetImage('Assets/15.png',),width: 380, height: 180,),
-            )
-        ),
-      );
-  }
-
-  Widget BuildBanner3() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-          child:
-            ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(30)),
-              child: Image(image: AssetImage('Assets/17.png',),width: 380, height: 180,),
             )
         ),
       );
