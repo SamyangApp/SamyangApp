@@ -35,6 +35,47 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       title: 'My Flutter App',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        floatingActionButtonLocation: 
+        FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(),
+          child: new Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Page1()
+                        ));
+                },
+              ),
+              
+              IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Page1()
+                        ));
+                },
+              ),
+              Padding(padding: EdgeInsets.only(right: 25)),
+              IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Page1()
+                        ));
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {},
+              )
+            ],
+          ),
+        ),
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +124,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Widget BuildNavigateButton() => FloatingActionButton(
     child: Icon(Icons.shopping_cart_outlined),
     onPressed: () {
-      print('pressed');
     },
     backgroundColor: Color.fromARGB(188, 255, 0, 0),
     );

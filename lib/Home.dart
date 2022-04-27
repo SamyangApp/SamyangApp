@@ -7,6 +7,8 @@ import "package:flutter_application_1/Samyang-Cheese.dart";
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_application_1/Setting.dart';
 import 'package:flutter_application_1/Setting.dart';
+import 'package:flutter_application_1/Icons.dart';
+import 'package:flutter_application_1/List.dart';
 
 class Page1 extends StatelessWidget {
 
@@ -212,8 +214,12 @@ class ExamplesWidget extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Container(
-        padding: EdgeInsets.all(12),
-        color: Color.fromARGB(122, 247, 5, 5),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Color.fromARGB(126, 104, 2, 2),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Color.fromARGB(122, 247, 5, 5),width: 3)
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -5,145 +5,207 @@ import 'package:flutter_application_1/Home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_1/Login.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/List.dart';
+import 'package:flutter_application_1/Samyang-Cheese.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-  runApp(Myapp());
-  await Firebase.initializeApp();
-}
+void main() => runApp(MyApp());
 
-class Myapp extends StatelessWidget {
+class MyApp extends StatelessWidget {
+  static const String _title = 'Flutter Code Sample';
+
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "persistent navbar",
-      home: MyHomepage(),
+      title: _title,
+      home: MyStatefulWidget(),
     );
   }
 }
 
-class MyHomepage extends StatelessWidget {
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    int currentIndex = 0;
-    return CupertinoTabScaffold(
-      tabBar: CupertinoTabBar(
-        backgroundColor: currentIndex == 0
-            ? Color.fromARGB(255, 14, 0, 0)
-            : Color.fromARGB(255, 0, 0, 0),
-        activeColor: currentIndex == 0
-            ? Color.fromARGB(255, 126, 122, 122)
-            : Colors.black,
-        inactiveColor: currentIndex == 0
-            ? Color.fromARGB(255, 255, 255, 255)
-            : Colors.grey,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              CupertinoIcons.home,
-              size: 20,
-            ),
-            label: 'Products',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              CupertinoIcons.search,
-              size: 20,
-            ),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              CupertinoIcons.shopping_cart,
-              size: 20,
-            ),
-            label: 'Cart',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              CupertinoIcons.person,
-              size: 20,
-            ),
-            label: 'Account',
-          ),
-        ],
-      ),
-      tabBuilder: (context, index) {
-        switch (index) {
-          case 0:
-            return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(
-                child: Page1(),
-              );
-            });
-          case 1:
-            return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(
-                child: Page2(),
-              );
-            });
-          case 2:
-            return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(
-                child: Page3(),
-              );
-            });
-          case 3:
-            return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(
-                child: LoginPage(),
-              );
-            });
-          default:
-            return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(
-                child: Page1(),
-              );
-            });
-        }
-      },
-    );
-  }
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
 
-class Page2 extends StatelessWidget {
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  int currenIndex = 0;
+  final List<Widget> screens = [
+    Page1(),
+    SamyangCheese(),
+    Page1(),
+    Page1(),
+  ];
+
+  final PageStorageBucket bucket = PageStorageBucket();
+  Widget currentscreen = Page1();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Text(
-        'Search.',
-        style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-      )),
-      backgroundColor: Color.fromARGB(255, 3, 0, 0),
+      
+      body: PageStorage(
+        bucket: bucket, 
+        child: currentscreen),
+      floatingActionButton: BuildNavigateButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      extendBody: true,
+    
+     bottomNavigationBar: BottomAppBar(
+          color: Color.fromARGB(255, 14, 0, 0),
+          shape: CircularNotchedRectangle(),
+          child: Container(
+            height: 60,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                  Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MaterialButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      minWidth: 40,
+                      onPressed: () {
+                        
+                        setState(() {
+                          currentscreen = Page1();
+                          currenIndex = 0;
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.house_outlined,
+                            color: currenIndex == 0 ? Colors.white : Colors.grey
+                          ),
+                          Text(
+                            'Home',
+                            style: TextStyle(
+                              color: currenIndex == 0 ? Colors.white : Colors.grey,
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MaterialButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      minWidth: 40,
+                      onPressed: () {
+                        
+                        setState(() {
+                          currentscreen = SamyangCheese();
+                          currenIndex = 1;
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.house_outlined,
+                            color: currenIndex == 1 ? Colors.white : Colors.grey
+                          ),
+                          Text(
+                            'Home',
+                            style: TextStyle(
+                              color: currenIndex == 1 ? Colors.white : Colors.grey,
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                Padding(padding: EdgeInsets.only(left: 40)),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MaterialButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      minWidth: 40,
+                      onPressed: () {
+                        
+                        setState(() {
+                          currentscreen = Page1();
+                          currenIndex = 2;
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.house_outlined,
+                            color: currenIndex == 2 ? Colors.white : Colors.grey
+                          ),
+                          Text(
+                            'Home',
+                            style: TextStyle(
+                              color: currenIndex == 2 ? Colors.white : Colors.grey,
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MaterialButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      minWidth: 40,
+                      onPressed: () {
+                        
+                        setState(() {
+                          currentscreen = LoginPage();
+                          currenIndex = 3;
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.house_outlined,
+                            color: currenIndex == 3 ? Colors.white : Colors.grey
+                          ),
+                          Text(
+                            'Home',
+                            style: TextStyle(
+                              color: currenIndex == 3 ? Colors.white : Colors.grey,
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          )
+        ),
     );
   }
-}
 
-class Page3 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: Text(
-        'Hello 3.',
-        style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-      )),
-      backgroundColor: Color.fromARGB(255, 3, 0, 0),
-    );
-  }
-}
-
-class Page4 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body:LoginPage()
-    );
-  }
+  Widget BuildNavigateButton() => Container(
+      width: 85,
+      height: 85,
+      child: FloatingActionButton(
+        child: Image(image: AssetImage('Assets/18.png')),
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => ListSamyang()));
+        },
+        backgroundColor: Color.fromARGB(161, 255, 0, 0),
+      ));
 }

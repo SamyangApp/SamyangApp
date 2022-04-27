@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,9 +17,64 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  
+  final ImageList = [
+    'Assets/s1.png',
+    'Assets/s2.png',
+    'Assets/s3.png',
+  ];
+
+  final ItemList = [
+    'Samyang 1',
+    'Samyang 2',
+    'Samyang 3',
+  ];
+
   @override
+  
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: 
+        FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(),
+          child: new Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Page1()
+                        ));
+                },
+              ),
+              
+              IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Page1()
+                        ));
+                },
+              ),
+              Padding(padding: EdgeInsets.only(right: 25)),
+              IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Page1()
+                        ));
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {},
+              )
+            ],
+          ),
+        ),
       appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,6 +139,31 @@ class _SettingsState extends State<Settings> {
               ),
               ],
             ),
+            ),
+            Padding(padding: EdgeInsets.all(5)),
+            Container(
+              child: CarouselSlider.builder(
+                 itemCount: ImageList.length,
+                 itemBuilder: (context, index, realindex) {
+                   final ImageList2 = ImageList[index];
+                   final ItemList2 = ItemList[index];
+
+                   return BuildImage(ImageList2, ItemList2, index);
+                 }, options: CarouselOptions(
+                    height: 100,
+                    aspectRatio: 16/9,
+                    viewportFraction: 1,
+                    initialPage: 1,
+                    enableInfiniteScroll: true,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: Duration(seconds: 3),
+                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: true,
+                    scrollDirection: Axis.horizontal,
+                )
+              ),
             ),
             Padding(padding: EdgeInsets.all(5)),
             Text('Pengaturan Akun',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
@@ -196,5 +277,32 @@ class _SettingsState extends State<Settings> {
           ),
       backgroundColor: Colors.black,
       );
+    
   }
+    Widget BuildImage(String ImageList, String ItemList, int index) => ClipRRect(
+    borderRadius: BorderRadius.circular(20),
+    child: Container(
+        width: 350,
+        margin: EdgeInsets.all(5), 
+        color: Color.fromARGB(26, 255, 255, 255),
+        child: Row(
+          children: [
+            Image.asset(
+              ImageList,
+              fit: BoxFit.cover
+            ),
+            Padding(padding: EdgeInsets.all(10)),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(ItemList,style: TextStyle(color: Colors.white)),
+                Padding(padding: EdgeInsets.all(5)),
+                Text(ItemList,style: TextStyle(color: Colors.white),)
+              ],
+            )
+          ],
+        )
+        )
+    );
 }
