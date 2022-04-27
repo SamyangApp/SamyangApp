@@ -216,9 +216,9 @@ class ExamplesWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Color.fromARGB(126, 104, 2, 2),
+          color: Color.fromARGB(255, 128, 7, 7),
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Color.fromARGB(122, 247, 5, 5),width: 3)
+          border: Border.all(color: Color.fromARGB(137, 192, 3, 3),width: 3)
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
