@@ -1,12 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/Home.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_1/Login.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_application_1/List.dart';
-import 'package:flutter_application_1/Samyang-Cheese.dart';
+import 'package:flutter_application_1/Setting.dart';
+import 'package:flutter_application_1/Cart.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +11,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: _title,
       home: MyStatefulWidget(),
@@ -34,9 +30,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int currenIndex = 0;
   final List<Widget> screens = [
     Page1(),
-    SamyangCheese(),
+    const Settings(),
     Page1(),
-    Page1(),
+    const LoginPage(),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
@@ -44,20 +40,20 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final bool showFab = MediaQuery.of(context).viewInsets.bottom==0.0;
     return Scaffold(
-      
+      resizeToAvoidBottomInset: false,
       body: PageStorage(
         bucket: bucket, 
         child: currentscreen),
       floatingActionButton: BuildNavigateButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
-    
-     bottomNavigationBar: BottomAppBar(
-          color: Color.fromARGB(255, 14, 0, 0),
-          shape: CircularNotchedRectangle(),
-          child: Container(
-            height: 60,
+       bottomNavigationBar: BottomAppBar(
+          color: const Color.fromARGB(255, 14, 0, 0),
+          shape: const CircularNotchedRectangle(),
+          child: SizedBox(
+            height: 55,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -68,8 +64,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       minWidth: 40,
-                      onPressed: () {
-                        
+                      onPressed: () {    
                         setState(() {
                           currentscreen = Page1();
                           currenIndex = 0;
@@ -103,7 +98,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       onPressed: () {
                         
                         setState(() {
-                          currentscreen = SamyangCheese();
+                          currentscreen = const Settings();
                           currenIndex = 1;
                         });
                       },
@@ -111,11 +106,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.house_outlined,
+                            Icons.settings,
                             color: currenIndex == 1 ? Colors.white : Colors.grey
                           ),
                           Text(
-                            'Home',
+                            'Settings',
                             style: TextStyle(
                               color: currenIndex == 1 ? Colors.white : Colors.grey,
                             ),
@@ -125,7 +120,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     )
                   ],
                 ),
-                Padding(padding: EdgeInsets.only(left: 40)),
+                const Padding(padding: EdgeInsets.only(left: 66)),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -136,7 +131,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       onPressed: () {
                         
                         setState(() {
-                          currentscreen = Page1();
+                          currentscreen = Cart();
                           currenIndex = 2;
                         });
                       },
@@ -144,11 +139,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.house_outlined,
+                            Icons.shopping_cart_checkout_outlined,
                             color: currenIndex == 2 ? Colors.white : Colors.grey
                           ),
                           Text(
-                            'Home',
+                            'Cart',
                             style: TextStyle(
                               color: currenIndex == 2 ? Colors.white : Colors.grey,
                             ),
@@ -158,6 +153,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     )
                   ],
                 ),
+                const Padding(padding: EdgeInsets.only(right: 8)),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -168,7 +164,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       onPressed: () {
                         
                         setState(() {
-                          currentscreen = LoginPage();
+                          currentscreen = const LoginPage();
                           currenIndex = 3;
                         });
                       },
@@ -176,11 +172,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.house_outlined,
+                            Icons.person,
                             color: currenIndex == 3 ? Colors.white : Colors.grey
                           ),
                           Text(
-                            'Home',
+                            'Login',
                             style: TextStyle(
                               color: currenIndex == 3 ? Colors.white : Colors.grey,
                             ),
@@ -197,15 +193,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 
-  Widget BuildNavigateButton() => Container(
-      width: 85,
-      height: 85,
+  Widget BuildNavigateButton() => SizedBox(
+      width: 80,
+      height: 80,
       child: FloatingActionButton(
-        child: Image(image: AssetImage('Assets/18.png')),
+        child: const Image(image: AssetImage('Assets/18.png')),
         onPressed: () {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => ListSamyang()));
+              .push(MaterialPageRoute(builder: (context) => Page1()));
         },
-        backgroundColor: Color.fromARGB(161, 255, 0, 0),
+        backgroundColor: const Color.fromARGB(161, 255, 0, 0),
       ));
 }

@@ -1,16 +1,9 @@
-import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_application_1/Home.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_application_1/Login.dart';
-import 'package:flutter/services.dart';
 
 class Settings extends StatefulWidget {
-  Settings({Key? key}) : super(key: key);
+  const Settings({Key? key}) : super(key: key);
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -35,84 +28,46 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: 
-        FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: BottomAppBar(
-          shape: CircularNotchedRectangle(),
-          child: new Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () {
-                  Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) => Page1()
-                        ));
-                },
-              ),
-              
-              IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () {
-                  Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) => Page1()
-                        ));
-                },
-              ),
-              Padding(padding: EdgeInsets.only(right: 25)),
-              IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () {
-                  Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) => Page1()
-                        ));
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {},
-              )
-            ],
-          ),
-        ),
+      FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(
+              const Center(
                 child: Text(
                   'My Account'
                 ),
               ),
-              Padding(padding: EdgeInsets.only(right: 5.0),
+              Padding(padding: const EdgeInsets.only(right: 5.0),
                 child: IconButton(
                   onPressed: () { 
                     Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Settings()
+                    .push(MaterialPageRoute(builder: (context) => const Settings()
                     ));
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.settings,
                     size: 20,                
                     ),
-                alignment: Alignment(0, 0),
+                alignment: const Alignment(0, 0),
                 )
               ),
             ],
           ),
-          backgroundColor: Color.fromARGB(0, 0, 0, 0),
+          backgroundColor: const Color.fromARGB(0, 0, 0, 0),
       ),
-      body: Column(
+      body: Container(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Padding(padding: EdgeInsets.all(5)),
-            Container(
+            const Padding(padding: EdgeInsets.all(5)),
+            SizedBox(
               height: 120,
               child: Row(
               children: [
-                Padding(padding: EdgeInsets.all(10)),
+                const Padding(padding: EdgeInsets.all(10)),
                 CircleAvatar(
                     backgroundColor: Colors.blue,
                     radius: 45,
@@ -125,11 +80,11 @@ class _SettingsState extends State<Settings> {
                     )
                   )
                 ),
-                Padding(padding: EdgeInsets.all(10)),
+                const Padding(padding: EdgeInsets.all(10)),
                 Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const [
                   Padding(padding: EdgeInsets.only(bottom: 4)),
                   Text('Username', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white)),
                   Text('+08129299188',style:TextStyle(fontSize: 15, color: Colors.white)),
@@ -140,7 +95,7 @@ class _SettingsState extends State<Settings> {
               ],
             ),
             ),
-            Padding(padding: EdgeInsets.all(5)),
+            const Padding(padding: EdgeInsets.all(5)),
             Container(
               child: CarouselSlider.builder(
                  itemCount: ImageList.length,
@@ -157,17 +112,16 @@ class _SettingsState extends State<Settings> {
                     enableInfiniteScroll: true,
                     reverse: false,
                     autoPlay: true,
-                    autoPlayInterval: Duration(seconds: 3),
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
                     autoPlayCurve: Curves.fastOutSlowIn,
                     enlargeCenterPage: true,
                     scrollDirection: Axis.horizontal,
                 )
               ),
             ),
-            Padding(padding: EdgeInsets.all(5)),
-            Text('Pengaturan Akun',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-            Container(
+            const Padding(padding: EdgeInsets.all(5)),
+            SizedBox(
               height: 70 ,
               child: InkWell(
                 onTap: (){},
@@ -176,19 +130,19 @@ class _SettingsState extends State<Settings> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(padding: EdgeInsets.all(5)),
+                            const Padding(padding: EdgeInsets.all(5)),
                             Row(
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.person,
                                     size:30,
                                     color: Colors.white,
                                   ),
-                                  Padding(padding: EdgeInsets.only(left: 10)),
+                                  const Padding(padding: EdgeInsets.only(left: 10)),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       Text('Pengaturan Akun',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 17)),
                                       Padding(padding: EdgeInsets.only(left: 10, bottom: 2)),
                                       Text('Atur Akun, Username, Password',style: TextStyle(color: Colors.white)),
@@ -201,8 +155,8 @@ class _SettingsState extends State<Settings> {
                         )  
                 ),
               ),
-              Padding(padding: EdgeInsets.all(5)),
-              Container(
+              const Padding(padding: EdgeInsets.all(5)),
+              SizedBox(
               height: 70 ,
               child: InkWell(
                 onTap: (){},
@@ -211,19 +165,19 @@ class _SettingsState extends State<Settings> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(padding: EdgeInsets.all(5)),
+                            const Padding(padding: EdgeInsets.all(5)),
                             Row(
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.credit_card,
                                     size:30,
                                     color: Colors.white,
                                   ),
-                                  Padding(padding: EdgeInsets.only(left: 10)),
+                                  const Padding(padding: EdgeInsets.only(left: 10)),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       Text('Pengaturan Rekening',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 17)),
                                       Padding(padding: EdgeInsets.only(left: 10, bottom: 2)),
                                       Text('Atur Rekening Pembayaran Belanjaan',style: TextStyle(color: Colors.white)),
@@ -236,8 +190,8 @@ class _SettingsState extends State<Settings> {
                         )  
                 ),
               ),
-              Padding(padding: EdgeInsets.all(5)),
-              Container(
+              const Padding(padding: EdgeInsets.all(5)),
+              SizedBox(
               height: 70 ,
               child: InkWell(
                 onTap: (){},
@@ -246,19 +200,19 @@ class _SettingsState extends State<Settings> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(padding: EdgeInsets.all(5)),
+                            const Padding(padding: EdgeInsets.all(5)),
                             Row(
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.house_rounded,
                                     size:30,
                                     color: Colors.white,
                                   ),
-                                  Padding(padding: EdgeInsets.only(left: 10)),
+                                  const Padding(padding: EdgeInsets.only(left: 10)),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       Text('Daftar Alamat',style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 17)),
                                       Padding(padding: EdgeInsets.only(left: 10, bottom: 2)),
                                       Text('Atur Alamat Pengiriman Belanjaan',style: TextStyle(color: Colors.white)),
@@ -271,11 +225,11 @@ class _SettingsState extends State<Settings> {
                         )  
                 ),
               ),
-              Padding(padding: EdgeInsets.all(5)),
-              
+              const Padding(padding: EdgeInsets.all(5)),
             ],
           ),
-      backgroundColor: Colors.black,
+      ),
+      backgroundColor: const Color.fromARGB(255, 39, 1, 1),
       );
     
   }
@@ -283,22 +237,22 @@ class _SettingsState extends State<Settings> {
     borderRadius: BorderRadius.circular(20),
     child: Container(
         width: 350,
-        margin: EdgeInsets.all(5), 
-        color: Color.fromARGB(26, 255, 255, 255),
+        margin: const EdgeInsets.all(5), 
+        color: const Color.fromARGB(26, 255, 255, 255),
         child: Row(
           children: [
             Image.asset(
               ImageList,
               fit: BoxFit.cover
             ),
-            Padding(padding: EdgeInsets.all(10)),
+            const Padding(padding: EdgeInsets.all(10)),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(ItemList,style: TextStyle(color: Colors.white)),
-                Padding(padding: EdgeInsets.all(5)),
-                Text(ItemList,style: TextStyle(color: Colors.white),)
+                Text(ItemList,style: const TextStyle(color: Colors.white)),
+                const Padding(padding: EdgeInsets.all(5)),
+                Text(ItemList,style: const TextStyle(color: Colors.white),)
               ],
             )
           ],

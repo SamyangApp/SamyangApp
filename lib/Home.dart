@@ -1,14 +1,8 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_application_1/Home.dart';
-import 'package:firebase_core/firebase_core.dart';
 import "package:flutter_application_1/Samyang-Cheese.dart";
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_application_1/Setting.dart';
-import 'package:flutter_application_1/Setting.dart';
-import 'package:flutter_application_1/Icons.dart';
-import 'package:flutter_application_1/List.dart';
 
 class Page1 extends StatelessWidget {
 
@@ -32,7 +26,7 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _count = 0;
+  final int _count = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -46,41 +40,41 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(padding: EdgeInsets.only(right: 10.0),
+              Padding(padding: const EdgeInsets.only(right: 10.0),
                 child: IconButton(
                   onPressed: () { 
                     Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) => Page1()
                     ));
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.settings,
                     size: 20,                
                     ),
-                alignment: Alignment(0, 0),
+                alignment: const Alignment(0, 0),
                 )
               ),
-              Image(image: AssetImage('Assets/12.png'),height: 50,),
-              Padding(padding: EdgeInsets.only(right: 10.0),
+              const Image(image: AssetImage('Assets/12.png'),height: 50,),
+              Padding(padding: const EdgeInsets.only(right: 10.0),
                 child: IconButton(
                   onPressed: () { 
                     Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Settings()
+                    .push(MaterialPageRoute(builder: (context) => const Settings()
                     ));
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.settings,
                     size: 20,                
                     ),
-                alignment: Alignment(0, 0),
+                alignment: const Alignment(0, 0),
                 )
               ),
             ],
           ),
-          backgroundColor: Color.fromARGB(0, 0, 0, 0),
+          backgroundColor: const Color.fromARGB(0, 0, 0, 0),
       ),
-      body: ExamplesWidget(),
-      backgroundColor: Color.fromARGB(255, 0, 0, 0),
+      body: SafeArea(child: ExamplesWidget()),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       ),
     );
   }
@@ -111,15 +105,17 @@ class ExamplesWidget extends StatelessWidget {
                     enableInfiniteScroll: true,
                     reverse: false,
                     autoPlay: true,
-                    autoPlayInterval: Duration(seconds: 3),
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
                     autoPlayCurve: Curves.fastOutSlowIn,
                     enlargeCenterPage: true,
                     scrollDirection: Axis.horizontal,
                 )
           ),
-          Padding(padding: EdgeInsets.only(top: 10)),
-          Wrap(
+          const Padding(padding: EdgeInsets.only(top: 10)),
+          Positioned.fill(
+            bottom: 10000,
+            child: Wrap(
             direction: Axis.horizontal,
             spacing: 10,
             runSpacing: 10,
@@ -205,8 +201,15 @@ class ExamplesWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 child: buildBurger1(),
               ),
+              const InkWell(
+                child: SizedBox(
+                  height: 50,
+                  width: 100,
+                ),
+              ),
+              
             ],
-          ),
+          ),)
         ],
       );
 
@@ -214,16 +217,22 @@ class ExamplesWidget extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 128, 7, 7),
+          gradient: const RadialGradient(
+            colors: [
+                Color.fromARGB(255, 172, 6, 6),
+                Color.fromARGB(255, 0, 0, 0)
+              ],
+            radius: 1
+          ),
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Color.fromARGB(137, 192, 3, 3),width: 3)
+          border: Border.all(color: const Color.fromARGB(137, 192, 3, 3),width: 3)
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: const [
             Image(image: AssetImage('Assets/13.png'),width: 160, height: 180,),
             Text(
               'Samyang Cheese',
@@ -233,14 +242,14 @@ class ExamplesWidget extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             Text(
               'Samyang Cheese',
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             Text(
-              '\Rp.21.000',
+              'Rp.21.000',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -258,7 +267,7 @@ class ExamplesWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       child: Container(
           child:
-            ClipRRect(
+            const ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(30)),
               child: Image(image: AssetImage('Assets/16.png',),width: 380, height: 180,),
             )
@@ -269,7 +278,7 @@ class ExamplesWidget extends StatelessWidget {
   Widget buildimage(String ImageList, int index) => ClipRRect(
     borderRadius: BorderRadius.circular(20),
     child: Container(
-        margin: EdgeInsets.all(5), color: Colors.amber,
+        margin: const EdgeInsets.all(5), color: Colors.amber,
         child: Image.asset(
           ImageList,
           fit: BoxFit.cover

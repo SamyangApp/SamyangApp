@@ -14,7 +14,7 @@ class LoginPage extends StatelessWidget {
       title: appTitle,
       debugShowCheckedModeBanner: false,
       home: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -28,7 +28,6 @@ class LoginPage extends StatelessWidget {
             )
         ),
         child: Scaffold(
-        resizeToAvoidBottomInset: false,
         body: Center(
         child: Container(
           child: SingleChildScrollView(
@@ -37,32 +36,32 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                Padding(
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 1),
                   child: Image(image: AssetImage('Assets/10.png'),width:100)
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 1),
                   child: Image(image: AssetImage('Assets/11.png'),width:100)
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                   child: TextField(
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color.fromARGB(122, 247, 5, 5),
                           width: 3
                         )
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: Color.fromARGB(122, 247, 5, 5),
+                        borderSide: const BorderSide(color: Color.fromARGB(122, 247, 5, 5),
                         width: 3)
                       ),
-                      prefixIcon: Padding(
+                      prefixIcon: const Padding(
                         padding: EdgeInsets.only(left: 20),
                         child: Icon(
                           Icons.person,
@@ -70,7 +69,7 @@ class LoginPage extends StatelessWidget {
                         ), // myIcon is a 48px-wide widget.
                       ),
                       hintText: 'Username',
-                      hintStyle: TextStyle(color: Colors.white)
+                      hintStyle: const TextStyle(color: Colors.white)
                     ),
                   ),
                 ),
@@ -81,17 +80,17 @@ class LoginPage extends StatelessWidget {
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color.fromARGB(122, 247, 5, 5),
                           width: 3
                         )
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: Color.fromARGB(122, 247, 5, 5),
+                        borderSide: const BorderSide(color: Color.fromARGB(122, 247, 5, 5),
                         width: 3)
                       ),
-                      prefixIcon: Padding(
+                      prefixIcon: const Padding(
                         padding: EdgeInsets.only(left: 20),
                         child: Icon(
                           Icons.lock,
@@ -99,12 +98,12 @@ class LoginPage extends StatelessWidget {
                         ), // myIcon is a 48px-wide widget.
                       ),
                       hintText: 'Password',
-                      hintStyle: TextStyle(color: Colors.white)
+                      hintStyle: const TextStyle(color: Colors.white)
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Stack(
@@ -138,17 +137,17 @@ class LoginPage extends StatelessWidget {
                     ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(top: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Don’t have an Account ?',
                         style: TextStyle(color: Colors.white),
                       ),
                       GestureDetector(
                         onTap: (){},
-                        child: Text(
+                        child: const Text(
                           " Sign Up ",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
