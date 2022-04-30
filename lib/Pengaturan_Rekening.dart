@@ -4,8 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/Home.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class AturRekening extends StatelessWidget {
+  const AturRekening({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class LoginPage extends StatelessWidget {
         title: appTitle,
         debugShowCheckedModeBanner: false,
         home: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
               gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -27,6 +27,7 @@ class LoginPage extends StatelessWidget {
             ],
           )),
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             body: Center(
               child: Container(
                 child: SingleChildScrollView(
@@ -35,73 +36,53 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 1),
-                        child: Image(
-                            image: AssetImage('Assets/10.png'), width: 100)),
-                    const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 1),
-                        child: Image(
-                            image: AssetImage('Assets/11.png'), width: 100)),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 10),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                       child: TextField(
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(50),
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                     color: Color.fromARGB(122, 247, 5, 5),
                                     width: 3)),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(50),
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                     color: Color.fromARGB(122, 247, 5, 5),
                                     width: 3)),
-                            prefixIcon: const Padding(
+                            prefixIcon: Padding(
                               padding: EdgeInsets.only(left: 20),
-                              child: Icon(
-                                Icons.person,
-                                color: Colors.white,
-                              ), // myIcon is a 48px-wide widget.
                             ),
-                            hintText: 'Username',
-                            hintStyle: const TextStyle(color: Colors.white)),
+                            hintStyle: TextStyle(color: Colors.white)),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 16),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                       child: TextField(
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(50),
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                     color: Color.fromARGB(122, 247, 5, 5),
                                     width: 3)),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(50),
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                     color: Color.fromARGB(122, 247, 5, 5),
                                     width: 3)),
-                            prefixIcon: const Padding(
+                            prefixIcon: Padding(
                               padding: EdgeInsets.only(left: 20),
-                              child: Icon(
-                                Icons.lock,
-                                color: Colors.white,
-                              ), // myIcon is a 48px-wide widget.
                             ),
-                            hintText: 'Password',
-                            hintStyle: const TextStyle(color: Colors.white)),
+                            hintStyle: TextStyle(color: Colors.white)),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 1),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 100, vertical: 1),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: Stack(
@@ -126,7 +107,7 @@ class LoginPage extends StatelessWidget {
                               ),
                               onPressed: () {},
                               child: const Text(
-                                'Login',
+                                'Save',
                                 style: TextStyle(fontSize: 24),
                               ),
                             )
@@ -135,24 +116,9 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(top: 10),
+                        padding: EdgeInsets.only(top: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Don’t have an Account ?',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: const Text(
-                                " Sign Up ",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            )
-                          ],
                         )),
                   ],
                 )),
