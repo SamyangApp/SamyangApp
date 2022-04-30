@@ -1,9 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Login.dart';
 import 'package:flutter_application_1/Pengaturan_Akun.dart';
 import 'package:flutter_application_1/Pengaturan_Rekening.dart';
-import 'package:flutter_application_1/tes.dart';
+import 'package:flutter_application_1/Daftar_Alamat.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -39,18 +38,8 @@ class _SettingsState extends State<Settings> {
               child: Text('My Account'),
             ),
             Padding(
-                padding: const EdgeInsets.only(right: 5.0),
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Settings()));
-                  },
-                  icon: const Icon(
-                    Icons.settings,
-                    size: 20,
-                  ),
-                  alignment: const Alignment(0, 0),
-                )),
+              padding: const EdgeInsets.only(right: 5.0),
+            ),
           ],
         ),
         backgroundColor: const Color.fromARGB(0, 0, 0, 0),
@@ -136,19 +125,19 @@ class _SettingsState extends State<Settings> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(padding: EdgeInsets.all(5)),
+                      const Padding(padding: EdgeInsets.all(5)),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.person,
                             size: 30,
                             color: Colors.white,
                           ),
-                          Padding(padding: EdgeInsets.only(left: 10)),
+                          const Padding(padding: EdgeInsets.only(left: 10)),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                            children: const [
                               Text('Pengaturan Akun',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -167,8 +156,8 @@ class _SettingsState extends State<Settings> {
                     ],
                   )),
             ),
-            Padding(padding: EdgeInsets.all(5)),
-            Container(
+            const Padding(padding: EdgeInsets.all(5)),
+            SizedBox(
               height: 70,
               child: InkWell(
                   onTap: () {
@@ -182,19 +171,19 @@ class _SettingsState extends State<Settings> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(padding: EdgeInsets.all(5)),
+                      const Padding(padding: EdgeInsets.all(5)),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.credit_card,
                             size: 30,
                             color: Colors.white,
                           ),
-                          Padding(padding: EdgeInsets.only(left: 10)),
+                          const Padding(padding: EdgeInsets.only(left: 10)),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                            children: const [
                               Text('Pengaturan Rekening',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -213,13 +202,13 @@ class _SettingsState extends State<Settings> {
                     ],
                   )),
             ),
-            Padding(padding: EdgeInsets.all(5)),
-            Container(
+            const Padding(padding: EdgeInsets.all(5)),
+            SizedBox(
               height: 70,
               child: InkWell(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => akun()));
+                        MaterialPageRoute(builder: (context) => Alamat()));
                   },
                   borderRadius: BorderRadius.circular(10),
                   child: Row(

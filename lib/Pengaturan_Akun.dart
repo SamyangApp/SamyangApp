@@ -124,21 +124,40 @@ class _nameState extends State<AturAkun> {
                 ),
                 SizedBox(
                   width: 100,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(width: 3)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(121, 5, 177, 48),
-                                width: 3)),
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 10, 233, 66),
-                        hintText: 'SAVE'),
-                  ),
-                ),
+                  height: 50,
+                  child: ElevatedButton(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50),
+                              borderSide: BorderSide(width: 3)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50),
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(122, 247, 5, 5),
+                                  width: 3)),
+                        ),
+                      ),
+                      onPressed: () {}),
+                )
+
+                // SizedBox(
+                //   width: 100,
+                //   child: TextField(
+                //     decoration: InputDecoration(
+                //         focusedBorder: OutlineInputBorder(
+                //             borderRadius: BorderRadius.circular(50),
+                //             borderSide: BorderSide(width: 3)),
+                //         enabledBorder: OutlineInputBorder(
+                //             borderRadius: BorderRadius.circular(50),
+                //             borderSide: const BorderSide(
+                //                 color: Color.fromARGB(121, 5, 177, 48),
+                //                 width: 3)),
+                //         filled: true,
+                //         fillColor: Color.fromARGB(255, 10, 233, 66),
+                //         hintText: 'SAVE'),
+                //   ),
+                // ),
               ],
             ),
           ),

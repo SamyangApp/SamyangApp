@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class akun extends StatefulWidget {
-  akun({Key? key}) : super(key: key);
+class Alamat extends StatefulWidget {
+  Alamat({Key? key}) : super(key: key);
 
   @override
-  State<akun> createState() => _nameState();
+  State<Alamat> createState() => _nameState();
 }
 
-class _nameState extends State<akun> {
+class _nameState extends State<Alamat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,28 +23,22 @@ class _nameState extends State<akun> {
         backgroundColor: Color.fromARGB(0, 0, 0, 0),
       ),
       body: Center(
-        child: Container(
-          child: SingleChildScrollView(
+        child: Column(children: [
+          SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
               children: [
-                Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 1, vertical: 1),
-                    child: Container(
-                      width: 160,
-                      height: 160,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'),
-                            fit: BoxFit.cover,
-                          ),
-                          shape: BoxShape.circle,
-                          color: Color(0xFFe0f2f1)),
-                    )),
-                Container(),
+                Container(
+                  width: 160,
+                  height: 160,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'),
+                        fit: BoxFit.cover,
+                      ),
+                      shape: BoxShape.circle,
+                      color: Color(0xFFe0f2f1)),
+                ),
                 SizedBox(
                   height: 15,
                 ),
@@ -148,7 +142,7 @@ class _nameState extends State<akun> {
               ],
             ),
           ),
-        ),
+        ]),
       ),
       backgroundColor: Colors.black,
     );

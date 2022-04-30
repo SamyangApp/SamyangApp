@@ -112,122 +112,99 @@ class ExamplesWidget extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
               )),
           const Padding(padding: EdgeInsets.only(top: 10)),
-          Positioned.fill(
-            bottom: 10000,
-            child: Wrap(
-              direction: Axis.horizontal,
-              spacing: 10,
-              runSpacing: 10,
-              alignment: WrapAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SamyangCheese()));
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: buildBurger1(),
+          Wrap(
+            direction: Axis.horizontal,
+            spacing: 10,
+            runSpacing: 10,
+            alignment: WrapAlignment.center,
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SamyangCheese()));
+                },
+                borderRadius: BorderRadius.circular(20),
+                child: buildBurger1(),
+              ),
+              const InkWell(
+                child: SizedBox(
+                  height: 50,
+                  width: 100,
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SamyangCheese()));
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: buildBurger1(),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SamyangCheese()));
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: buildBurger1(),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SamyangCheese()));
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: buildBurger1(),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SamyangCheese()));
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: buildBurger1(),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SamyangCheese()));
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: buildBurger1(),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SamyangCheese()));
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: buildBurger1(),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SamyangCheese()));
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: buildBurger1(),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SamyangCheese()));
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: buildBurger1(),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SamyangCheese()));
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: buildBurger1(),
-                ),
-                const InkWell(
-                  child: SizedBox(
-                    height: 50,
-                    width: 100,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           )
         ],
       );

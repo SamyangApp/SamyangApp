@@ -49,6 +49,7 @@ class LoginPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 10),
                       child: TextField(
+                        style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
@@ -76,6 +77,8 @@ class LoginPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 16),
                       child: TextField(
+                        obscureText: true,
+                        style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
