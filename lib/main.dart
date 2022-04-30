@@ -31,7 +31,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   final List<Widget> screens = [
     Page1(),
     const Settings(),
-    Page1(),
+    Cart(),
     const LoginPage(),
   ];
 
@@ -194,8 +194,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   Widget BuildNavigateButton() => SizedBox(
-      width: 80,
-      height: 80,
+      width: 75,
+      height: 75,
       child: FloatingActionButton(
         child: const Image(image: AssetImage('Assets/18.png')),
         onPressed: () {
