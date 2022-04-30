@@ -122,42 +122,34 @@ class _nameState extends State<AturAkun> {
                 SizedBox(
                   height: 15,
                 ),
-                SizedBox(
-                  width: 100,
-                  height: 50,
-                  child: ElevatedButton(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: BorderSide(width: 3)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(122, 247, 5, 5),
-                                  width: 3)),
-                        ),
-                      ),
-                      onPressed: () {}),
+                Row(
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(left: 50),
+                        child: (SizedBox(
+                          height: 50,
+                          width: 100,
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                  primary: Color.fromARGB(121, 0, 207, 0)),
+                              child:
+                                  Text('Save', style: TextStyle(fontSize: 20))),
+                        ))),
+                    Padding(
+                        padding: EdgeInsets.only(left: 100),
+                        child: (SizedBox(
+                          height: 50,
+                          width: 100,
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                  primary: Color.fromARGB(121, 235, 1, 1)),
+                              child: Text('Cancel',
+                                  style: TextStyle(fontSize: 20))),
+                        )))
+                  ],
                 )
-
-                // SizedBox(
-                //   width: 100,
-                //   child: TextField(
-                //     decoration: InputDecoration(
-                //         focusedBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(50),
-                //             borderSide: BorderSide(width: 3)),
-                //         enabledBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(50),
-                //             borderSide: const BorderSide(
-                //                 color: Color.fromARGB(121, 5, 177, 48),
-                //                 width: 3)),
-                //         filled: true,
-                //         fillColor: Color.fromARGB(255, 10, 233, 66),
-                //         hintText: 'SAVE'),
-                //   ),
-                // ),
               ],
             ),
           ),
