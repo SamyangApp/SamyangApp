@@ -12,6 +12,7 @@ class _nameState extends State<AturAkun> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Row(
           children: [
