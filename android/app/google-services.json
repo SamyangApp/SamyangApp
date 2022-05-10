@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "720215349250",
+    "firebase_url": "https://samyangapp-c93cb-default-rtdb.firebaseio.com",
+    "project_id": "samyangapp-c93cb",
+    "storage_bucket": "samyangapp-c93cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720215349250:android:60e5e6683bf3d68ce12f1b",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720215349250-r8tkilm6p4pntn1thbtbmo0fknr03fel.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj5g1dAzkKX-s4L6oVBqUQpzPA1MhmE38"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720215349250-r8tkilm6p4pntn1thbtbmo0fknr03fel.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
