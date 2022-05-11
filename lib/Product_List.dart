@@ -78,7 +78,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         childAspectRatio: 0.75,
                       ),
                       itemBuilder: (BuildContext context, int index) {
-                        return Product_Card(product[index]['Product_Img'],product[index]['Product_Name'],product[index]['Product_Price']);
+                        return Product_Card(product[index]['Product_Img'],product[index]['Product_Name'],product[index]['Product_Price'], product[index]['Product_Desc']);
                       },
                     );
                   } else {
@@ -92,11 +92,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 
-  Widget Product_Card(String url, String name, int Price) {
+  Widget Product_Card(String url, String name, int Price, String Desc) {
     return Wrap(
       children: [
         InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SamyangCheese(Desc, name, Price, url)));
+            },
             borderRadius: BorderRadius.circular(20),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),

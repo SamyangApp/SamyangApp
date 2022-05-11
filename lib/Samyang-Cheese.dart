@@ -2,32 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Home.dart';
 
 class SamyangCheese extends StatelessWidget {
+  late final String Name;
+  late final String Url;
+  late final String Desc;
+  late final int Price;
 
-  static const String _title = 'Flutter Code Sample';
+  SamyangCheese(this.Desc, this.Name, this.Price, this.Url);
 
   @override
+
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: _title,
-      home: MyStatefulWidget(),
-    );
-  }
-}
-
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
-
-  @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  final int _count = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(   // or CupertinoApp
+      home: MaterialApp(   // or CupertinoApp
       title: 'My Flutter App',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -43,8 +30,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 child: IconButton(
                   onPressed: () { 
                     Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Page1()
-                    ));
+                    .pop();
                   },
                   icon: const Icon(
                     Icons.arrow_back,
@@ -73,10 +59,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       ),
       
-      body: ExamplesWidget(),
+      body: ExamplesWidget(Desc, Name, Price, Url),
       backgroundColor: const Color.fromARGB(255, 249, 191, 0),
       ),
-    );
+    ));
   }
   Widget BuildNavigateButton() => FloatingActionButton(
     child: const Icon(Icons.shopping_cart_outlined),
@@ -87,6 +73,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 }
 
 class ExamplesWidget extends StatelessWidget {
+  
+  late final String Name;
+  late final String Url;
+  late final String Desc;
+  late final int Price;
+
+  ExamplesWidget(this.Desc, this.Name, this.Price, this.Url);
+
   @override
   Widget build(BuildContext context) => ListView(
         children: [
@@ -102,16 +96,16 @@ class ExamplesWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Center(
-              child: Image(image: AssetImage('Assets/13.png'),height: 350,),
+            Center(
+              child: Image.network(Url),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                'Rp.21.000',
+                Text(
+                'Rp.${Price}',
                   style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -128,26 +122,28 @@ class ExamplesWidget extends StatelessWidget {
                 )
               ],
             ),
-            const Text(
-              'Buldak Bokkeummyeon Cheese 140 gr',
+            Text(
+              Name,
               style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400),
             ),
-            const Text(
+            Text(
               '\nTerjual 140rb++\n',
               style: TextStyle(color: Colors.black, fontSize: 12),
             ),
-            const SizedBox(height: 8),
-             const Text(
+            SizedBox(height: 8),
+            Text(
               'DETAIL PRODUCT\n',
               style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
             ),
-            const Text(
-              'Samyang Buldak Bokkeummyeon Cheese \nVery hot and Spicy Ramen with Chicken flavour.\nMultipack 4 x 140g.\nDirection (1 serving): Add the noodles in 600ml of boiling water and boil for 5 minutes. Then drain the water, leave only 100 ml in the pot. Add the liquid spices and stir. Then add the spice flakes and stir again.\n\nGet quantity discount!\n\nIngredients:\nIngredients: wheat flour, palm oil, salt, citric acid, cheese sauce, soy sauce, sugar, chicken powder, soybeans, onion, pepper powder, garlic, starch, cheese.\n\nNetto:140g\n\nProduct of Korea\n\nNutritional information per serving 140g\nEnergy 2301kJ/550kcal\nFat 18g \nSaturated fat 9g\nCarbonhydrates 84g\nSugar 7,0g\nProtein	13g\nSalt	1,4g'
+            Text(
+              Desc
               ,style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w400)),
+            SizedBox(
+              height: 80,
+            )
           ],
         ),
       ),
     );
   }
 }
-
