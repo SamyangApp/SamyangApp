@@ -12,6 +12,7 @@ class _nameState extends State<AturAkun> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Row(
           children: [
@@ -25,6 +26,7 @@ class _nameState extends State<AturAkun> {
       body: Center(
         child: Column(children: [
           SingleChildScrollView(
+            reverse: true,
             child: Column(
               children: [
                 Container(
@@ -104,20 +106,38 @@ class _nameState extends State<AturAkun> {
                 ),
                 SizedBox(
                   width: 310,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(width: 3)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(122, 247, 5, 5),
-                                width: 3)),
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 204, 0, 0),
-                        hintText: 'Address'),
+                  child: Padding(
+                    child: TextField(
+                      decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50),
+                              borderSide: BorderSide(width: 3)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50),
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(122, 247, 5, 5),
+                                  width: 3)),
+                          filled: true,
+                          fillColor: Color.fromARGB(255, 204, 0, 0),
+                          hintText: 'Address'),
+                    ),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
                   ),
+                  // child: TextField(
+                  // decoration: InputDecoration(
+                  //     focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(50),
+                  //         borderSide: BorderSide(width: 3)),
+                  //     enabledBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(50),
+                  //         borderSide: const BorderSide(
+                  //             color: Color.fromARGB(122, 247, 5, 5),
+                  //             width: 3)),
+                  //     filled: true,
+                  //     fillColor: Color.fromARGB(255, 204, 0, 0),
+                  //     hintText: 'Address'),
+                  // ),
                 ),
                 SizedBox(
                   height: 15,

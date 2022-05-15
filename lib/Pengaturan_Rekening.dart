@@ -16,134 +16,156 @@ class _nameState extends State<AturRekening> {
         title: Row(
           children: [
             Center(
-              child: Text('Pengaturan Akun'),
+              child: Text('Pengaturan Rekening'),
             ),
           ],
         ),
         backgroundColor: Color.fromARGB(0, 0, 0, 0),
       ),
-      body: Center(
-        child: Column(children: [
-          SingleChildScrollView(
-            child: Column(
+      body: Column(children: [
+        SizedBox(
+          height: 20,
+          width: MediaQuery.of(context).size.width,
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: Colors.red),
+            child: Text('Kartu Kredit'),
+          ),
+        ),
+        SizedBox(
+          height: 60,
+          width: MediaQuery.of(context).size.width,
+          child: DecoratedBox(
+            decoration:
+                BoxDecoration(color: Color.fromARGB(255, 219, 176, 173)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: 160,
-                  height: 160,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'),
-                        fit: BoxFit.cover,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Image(image: AssetImage('Assets/kredit.png')),
+                ),
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      child: Text(
+                        '321654871',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 20),
                       ),
-                      shape: BoxShape.circle,
-                      color: Color(0xFFe0f2f1)),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: 310,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(width: 3)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(122, 247, 5, 5),
-                                width: 3)),
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 204, 0, 0),
-                        hintText: 'Username'),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: 310,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(width: 3)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(122, 247, 5, 5),
-                                width: 3)),
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 204, 0, 0),
-                        hintText: 'Email'),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: 310,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(width: 3)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(122, 247, 5, 5),
-                                width: 3)),
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 204, 0, 0),
-                        hintText: 'No. Telephone'),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: 310,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(width: 3)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(122, 247, 5, 5),
-                                width: 3)),
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 204, 0, 0),
-                        hintText: 'Address'),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: 100,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(width: 3)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(121, 5, 177, 48),
-                                width: 3)),
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 10, 233, 66),
-                        hintText: 'SAVE'),
-                  ),
-                ),
+                    )),
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      child: Text(
+                        '',
+                        textAlign: TextAlign.center,
+                      ),
+                    ))
               ],
             ),
           ),
-        ]),
-      ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        SizedBox(
+          height: 20,
+          width: MediaQuery.of(context).size.width,
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: Colors.red),
+            child: Text('E-WALLET'),
+          ),
+        ),
+        SizedBox(
+          height: 60,
+          width: MediaQuery.of(context).size.width,
+          child: DecoratedBox(
+            decoration:
+                BoxDecoration(color: Color.fromARGB(255, 219, 176, 173)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Image(image: AssetImage('Assets/shoppepay.png')),
+                ),
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      child: Text(
+                        '321654871',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    )),
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      child: Text(
+                        '',
+                        textAlign: TextAlign.center,
+                      ),
+                    ))
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 60,
+          width: MediaQuery.of(context).size.width,
+          child: DecoratedBox(
+            decoration:
+                BoxDecoration(color: Color.fromARGB(255, 219, 176, 173)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Image(image: AssetImage('Assets/ovo.png')),
+                ),
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      child: Text(
+                        '321654871',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    )),
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      child: Text(
+                        '',
+                        textAlign: TextAlign.center,
+                      ),
+                    ))
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 200,
+        ),
+        SizedBox(
+          child: TextButton(
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                  (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.hovered))
+                      return Colors.blue.withOpacity(0.04);
+                    if (states.contains(MaterialState.focused) ||
+                        states.contains(MaterialState.pressed))
+                      return Colors.blue.withOpacity(0.12);
+                    return null; // Defer to the widget's default.
+                  },
+                ),
+              ),
+              onPressed: () {},
+              child: Text('SAVE')),
+        )
+      ]),
       backgroundColor: Colors.black,
     );
   }
