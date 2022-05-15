@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Home.dart';
 import 'package:flutter_application_1/BCA.dart';
 import 'package:flutter_application_1/BRI.dart';
 import 'package:flutter_application_1/BNI.dart';
 import 'package:flutter_application_1/Cart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckOutPage extends StatelessWidget {
   static const String _title = 'Flutter Code Sample';
@@ -27,8 +29,20 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int BankPointer = 0;
-
+  static String obtainedUser = '';
   final String Bank = '';
+
+  void getUserdoc() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    obtainedUser = sharedPreferences.getString('Userid').toString();
+  }
+
+  @override
+  void initState() {
+    getUserdoc();
+    print(obtainedUser);
+    super.initState();
+  }
 
   @override
   void BankListBCA() {
@@ -50,92 +64,145 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'My Flutter App',
-        debugShowCheckedModeBanner: false,
-        home: Container(
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+                padding: const EdgeInsets.only(right: 1.0),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Cart()));
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    size: 20,
+                  ),
+                  alignment: const Alignment(0, 0),
+                )),
+            Text('Checkout')
+          ],
+        ),
+        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+      ),
+      body: Container(
           decoration: const BoxDecoration(
               gradient: RadialGradient(colors: [
             Color.fromARGB(255, 0, 0, 0),
             Color.fromARGB(255, 117, 11, 3),
           ], radius: 2)),
-          child: Scaffold(
-            appBar: AppBar(
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                      padding: const EdgeInsets.only(right: 1.0),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => Cart()));
-                        },
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          size: 20,
-                        ),
-                        alignment: const Alignment(0, 0),
-                      )),
-                  Text('Checkout')
-                ],
+          child: Column(
+            children: [
+              Divider(
+                color: Colors.white,
+                thickness: 1,
               ),
-              backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+              Padding(padding: EdgeInsets.all(5)),
+              ListAddres(),
+              Padding(padding: EdgeInsets.all(5)),
+              Divider(
+                color: Colors.white,
+                thickness: 1,
+              ),
+              Expanded(
+                child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('Cart')
+                        .doc(obtainedUser)
+                        .collection('UserCart')
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasData) {
+                        print('aaaa');
+                        final product = snapshot.data!.docs;
+                        print(product);
+
+                        return ListView.builder(
+                          itemCount: product.length,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            return CartList(
+                                product[index]['Product_Img'],
+                                product[index]['ProductName'],
+                                product[index]['ProductPrice'],
+                                product[index]['Count']);
+                          },
+                        );
+                      } else if (snapshot.hasError) {
+                        print('error');
+                        return Text('error');
+                      } else {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                    }),
+              ),
+              Container(
+                child: ExpansiveList(),
+              ),
+              Divider(
+                color: Colors.white,
+                thickness: 1,
+              ),
+              Container(
+                  child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('Cart')
+                          .doc(obtainedUser)
+                          .collection('UserCart')
+                          .snapshots(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasData) {
+                          var ds = snapshot.data!.docs;
+                          num sum = 0;
+                          for (int i = 0; i < ds.length; i++)
+                            sum += (ds[i]['TotalPrice']);
+                          return (TotalPriceTab(sum));
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      })),
+              Padding(padding: EdgeInsets.all(10)),
+              SizedBox(
+                height: 70,
+              )
+            ],
+          )),
+      backgroundColor: const Color.fromARGB(255, 39, 1, 1),
+    );
+  }
+
+  Widget TotalPriceTab(num Pricetotal) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Padding(padding: EdgeInsets.only(left: 10)),
+        Expanded(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Total Belanja',
+                style: TextStyle(color: Colors.white, fontSize: 18)),
+            Padding(padding: EdgeInsets.only(left: 20)),
+            Text('${Pricetotal}',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold)),
+            SizedBox(
+              width: 0,
             ),
-            body: ListView(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(padding: EdgeInsets.all(5)),
-                    ListAddres(),
-                    Padding(padding: EdgeInsets.all(8)),
-                    CartList(),
-                    CartList(),
-                    CartList(),
-                    Divider(
-                      color: Colors.white,
-                      thickness: 1,
-                    ),
-                    Container(
-                      child: ExpansiveList(),
-                    ),
-                    Divider(
-                      color: Colors.white,
-                      thickness: 1,
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 20, left: 5)),
-                    Container(
-                      width: 350,
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text('Subtotal',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold)),
-                          Text(
-                            'Rp 21.000',
-                            style: TextStyle(color: Colors.white, fontSize: 15),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 95,
-                    )
-                  ],
-                )
-              ],
-            ),
-            backgroundColor: Color.fromARGB(0, 0, 0, 0),
-          ),
-        ));
+          ],
+        )),
+      ],
+    );
   }
 
   Widget ExpansiveList() {
@@ -167,8 +234,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               ElevatedButton.styleFrom(primary: Colors.black.withOpacity(0.3)),
           onPressed: () {
             Navigator.push(
-              context, MaterialPageRoute(
-                builder: (context) => BRIPage()));
+                context, MaterialPageRoute(builder: (context) => BRIPage()));
             BankListBNI();
             print(BankPointer);
           },
@@ -180,8 +246,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               ElevatedButton.styleFrom(primary: Colors.black.withOpacity(0.3)),
           onPressed: () {
             Navigator.push(
-              context, MaterialPageRoute(
-                builder: (context) => BNIPage()));
+                context, MaterialPageRoute(builder: (context) => BNIPage()));
             BankListBRI();
             print(BankPointer);
           },
@@ -269,7 +334,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 
-  Widget CartList() {
+  Widget CartList(String url, String name, int price, int Count) {
     return Container(
         padding: EdgeInsets.only(bottom: 10),
         child: Container(
@@ -277,26 +342,33 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           height: 90,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color.fromARGB(64, 255, 255, 255)),
+              color: Color.fromARGB(120, 233, 110, 110)),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Image(
-                  image: AssetImage('Assets/s1.png'),
+                Image.network(
+                  url,
                   width: 110,
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text('Samyang', style: TextStyle(color: Colors.white)),
-                    Padding(padding: EdgeInsets.only(bottom: 10)),
-                    Text('Rp 21,000', style: TextStyle(color: Colors.white)),
-                  ],
+                Container(
+                  width: 120,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(name,
+                          style: TextStyle(color: Colors.white),
+                          maxLines: 3,
+                          textAlign: TextAlign.center),
+                      Padding(padding: EdgeInsets.only(bottom: 10)),
+                      Text('Rp ${price}',
+                          style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 10)),
-                Text('x1', style: TextStyle(color: Colors.white))
+                Text('x ${Count}', style: TextStyle(color: Colors.white))
               ]),
         ));
   }

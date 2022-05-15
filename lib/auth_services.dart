@@ -24,6 +24,10 @@ class AuthServices {
       UserCredential results = await _auth.signInWithEmailAndPassword( email: email, password: password);
       User? firebaseUser = results.user;
 
+      final SharedPreferences sharedPreferences2 =
+        await SharedPreferences.getInstance();
+      sharedPreferences2.setString('Userid', firebaseUser!.uid);
+
       return firebaseUser;
 
     } catch (e) {

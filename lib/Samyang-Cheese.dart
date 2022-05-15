@@ -1,13 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Home.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SamyangCheese extends StatelessWidget {
   late final String Name;
   late final String Url;
   late final String Desc;
   late final int Price;
+  late final int a;
+  late final int r;
+  late final int g;
+  late final int b;
+  late final bool isDark;
 
-  SamyangCheese(this.Desc, this.Name, this.Price, this.Url);
+  SamyangCheese(this.Desc, this.Name, this.Price, this.Url, this.a, this.r, this.g, this.b, this.isDark);
 
   @override
 
@@ -18,8 +26,6 @@ class SamyangCheese extends StatelessWidget {
       title: 'My Flutter App',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        floatingActionButton: BuildNavigateButton(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,17 +65,67 @@ class SamyangCheese extends StatelessWidget {
           backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       ),
       
-      body: ExamplesWidget(Desc, Name, Price, Url),
-      backgroundColor: const Color.fromARGB(255, 249, 191, 0),
+      body: Column(
+        children: [
+          Expanded(child: ExamplesWidget(Desc, Name, Price, Url, isDark)),
+          Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              BuildNavigateButton2(),
+              SizedBox(
+                width: 70,
+              ),
+              BuildNavigateButton1()
+            ],
+          ),
+          Padding(padding: EdgeInsets.only(bottom: 60,))
+        ],
+      ),
+      backgroundColor: Color.fromARGB(a, r, g, b),
       ),
     ));
   }
-  Widget BuildNavigateButton() => FloatingActionButton(
-    child: const Icon(Icons.shopping_cart_outlined),
+  Widget BuildNavigateButton1() => FloatingActionButton.extended(
+    heroTag: "btn1",
+    label: Text('Add to Cart', style: TextStyle(fontSize: 15),),
+    onPressed: () {
+      CreateCart(name: Name);
+      showToast();
+    },
+    backgroundColor: const Color.fromARGB(188, 255, 0, 0),
+    icon: Icon(Icons.shopping_cart, size: 20,),
+    );
+  Widget BuildNavigateButton2() => FloatingActionButton.extended(
+    heroTag: "btn2",
+    label: Text('Buy Now', style: TextStyle(fontSize: 18)),
     onPressed: () {
     },
     backgroundColor: const Color.fromARGB(188, 255, 0, 0),
+    elevation: 1000,
+    icon: Icon(Icons.shopping_cart, size: 28),
     );
+    
+  void showToast() => Fluttertoast.showToast(
+    msg: 'Product added to cart');
+
+  Future CreateCart({required String name}) async {
+     SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    var obtainedUser = sharedPreferences.getString('Userid');
+    print(obtainedUser);
+    final docCart = FirebaseFirestore.instance.collection('Cart').doc(obtainedUser).collection('UserCart').doc(name);
+
+    final json = {
+      'ProductName': name,
+      'Count' : 1,
+      'Product_Img' : Url,
+      'ProductPrice' : Price,
+      'id' : obtainedUser,
+      'TotalPrice' : Price
+    };
+    await docCart.set(json);
+  }
 }
 
 class ExamplesWidget extends StatelessWidget {
@@ -78,16 +134,28 @@ class ExamplesWidget extends StatelessWidget {
   late final String Url;
   late final String Desc;
   late final int Price;
+  late final bool isDark;
+  late final Color fontColor;
 
-  ExamplesWidget(this.Desc, this.Name, this.Price, this.Url);
+  ExamplesWidget(this.Desc, this.Name, this.Price, this.Url, this.isDark);
 
+  
   @override
-  Widget build(BuildContext context) => ListView(
+
+  Widget build(BuildContext context) {
+    if (isDark != true) {
+    fontColor = Colors.black;
+    } else {
+      fontColor = Colors.white;
+    }
+
+    return ListView(
         children: [
          buildBurger1(),
         ],
       );
-
+  }
+  
   Widget buildBurger1() {
     return ClipRRect(
       child: Container(
@@ -108,15 +176,16 @@ class ExamplesWidget extends StatelessWidget {
                 'Rp.${Price}',
                   style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: fontColor,
                   fontSize: 30
                   ),
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.favorite_border,
-                    size: 30,                
+                    size: 30,              
+                    color: fontColor, 
                     ),
                 alignment: const Alignment(0, 0),
                 )
@@ -124,23 +193,21 @@ class ExamplesWidget extends StatelessWidget {
             ),
             Text(
               Name,
-              style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400),
+              style: TextStyle(color: fontColor, fontSize: 20, fontWeight: FontWeight.w400),
             ),
             Text(
               '\nTerjual 140rb++\n',
-              style: TextStyle(color: Colors.black, fontSize: 12),
+              style: TextStyle(color: fontColor, fontSize: 12),
             ),
             SizedBox(height: 8),
             Text(
               'DETAIL PRODUCT\n',
-              style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+              style: TextStyle(color: fontColor, fontSize: 20, fontWeight: FontWeight.w500),
             ),
             Text(
               Desc
-              ,style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w400)),
-            SizedBox(
-              height: 80,
-            )
+              ,style: TextStyle(color: fontColor, fontSize: 15, fontWeight: FontWeight.w400)),
+            
           ],
         ),
       ),

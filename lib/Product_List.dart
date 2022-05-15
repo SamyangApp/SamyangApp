@@ -6,6 +6,7 @@ import 'package:flutter_application_1/Models/models_product.dart';
 import "package:flutter_application_1/Samyang-Cheese.dart";
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_application_1/Setting.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class Product_List extends StatelessWidget {
@@ -58,10 +59,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ),
           backgroundColor: const Color.fromARGB(0, 0, 0, 0),
         ),
-        body: SizedBox(
-              child: StreamBuilder(
-                stream: FirebaseFirestore.instance.collection('Product').snapshots(),
-                builder: (context, AsyncSnapshot <QuerySnapshot> snapshot) {
+        body: Column(
+          children: [
+            Expanded(
+              child: SizedBox(
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Product_List')
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasData) {
                     print('aaaa');
                     final product = snapshot.data!.docs;
@@ -71,85 +77,112 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       itemCount: product.length,
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisSpacing: 43,
-                        crossAxisSpacing: 10,
+                        crossAxisSpacing: 5,
                         childAspectRatio: 0.75,
                       ),
                       itemBuilder: (BuildContext context, int index) {
-                        return Product_Card(product[index]['Product_Img'],product[index]['Product_Name'],product[index]['Product_Price'], product[index]['Product_Desc']);
+                        return Product_Card(
+                            product[index]['Product_Img'],
+                            product[index]['Product_Name'],
+                            product[index]['Product_Price'],
+                            product[index]['Product_Desc'],
+                            product[index]['Color_a'],
+                            product[index]['Color_r'],
+                            product[index]['Color_g'],
+                            product[index]['Color_b'],
+                            product[index]['isDark']);
                       },
                     );
                   } else {
                     print('error');
                     return Text('error');
-                    
-                  }}) 
-              ),
+                  }
+                }))),
+                SizedBox(
+        height: 10,
+      )
+          ],
+        ),
         backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       ),
     );
   }
 
-  Widget Product_Card(String url, String name, int Price, String Desc) {
+  Widget Product_Card(String url, String name, int Price, String Desc, int a,
+      int r, int g, int b, bool isDark) {
     return Wrap(
       children: [
-        InkWell(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => SamyangCheese(Desc, name, Price, url)));
-            },
-            borderRadius: BorderRadius.circular(20),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    gradient: const RadialGradient(colors: [
-                      Color.fromARGB(255, 172, 6, 6),
-                      Color.fromARGB(255, 0, 0, 0)
-                    ], radius: 1),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                        color: const Color.fromARGB(137, 192, 3, 3), width: 3)),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.network(
-                      url ,
-                      width: 160,
-                      height: 180,
+      Center(
+        child: Container(
+            width: 185,
+            height: 290,
+            child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SamyangCheese(
+                              Desc, name, Price, url, a, r, g, b, isDark)));
+                },
+                borderRadius: BorderRadius.circular(20),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        gradient: const RadialGradient(colors: [
+                          Color.fromARGB(255, 172, 6, 6),
+                          Color.fromARGB(255, 0, 0, 0)
+                        ], radius: 1),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                            color: const Color.fromARGB(137, 192, 3, 3),
+                            width: 3)),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.network(
+                          url,
+                          width: 160,
+                          height: 180,
+                        ),
+                        FittedBox(
+                          child: Text(
+                            name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                            maxLines: 10,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        FittedBox(
+                          child: Text(
+                          name,
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Rp ${Price}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                      maxLines: 10,
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      name,
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Rp ${Price}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ))
-      ],
-    );
+                  ),
+                ))),
+      )
+    ]);
   }
 }
-

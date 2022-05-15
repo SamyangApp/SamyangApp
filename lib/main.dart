@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/CartSplashScreen.dart';
 import 'package:flutter_application_1/Home.dart';
 import 'package:flutter_application_1/Product_List.dart';
 import 'package:flutter_application_1/Setting.dart';
@@ -52,7 +53,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     Page1(),
     Settings(),
     Product_List(),
-    Cart(),
+    CartSplashScreenPage(),
     SplashScreenPage(),
   ];
 
@@ -152,7 +153,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       onPressed: () {
                         
                         setState(() {
-                          currentscreen = Cart();
+                          currentscreen = CartSplashScreenPage();
                           currenIndex = 3;
                         });
                       },

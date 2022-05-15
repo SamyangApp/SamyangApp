@@ -84,6 +84,8 @@ class LoginPageSuccess extends StatelessWidget {
                                 ),
                                 onPressed: () async {
                                   AuthServices.SignOut();
+                                  SharedPreferences sharedPreferences2 = await SharedPreferences.getInstance();
+                                  sharedPreferences2.remove('Userid');
                                 },
                                 child: const Text(
                                   'Login',

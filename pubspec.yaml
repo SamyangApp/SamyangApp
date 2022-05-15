@@ -47,7 +47,8 @@ dependencies:
   firestore_ui: ^1.23.0
   equatable: ^2.0.3
   flutter_bloc: ^8.0.1
-
+  firebase_database: ^9.0.13
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
