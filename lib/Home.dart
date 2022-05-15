@@ -55,126 +55,125 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             ),
             backgroundColor: const Color.fromARGB(0, 0, 0, 0),
           ),
-          body: Column(
-            children: [
-            
+          body: Column(children: [
             Container(
-                    child: CarouselSlider(
-                  options: CarouselOptions(
-                      aspectRatio: 1.6,
-                      viewportFraction: 0.9,
-                      enlargeCenterPage: true,
-                      enlargeStrategy: CenterPageEnlargeStrategy.height),
-                  items: Carousel.Carousels
-                      .map((Carousels) => Carousel_Card(carousel: Carousels))
-                      .toList(),
-                )),
-      
-
+                child: CarouselSlider(
+              options: CarouselOptions(
+                  aspectRatio: 1.6,
+                  viewportFraction: 0.9,
+                  enlargeCenterPage: true,
+                  enlargeStrategy: CenterPageEnlargeStrategy.height),
+              items: Carousel.Carousels.map(
+                  (Carousels) => Carousel_Card(carousel: Carousels)).toList(),
+            )),
             Recomended(title: 'Recomended'),
             SizedBox(
-              height: 165,
-              child: StreamBuilder(
-                stream: FirebaseFirestore.instance.collection('Product').snapshots(),
-                builder: (context, AsyncSnapshot <QuerySnapshot> snapshot) {
-                  if (snapshot.hasData) {
-                    print('aaaa');
-                    final product = snapshot.data!;
-                    print(product);
+                height: 165,
+                child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('Product')
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasData) {
+                        print('aaaa');
+                        final product = snapshot.data!;
+                        print(product);
 
-                    return ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: product.docs.map((e) => Recomen_Card(e['Product_Name'],e['Product_Img'], e['Product_Price'])).toList()
-                    );
-                  } else {
-                    print('error');
-                    return Text('error');
-                    
-                  }}) 
-              ),
+                        return ListView(
+                          scrollDirection: Axis.horizontal,
+                          // children: product.docs.map((e) => Recomen_Card(e['Product_Name'],e['Product_Img'], e['Product_Price'])).toList()
+                        );
+                      } else {
+                        print('error');
+                        return Text('error');
+                      }
+                    })),
             Recomended(title: 'Recomended'),
             SizedBox(
-              height: 165,
-              child: StreamBuilder(
-                stream: FirebaseFirestore.instance.collection('Product').snapshots(),
-                builder: (context, AsyncSnapshot <QuerySnapshot> snapshot) {
-                  if (snapshot.hasData) {
-                    print('aaaa');
-                    final product = snapshot.data!;
-                    print(product);
+                height: 165,
+                child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('Product')
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasData) {
+                        print('aaaa');
+                        final product = snapshot.data!;
+                        print(product);
 
-                    return ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: product.docs.map((e) => Recomen_Card(e['Product_Name'],e['Product_Img'], e['Product_Price'])).toList()
-                    );
-                  } else {
-                    print('error');
-                    return Text('error');
-                    
-                  }}) 
-              ),
+                        return ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: product.docs
+                                .map((e) => Recomen_Card(e['Product_Name'],
+                                    e['Product_Img'], e['Product_Price']))
+                                .toList());
+                      } else {
+                        print('error');
+                        return Text('error');
+                      }
+                    })),
           ]),
           backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         ));
   }
+
   Widget Recomen_Card(String Name, String url, int price) {
-    return Padding(padding: EdgeInsets.symmetric(horizontal: 10),
-      child: Stack(
-      children: [
-        Container(
-            width: MediaQuery.of(context).size.width / 3,
-            height: 100,
-            child: Image.network(url,
-                fit: BoxFit.cover)),
-        Positioned(
-            top: 70,
-            child: Container(
-                padding: EdgeInsets.only(left: 10),
-                width: MediaQuery.of(context).size.width / 2.5,
-                height: 50,
-                decoration: BoxDecoration(color: Colors.black.withAlpha(100)),
-                child: Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: Stack(
+          children: [
+            Container(
+                width: MediaQuery.of(context).size.width / 3,
+                height: 100,
+                child: Image.network(url, fit: BoxFit.cover)),
+            Positioned(
+                top: 70,
+                child: Container(
+                    padding: EdgeInsets.only(left: 10),
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    height: 50,
+                    decoration:
+                        BoxDecoration(color: Colors.black.withAlpha(100)),
+                    child: Row(
                       children: [
-                        Container(
-                          width: 80,
-                          child: Text(
-                            Name,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                            maxLines: 2,
-                          ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 80,
+                              child: Text(
+                                Name,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                                maxLines: 2,
+                              ),
+                            ),
+                            Container(
+                              child: Text(
+                                'Rp '
+                                '${price}',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                                maxLines: 2,
+                              ),
+                            ),
+                          ],
                         ),
-                        Container(
-                          child: Text(
-                            'Rp '
-                            '${price}',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                            maxLines: 2,
-                          ),
-                        ),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.add_circle,
+                              color: Colors.white,
+                            ))
                       ],
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.add_circle,
-                          color: Colors.white,
-                        ))
-                  ],
-                )))
-      ],
-    ));
+                    )))
+          ],
+        ));
   }
 }
-
-
 
 class Carousel_Card extends StatelessWidget {
   final Carousel carousel;

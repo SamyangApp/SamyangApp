@@ -30,14 +30,6 @@ class _nameState extends State<Alamat> {
                 Container(
                   width: 160,
                   height: 160,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'),
-                        fit: BoxFit.cover,
-                      ),
-                      shape: BoxShape.circle,
-                      color: Color(0xFFe0f2f1)),
                 ),
                 SizedBox(
                   height: 15,
