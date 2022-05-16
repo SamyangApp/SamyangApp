@@ -8,6 +8,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_application_1/Setting.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Product_List extends StatelessWidget {
   static const String _title = 'Flutter Code Sample';
@@ -31,15 +32,23 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   final int _count = 0;
+  static String obtainedUser = '';
 
-  final ImageList = [
-    'Assets/16.png',
-    'Assets/17.png',
-    'Assets/15.png',
-  ];
+  void getUserdoc() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    obtainedUser = sharedPreferences.getString('Userid').toString();
+  }
+
+  @override
+  void initState() {
+    getUserdoc();
+    print(obtainedUser);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    var dropdownValue = 'One';
     return MaterialApp(
       // or CupertinoApp
       title: 'My Flutter App',
@@ -62,49 +71,109 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         body: Column(
           children: [
             Expanded(
-              child: SizedBox(
-            child: StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('Product_List')
-                    .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasData) {
-                    print('aaaa');
-                    final product = snapshot.data!.docs;
-                    print(product);
-
-                    return GridView.builder(
-                      itemCount: product.length,
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 43,
-                        crossAxisSpacing: 5,
-                        childAspectRatio: 0.75,
+                child: SizedBox(
+                    child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    DropdownButton<String>(
+                      value: dropdownValue,
+                      icon: const Icon(Icons.arrow_downward),
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.deepPurple),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
                       ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Product_Card(
-                            product[index]['Product_Img'],
-                            product[index]['Product_Name'],
-                            product[index]['Product_Price'],
-                            product[index]['Product_Desc'],
-                            product[index]['Color_a'],
-                            product[index]['Color_r'],
-                            product[index]['Color_g'],
-                            product[index]['Color_b'],
-                            product[index]['isDark']);
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue = newValue!;
+                        });
                       },
-                    );
-                  } else {
-                    print('error');
-                    return Text('error');
-                  }
-                }))),
-                SizedBox(
-        height: 10,
-      )
+                      items: <String>[
+                        'One', 
+                        'Two', 
+                        'Free', 
+                        'Four'
+                        ]
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                    DropdownButton<String>(
+                      value: dropdownValue,
+                      icon: const Icon(Icons.arrow_downward),
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.deepPurple),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue = newValue!;
+                        });
+                      },
+                      items: <String>['One', 'Two', 'Free', 'Four']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    )
+                  ],
+                ),
+                Expanded(
+                    child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('Product_List')
+                            .snapshots(),
+                        builder:
+                            (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasData) {
+                            print('aaaa');
+                            final product = snapshot.data!.docs;
+                            print(product);
+
+                            return GridView.builder(
+                              itemCount: product.length,
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 43,
+                                crossAxisSpacing: 5,
+                                childAspectRatio: 0.75,
+                              ),
+                              itemBuilder: (BuildContext context, int index) {
+                                return Product_Card(
+                                    product[index]['Product_Img'],
+                                    product[index]['Product_Name'],
+                                    product[index]['Product_Price'],
+                                    product[index]['Product_Desc'],
+                                    product[index]['Color_a'],
+                                    product[index]['Color_r'],
+                                    product[index]['Color_g'],
+                                    product[index]['Color_b'],
+                                    product[index]['isDark']);
+                              },
+                            );
+                          } else {
+                            print('error');
+                            return Text('error');
+                          }
+                        }))
+              ],
+            ))),
+            SizedBox(
+              height: 10,
+            )
           ],
         ),
         backgroundColor: const Color.fromARGB(255, 0, 0, 0),
@@ -114,8 +183,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   Widget Product_Card(String url, String name, int Price, String Desc, int a,
       int r, int g, int b, bool isDark) {
-    return Wrap(
-      children: [
+    return Wrap(children: [
       Center(
         child: Container(
             width: 185,
@@ -125,8 +193,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SamyangCheese(
-                              Desc, name, Price, url, a, r, g, b, isDark)));
+                          builder: (context) => SamyangCheese(Desc, name, Price,
+                              url, a, r, g, b, isDark, obtainedUser)));
                 },
                 borderRadius: BorderRadius.circular(20),
                 child: ClipRRect(
@@ -165,9 +233,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         SizedBox(height: 8),
                         FittedBox(
                           child: Text(
-                          name,
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
+                            name,
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
                         ),
                         SizedBox(height: 8),
                         Text(

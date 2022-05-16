@@ -55,7 +55,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             ),
             backgroundColor: const Color.fromARGB(0, 0, 0, 0),
           ),
-          body: Column(children: [
+          body: SingleChildScrollView(
+            child: Column(children: [
             Container(
                 child: CarouselSlider(
               options: CarouselOptions(
@@ -71,31 +72,44 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 height: 165,
                 child: StreamBuilder(
                     stream: FirebaseFirestore.instance
-                        .collection('Product')
+                        .collection('Product_List')
+                        .orderBy('Sold', descending: true)
                         .snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasData) {
                         print('aaaa');
-                        final product = snapshot.data!;
+                        final product = snapshot.data!.docs;
                         print(product);
 
-                        return ListView(
+                        return GridView.builder(
+                            itemCount: 10,
                             scrollDirection: Axis.horizontal,
-                            children: product.docs
-                                .map((e) => Recomen_Card(e['Product_Name'],
-                                    e['Product_Img'], e['Product_Price']))
-                                .toList());
+                            shrinkWrap: true,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 1,
+                              mainAxisSpacing: 0,
+                              crossAxisSpacing: 0,
+                              childAspectRatio: 1.1,
+                            ),
+                            itemBuilder: (BuildContext context, int index) {
+                              return Recomen_Card(
+                                  product[index]['Product_Name'],
+                                  product[index]['Product_Img'],
+                                  product[index]['Product_Price']);
+                            });
                       } else {
                         print('error');
                         return Text('error');
                       }
                     })),
-            Recomended(title: 'Recomended'),
+            Recomended(title: 'Ramen'),
             SizedBox(
                 height: 165,
                 child: StreamBuilder(
                     stream: FirebaseFirestore.instance
-                        .collection('Product')
+                        .collection('Product_List')
+                        .where('type', isEqualTo: 'Ramen')
                         .snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasData) {
@@ -114,7 +128,61 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         return Text('error');
                       }
                     })),
-          ]),
+            Recomended(title: 'Ramen Cup'),
+            SizedBox(
+                height: 165,
+                child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('Product_List')
+                        .where('type', isEqualTo: 'CupRamen')
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasData) {
+                        print('aaaa');
+                        final product = snapshot.data!;
+                        print(product);
+
+                        return ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: product.docs
+                                .map((e) => Recomen_Card(e['Product_Name'],
+                                    e['Product_Img'], e['Product_Price']))
+                                .toList());
+                      } else {
+                        print('error');
+                        return Text('error');
+                      }
+                    })),
+            Recomended(title: 'Samyang Sauce'),
+            SizedBox(
+                height: 165,
+                child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('Product_List')
+                        .where('type', isEqualTo: 'Sauce')
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasData) {
+                        print('aaaa');
+                        final product = snapshot.data!;
+                        print(product);
+
+                        return ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: product.docs
+                                .map((e) => Recomen_Card(e['Product_Name'],
+                                    e['Product_Img'], e['Product_Price']))
+                                .toList());
+                      } else {
+                        print('error');
+                        return Text('error');
+                      }
+                    })),
+            SizedBox(
+              height: 60,
+            )
+          ])
+          ),
           backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         ));
   }

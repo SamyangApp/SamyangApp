@@ -1,10 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Home.dart';
+import 'package:flutter_application_1/Login.dart';
+import 'package:flutter_application_1/SpashScreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SamyangCheese extends StatelessWidget {
+
+  static String obtainedUser = '';
+  
   late final String Name;
   late final String Url;
   late final String Desc;
@@ -14,8 +19,9 @@ class SamyangCheese extends StatelessWidget {
   late final int g;
   late final int b;
   late final bool isDark;
+  late final String ObtainedUserId;
 
-  SamyangCheese(this.Desc, this.Name, this.Price, this.Url, this.a, this.r, this.g, this.b, this.isDark);
+  SamyangCheese(this.Desc, this.Name, this.Price, this.Url, this.a, this.r, this.g, this.b, this.isDark, this.ObtainedUserId);
 
   @override
 
@@ -72,11 +78,11 @@ class SamyangCheese extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              BuildNavigateButton2(),
+              BuildNavigateButton2(context),
               SizedBox(
                 width: 70,
               ),
-              BuildNavigateButton1()
+              BuildNavigateButton1(context)
             ],
           ),
           Padding(padding: EdgeInsets.only(bottom: 60,))
@@ -86,17 +92,26 @@ class SamyangCheese extends StatelessWidget {
       ),
     ));
   }
-  Widget BuildNavigateButton1() => FloatingActionButton.extended(
+  Widget BuildNavigateButton1(context) => FloatingActionButton.extended(
     heroTag: "btn1",
     label: Text('Add to Cart', style: TextStyle(fontSize: 15),),
     onPressed: () {
-      CreateCart(name: Name);
-      showToast();
+      if (ObtainedUserId == 'null') {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreenPage()));
+        showToast2();
+        print('null ege');
+      } else if (ObtainedUserId != 'null') {
+        CreateCart(name: Name);
+        showToast();
+        print('aa');
+        print(ObtainedUserId);
+        
+      }
     },
     backgroundColor: const Color.fromARGB(188, 255, 0, 0),
     icon: Icon(Icons.shopping_cart, size: 20,),
     );
-  Widget BuildNavigateButton2() => FloatingActionButton.extended(
+  Widget BuildNavigateButton2(context) => FloatingActionButton.extended(
     heroTag: "btn2",
     label: Text('Buy Now', style: TextStyle(fontSize: 18)),
     onPressed: () {
@@ -108,6 +123,9 @@ class SamyangCheese extends StatelessWidget {
     
   void showToast() => Fluttertoast.showToast(
     msg: 'Product added to cart');
+
+  void showToast2() => Fluttertoast.showToast(
+    msg: 'You need to login first');
 
   Future CreateCart({required String name}) async {
      SharedPreferences sharedPreferences =

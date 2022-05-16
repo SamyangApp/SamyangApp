@@ -72,8 +72,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   void initState() {
     getUserdoc();
     print(obtainedUser);
-    Timer(Duration(seconds: 5), () {
-      print('Hello');
+    Timer(Duration(seconds: 10), () {
+      CircularProgressIndicator();
     });
 
     super.initState();

@@ -4,6 +4,7 @@ import 'package:flutter_application_1/Home.dart';
 import 'package:flutter_application_1/Product_List.dart';
 import 'package:flutter_application_1/Setting.dart';
 import 'package:flutter_application_1/Cart.dart';
+import 'package:flutter_application_1/SettingSplashScreen.dart';
 import 'package:flutter_application_1/SpashScreen.dart';
 import 'package:flutter_application_1/auth_services.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +52,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int currenIndex = 0;
   List<Widget> screens = [
     Page1(),
-    Settings(),
+    SplashScreenPageSetting(),
     Product_List(),
     CartSplashScreenPage(),
     SplashScreenPage(),
@@ -120,7 +121,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       onPressed: () {
                         
                         setState(() {
-                          currentscreen = const Settings();
+                          currentscreen = SplashScreenPageSetting();
                           currenIndex = 1;
                         });
                       },
