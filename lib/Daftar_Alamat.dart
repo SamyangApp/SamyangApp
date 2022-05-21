@@ -16,127 +16,238 @@ class _nameState extends State<Alamat> {
         title: Row(
           children: [
             Center(
-              child: Text('Pengaturan Akun'),
+              child: Text(
+                'Pengaturan Alamat',
+              ),
             ),
           ],
         ),
         backgroundColor: Color.fromARGB(0, 0, 0, 0),
       ),
-      body: Center(
-        child: Column(children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  width: 160,
-                  height: 160,
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: 310,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(width: 3)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(122, 247, 5, 5),
-                                width: 3)),
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 204, 0, 0),
-                        hintText: 'Username'),
+      body: SingleChildScrollView(
+        reverse: true,
+        child: Center(
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            height: 250,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                          ),
+                        ),
+                        //rumah
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 10, right: 300, bottom: 160),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              height: 50,
+                              // width: MediaQuery.of(context).size.width,
+                              child: Text(
+                                'Rumah',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                            ),
+                          ),
+                        ),
+                        //nama
+                        Padding(
+                          padding:
+                              EdgeInsets.only(left: 10, right: 0, bottom: 110),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              height: 50,
+                              // width: MediaQuery.of(context).size.width,
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Anita Fajri',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        //alamat
+                        Padding(
+                          padding: EdgeInsets.only(left: 10, right: 0, top: 0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              // height: 50,
+                              // width: MediaQuery.of(context).size.width,
+                              child: Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Text(
+                                  'Jalan Raya Danau Maninjau Nomor 15 RT 01 RW 05, Kelurahan Gedangan, Kecamatan Magersari Kota Mojokerto',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        //ubah alamat
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: 160, left: 20, right: 20),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Stack(
+                              children: <Widget>[
+                                Positioned.fill(
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      color: Color.fromARGB(255, 18, 158, 0),
+                                    ),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.transparent,
+                                    minimumSize: const Size.fromHeight(50),
+                                  ),
+                                  onPressed: () {
+                                    // AuthServices.SignIn(user.text, pass.text);
+                                  },
+                                  child: const Text(
+                                    'Ubah Alamat',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: 310,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(width: 3)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(122, 247, 5, 5),
-                                width: 3)),
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 204, 0, 0),
-                        hintText: 'Email'),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: 310,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(width: 3)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(122, 247, 5, 5),
-                                width: 3)),
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 204, 0, 0),
-                        hintText: 'No. Telephone'),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: 310,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(width: 3)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(122, 247, 5, 5),
-                                width: 3)),
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 204, 0, 0),
-                        hintText: 'Address'),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: 100,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(width: 3)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(121, 5, 177, 48),
-                                width: 3)),
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 10, 233, 66),
-                        hintText: 'SAVE'),
-                  ),
-                ),
-              ],
-            ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            height: 250,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                          ),
+                        ),
+                        //rumah
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 10, right: 300, bottom: 160),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              height: 50,
+                              // width: MediaQuery.of(context).size.width,
+                              child: Text(
+                                'Rumah',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                            ),
+                          ),
+                        ),
+                        //nama
+                        Padding(
+                          padding:
+                              EdgeInsets.only(left: 10, right: 0, bottom: 110),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              height: 50,
+                              // width: MediaQuery.of(context).size.width,
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Anita Fajri',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        //alamat
+                        Padding(
+                          padding: EdgeInsets.only(left: 10, right: 0, top: 0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              // height: 50,
+                              // width: MediaQuery.of(context).size.width,
+                              child: Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Text(
+                                  'Jalan Raya Danau Maninjau Nomor 15 RT 01 RW 05, Kelurahan Gedangan, Kecamatan Magersari Kota Mojokerto',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        //ubah alamat
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: 160, left: 20, right: 20),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Stack(
+                              children: <Widget>[
+                                Positioned.fill(
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      color: Color.fromARGB(255, 18, 158, 0),
+                                    ),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.transparent,
+                                    minimumSize: const Size.fromHeight(50),
+                                  ),
+                                  onPressed: () {
+                                    // AuthServices.SignIn(user.text, pass.text);
+                                  },
+                                  child: const Text(
+                                    'Ubah Alamat',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )
+            ],
           ),
-        ]),
+        ),
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(255, 39, 1, 1),
     );
   }
 }

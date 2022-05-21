@@ -124,66 +124,50 @@ class _nameState extends State<AturAkun> {
                     padding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                   ),
-                  // child: TextField(
-                  // decoration: InputDecoration(
-                  //     focusedBorder: OutlineInputBorder(
-                  //         borderRadius: BorderRadius.circular(50),
-                  //         borderSide: BorderSide(width: 3)),
-                  //     enabledBorder: OutlineInputBorder(
-                  //         borderRadius: BorderRadius.circular(50),
-                  //         borderSide: const BorderSide(
-                  //             color: Color.fromARGB(122, 247, 5, 5),
-                  //             width: 3)),
-                  //     filled: true,
-                  //     fillColor: Color.fromARGB(255, 204, 0, 0),
-                  //     hintText: 'Address'),
-                  // ),
                 ),
                 SizedBox(
                   height: 15,
                 ),
-                SizedBox(
-                  width: 100,
-                  height: 50,
-                  child: ElevatedButton(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: BorderSide(width: 3)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(122, 247, 5, 5),
-                                  width: 3)),
-                        ),
+                Container(
+                  width: 150,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned.fill(
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Color.fromARGB(255, 18, 158, 0),
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent,
+                              minimumSize: const Size.fromHeight(50),
+                            ),
+                            onPressed: () {
+                              // AuthServices.SignIn(user.text, pass.text);
+                            },
+                            child: const Text(
+                              'Save',
+                              style: TextStyle(fontSize: 24),
+                            ),
+                          )
+                        ],
                       ),
-                      onPressed: () {}),
+                    ),
+                  ),
                 )
-
-                // SizedBox(
-                //   width: 100,
-                //   child: TextField(
-                //     decoration: InputDecoration(
-                //         focusedBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(50),
-                //             borderSide: BorderSide(width: 3)),
-                //         enabledBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(50),
-                //             borderSide: const BorderSide(
-                //                 color: Color.fromARGB(121, 5, 177, 48),
-                //                 width: 3)),
-                //         filled: true,
-                //         fillColor: Color.fromARGB(255, 10, 233, 66),
-                //         hintText: 'SAVE'),
-                //   ),
-                // ),
               ],
             ),
           ),
         ]),
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(255, 39, 1, 1),
     );
   }
 }
