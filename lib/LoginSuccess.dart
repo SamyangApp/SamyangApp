@@ -76,7 +76,7 @@ class LoginPageSuccess extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Text(user.uid),
+                              Padding(padding: EdgeInsets.only(bottom: 20)),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   primary: Colors.transparent,
@@ -88,7 +88,7 @@ class LoginPageSuccess extends StatelessWidget {
                                   sharedPreferences2.remove('Userid');
                                 },
                                 child: const Text(
-                                  'Login',
+                                  'Log Out',
                                   style: TextStyle(fontSize: 24),
                                 ),
                               )

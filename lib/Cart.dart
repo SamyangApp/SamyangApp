@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/CheckOut.dart';
 import 'package:flutter_application_1/Models/models_product.dart';
 import 'package:flutter_application_1/Samyang-Cheese.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Cart extends StatelessWidget {
@@ -59,7 +60,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         'TotalPrice': FieldValue.increment(-price)
       });
     } else {
-      docCart.update({'Count': 1});
+      docCart.delete();
     }
   }
 
@@ -203,8 +204,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   primary: Color.fromARGB(183, 87, 3, 3),
                 ),
                 onPressed: () {
-                  Navigator.push(context,
+                  if (Pricetotal == 0 ) {
+                    showtoast();
+                    print(Pricetotal);
+                  } if (Pricetotal > 0) {
+                    Navigator.push(context,
                       MaterialPageRoute(builder: (context) => CheckOutPage()));
+                  }
                 },
                 child: CartButton(),
               ),
@@ -212,6 +218,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       ],
     );
   }
+
+  void showtoast() => Fluttertoast.showToast(
+      msg: 'You dont have any item in the cart');
 
   Widget CartButton() {
     return ClipRRect(

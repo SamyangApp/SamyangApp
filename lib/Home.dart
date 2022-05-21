@@ -7,9 +7,12 @@ import "package:flutter_application_1/Samyang-Cheese.dart";
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_application_1/Setting.dart';
 import 'package:flutter_application_1/Models/models_product.dart';
+import 'package:flutter_application_1/SpashScreen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:flutter_application_1/Models/Models_Carosel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Page1 extends StatelessWidget {
   static const String _title = 'Flutter Code Sample';
@@ -233,7 +236,26 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                           ],
                         ),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                               SharedPreferences sharedPreferences =
+                                  await SharedPreferences.getInstance();
+                                var obtainedUser = sharedPreferences.getString('Userid');
+                                print(obtainedUser);
+                              if (obtainedUser == null) {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreenPage()));
+                                showToast2();
+                                print('null ege');
+                              } else if (obtainedUser != null) {
+                                CreateCart(name: Name, Url: url, Price: price);
+                                showToast();
+                                print('aa');
+                                print(obtainedUser);
+                                
+                              }
+                              CreateCart(name: Name, Url: url, Price: price);
+                              showToast();
+
+                            },
                             icon: Icon(
                               Icons.add_circle,
                               color: Colors.white,
@@ -242,6 +264,30 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     )))
           ],
         ));
+  }
+  void showToast() => Fluttertoast.showToast(
+    msg: 'Product added to cart');
+
+  void showToast2() => Fluttertoast.showToast(
+    msg: 'You need to login first');
+
+
+  Future CreateCart({required String name, required String Url, required int Price}) async {
+     SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    var obtainedUser = sharedPreferences.getString('Userid');
+    print(obtainedUser);
+    final docCart = FirebaseFirestore.instance.collection('Cart').doc(obtainedUser).collection('UserCart').doc(name);
+
+    final json = {
+      'ProductName': name,
+      'Count' : 1,
+      'Product_Img' : Url,
+      'ProductPrice' : Price,
+      'id' : obtainedUser,
+      'TotalPrice' : Price
+    };
+    await docCart.set(json);
   }
 }
 

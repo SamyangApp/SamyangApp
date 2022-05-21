@@ -94,7 +94,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         ),
                       ),
                     ),
-                    Divider(
+                    Divider( 
                       color: Colors.white,
                       thickness: 1,
                     ),

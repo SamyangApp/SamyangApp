@@ -218,8 +218,8 @@ class _LoginPageState extends State<LoginPage> {
                                 AuthServices.SignInAnonymous();
                               },
                               child: const Text(
-                                'Login',
-                                style: TextStyle(fontSize: 24),
+                                'Login (debug only)',
+                                style: TextStyle(fontSize: 15),
                               ),
                             )
                           ],
