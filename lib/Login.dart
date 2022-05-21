@@ -135,20 +135,20 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ResetPasswordPage()));
-                              },
-                              child: const Text(
-                                "Forgot Password",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            )
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ResetPasswordPage()));
+                            },
+                            child: const Text(
+                              "Forgot Password",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -189,7 +189,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                     Padding(
+                    Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 1),
                       child: ClipRRect(
