@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     const appTitle = 'Form Styling Demo';
-    return GetMaterialApp(
+    return MaterialApp(
         title: appTitle,
         debugShowCheckedModeBanner: false,
         home: Container(

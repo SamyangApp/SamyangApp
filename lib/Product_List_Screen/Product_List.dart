@@ -32,20 +32,38 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _MyStatefulWidgetState extends State<MyStatefulWidget> with TickerProviderStateMixin {
   final int _count = 0;
   static String obtainedUser = '';
+  late bool isLoading = true;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
-  void getUserdoc() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    obtainedUser = sharedPreferences.getString('Userid').toString();
+  @override
+  dispose() {
+  _controller.dispose(); // you need this
+  super.dispose();
   }
 
   @override
   void initState() {
+    _controller = AnimationController(vsync: this, duration: Duration(seconds: 1));
+    _animation = CurvedAnimation(parent: _controller, 
+    curve: Curves.ease);
+    _controller.repeat(reverse: true);
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
     getUserdoc();
     print(obtainedUser);
     super.initState();
+  }
+
+  void getUserdoc() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    obtainedUser = sharedPreferences.getString('Userid').toString();
   }
 
   @override
@@ -54,7 +72,17 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     var dropdownValue2 = 'Price';
 
     String? type_Product;
-    return MaterialApp(
+    return isLoading ? 
+          Scaffold(
+            backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+            body: Center(
+            child: FadeTransition(
+              opacity: _animation,
+              child: Image(image: AssetImage('Assets/10.png'), width: 100,),
+              )
+          ),
+          )
+          : MaterialApp(
       // or CupertinoApp
       title: 'My Flutter App',
       debugShowCheckedModeBanner: false,

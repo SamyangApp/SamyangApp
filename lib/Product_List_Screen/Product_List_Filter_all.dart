@@ -42,13 +42,36 @@ class MyStatefulWidget extends StatefulWidget {
       _MyStatefulWidgetState(typeProc, type2);
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _MyStatefulWidgetState extends State<MyStatefulWidget> with TickerProviderStateMixin {
   late final String? type;
   late final bool type2;
   var dropdownValue = 'Type';
   var dropdownValue2 = 'Price';
+  late bool isLoading = true;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   _MyStatefulWidgetState(this.type, this.type2);
+
+  @override
+  dispose() {
+  _controller.dispose(); // you need this
+  super.dispose();
+  }
+
+  @override
+  void initState() {
+    _controller = AnimationController(vsync: this, duration: Duration(seconds: 2));
+    _animation = CurvedAnimation(parent: _controller, 
+    curve: Curves.ease);
+    _controller.repeat(reverse: false);
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
+    super.initState();
+  }
 
   static String obtainedUser = '';
 
@@ -58,15 +81,18 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   @override
-  void initState() {
-    getUserdoc();
-    print(obtainedUser);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return isLoading ? 
+          Scaffold(
+            backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+            body: Center(
+            child: FadeTransition(
+              opacity: _animation,
+              child: Image(image: AssetImage('Assets/10.png'), width: 100,),
+              )
+          ),
+          )
+          : MaterialApp(
       // or CupertinoApp
       title: 'My Flutter App',
       debugShowCheckedModeBanner: false,

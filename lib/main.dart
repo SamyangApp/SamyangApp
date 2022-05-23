@@ -37,18 +37,21 @@ class MyApp extends StatelessWidget {
 
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
+  
   @override
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
+  late bool isLoading;
+
   Future getValidationData() async {
     final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? obtainedUser =  sharedPreferences.getString('username');
   }
 
-
+  @override
   int currenIndex = 0;
   List<Widget> screens = [
     Page1(),
