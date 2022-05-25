@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,6 +13,42 @@ class AuthServices {
       User? firebaseUser = results.user;
 
       return firebaseUser;
+    } catch (e) {
+      print(e.toString());
+
+      return null;
+    }
+  }
+
+  static Future<User?> SignUp (String email, String password, String user, String Fname, String Lname, String Pnum, String Addres) async {
+    try{
+      await _auth.createUserWithEmailAndPassword(email: email, password: password);
+
+      UserCredential results = await _auth.signInWithEmailAndPassword( email: email, password: password);
+      User? firebaseUser = results.user;
+
+      final UserDatabase =  FirebaseFirestore.instance.collection('User').doc(firebaseUser!.uid);
+
+      final json = {
+        'Username' : user,
+        'Fname' : Fname,
+        'Lname' : Lname,
+        'Pnum' : Pnum,
+      };
+
+      await UserDatabase.set(json);
+
+      final UserDatabaseaddres =  FirebaseFirestore.instance.collection('User').doc(firebaseUser.uid).collection('AddresList').doc();
+
+      final json2 = {
+        'Fname' : Fname,
+        'Lname' : Lname,
+        'Pnum' : Pnum,
+        'Addres' : Addres
+      };
+
+      await UserDatabaseaddres.set(json2);
+
     } catch (e) {
       print(e.toString());
 

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/Forgot_password.dart';
 import 'package:flutter_application_1/Home.dart';
+import 'package:flutter_application_1/Signup2.dart';
 import 'package:flutter_application_1/SpashScreen.dart';
 import 'package:flutter_application_1/auth_services.dart';
+import 'package:flutter_application_1/signupSplash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'package:flutter_application_1/LoginSuccess.dart';
@@ -232,7 +234,7 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Not Have Avc',
+                              "Doesn't have an Samyang account yet?",
                               style: TextStyle(color: Colors.white),
                             ),
                             GestureDetector(
@@ -241,7 +243,7 @@ class _LoginPageState extends State<LoginPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            ResetPasswordPage()));
+                                            SplashScreenPageSignup()));
                               },
                               child: const Text(
                                 " Sign Up ",

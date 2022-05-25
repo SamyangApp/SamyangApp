@@ -52,7 +52,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> with TickerProvider
     _animation = CurvedAnimation(parent: _controller, 
     curve: Curves.ease);
     _controller.repeat(reverse: true);
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 5), () {
       setState(() {
         isLoading = false;
       });
@@ -103,7 +103,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> with TickerProvider
               items: Carousel.Carousels.map(
                   (Carousels) => Carousel_Card(carousel: Carousels)).toList(),
             )),
-            Recomended(title: 'Recomended'),
+            Recomended(title: 'Recommended'),
             SizedBox(
                 height: 165,
                 child: StreamBuilder(

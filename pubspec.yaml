@@ -48,6 +48,8 @@ dependencies:
   equatable: ^2.0.3
   flutter_bloc: ^8.0.1
   firebase_database: ^9.0.13
+  webview_flutter_plus: ^0.3.0+2
+  back_button_interceptor: ^6.0.0
   
 dev_dependencies:
   flutter_test:

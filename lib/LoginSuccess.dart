@@ -86,6 +86,7 @@ class LoginPageSuccess extends StatelessWidget {
                                   AuthServices.SignOut();
                                   SharedPreferences sharedPreferences2 = await SharedPreferences.getInstance();
                                   sharedPreferences2.remove('Userid');
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Page1()));
                                 },
                                 child: const Text(
                                   'Log Out',

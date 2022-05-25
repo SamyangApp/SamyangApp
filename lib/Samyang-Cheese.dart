@@ -51,7 +51,7 @@ class SamyangCheese extends StatelessWidget {
                 alignment: const Alignment(0, 0),
                 )
               ),
-              const Image(image: AssetImage('Assets/12.png'),height: 50,),
+              Image(image: AssetImage('Assets/12.png'),height: 50,),
               Padding(padding: const EdgeInsets.only(right: 1.0),
                 child: IconButton(
                   onPressed: () { 

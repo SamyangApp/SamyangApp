@@ -76,7 +76,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
        bottomNavigationBar: BottomAppBar(
-          color: const Color.fromARGB(255, 14, 0, 0),
+          color: Color.fromARGB(178, 14, 0, 0),
           shape: const CircularNotchedRectangle(),
           child: SizedBox(
             height: 55,
