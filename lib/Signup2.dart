@@ -1,9 +1,13 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/Login.dart';
 import 'package:flutter_application_1/auth_services.dart';
 import 'package:flutter_application_1/header_widget.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_application_1/main.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignUpPage extends StatefulWidget {
   SignUpPage({Key? key}) : super(key: key);
@@ -13,22 +17,98 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController Addres = new TextEditingController();
+  int Count = 0;
+  TextEditingController Fname = new TextEditingController();
+  TextEditingController Lname = new TextEditingController();
+  TextEditingController Nphone = new TextEditingController();
   bool checkboxValue = false;
+  TextEditingController pass = new TextEditingController();
+  TextEditingController user = new TextEditingController();
+
+  @override
+  TextEditingController email = new TextEditingController();
+
+   late File? _image = null;
+   late String url;
 
   void initState() {
     bool _passwordVisible = false;
   }
 
-  @override
-  TextEditingController email = new TextEditingController();
-  TextEditingController pass = new TextEditingController();
-  TextEditingController user = new TextEditingController();
-  TextEditingController Fname = new TextEditingController();
-  TextEditingController Lname = new TextEditingController();
-  TextEditingController Nphone = new TextEditingController();
-  TextEditingController Addres = new TextEditingController();
 
-  int Count = 0;
+  Future getImage() async {
+    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedImageFile = File(image!.path);
+    setState(() {
+      _image = pickedImageFile;
+      print('Image Path $_image');
+    });
+  }
+
+  Future uploadPic() async{
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('UserImage')
+        .child(user.text + '.jpg');
+    await ref.putFile(_image!);
+    url = await ref.getDownloadURL();
+    print(url);
+  }
+
+  Future openCard() => showDialog<String>(
+      context: context,
+      builder: (BuildContext context) =>
+          AlertDialog(
+            backgroundColor: Color.fromARGB(255, 160, 7, 7),
+            title: Center(
+              child: Text(
+                  'Your account have been sign up !!!', style: TextStyle(color: Colors.white)
+              ),
+            ),
+            content: Container(
+              height: 80,
+              child: Center(
+                child: Column(
+                  children: [
+                    Text('Please Sign in again', style: TextStyle(color: Colors.white)),
+                    Text('to do purchase at SamyangApp', style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () async {
+                  if (checkboxValue == false) {
+                    print(checkboxValue);
+                  }
+                  if (checkboxValue == true) {
+                    await uploadPic();
+                    await AuthServices.SignUp(email.text, pass.text, user.text, Fname.text, Lname.text, Nphone.text, Addres.text, url);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
+
+                  }
+                },
+                child: Text('OK', style: TextStyle(color: Colors.white)),
+              ),
+            ],
+          )
+  );
+
+  Widget BuildNavigateButton(context) => SizedBox(
+      width: 75,
+      height: 75,
+      child: FloatingActionButton(
+        child: Icon(
+          Icons.arrow_forward,
+          size: 30,
+        ),
+        onPressed: () {
+          openCard();
+        },
+        backgroundColor: Color.fromARGB(187, 160, 7, 7),
+      ));
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +121,8 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             Container(
               height: 450,
-              child: HeaderWidget(200, false, Icons.person_add_alt_1_rounded),
+              child:
+              HeaderWidget(200, false, Icons.abc),
             ),
             Container(
               child: Scaffold(
@@ -55,14 +136,17 @@ class _SignUpPageState extends State<SignUpPage> {
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         GestureDetector(
+                          onTap: () {
+                            getImage();
+                          },
                           child: Stack(
                             children: [
                               Container(
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
                                   border:
-                                      Border.all(width: 5, color: Colors.white),
+                                      Border.all(width: 1, color: Colors.white),
                                   color: Color.fromARGB(255, 154, 26, 26),
                                   boxShadow: [
                                     BoxShadow(
@@ -72,22 +156,29 @@ class _SignUpPageState extends State<SignUpPage> {
                                     ),
                                   ],
                                 ),
-                                child: Icon(
-                                  Icons.person,
-                                  color: Colors.grey.shade300,
-                                  size: 80.0,
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.fromLTRB(80, 80, 0, 0),
-                                child: Icon(
-                                  Icons.add_circle,
-                                  color: Colors.grey.shade700,
-                                  size: 25.0,
+                                child:CircleAvatar(
+                                  radius: 70,
+                                  backgroundColor: Color(0xff476cfb),
+                                  child: ClipOval(
+                                    child: new SizedBox(
+                                      width: 140.0,
+                                      height: 140.0,
+                                      child: (_image != null) ? Image.file(
+                                        _image!,
+                                        fit: BoxFit.fill,
+                                      ) : Image.network(
+                                        "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
@@ -375,23 +466,4 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         ));
   }
-
-  Widget BuildNavigateButton(context) => SizedBox(
-      width: 75,
-      height: 75,
-      child: FloatingActionButton(
-        child: Icon(
-          Icons.arrow_forward,
-          size: 30,
-        ),
-        onPressed: () {
-          if (checkboxValue == false) {
-            print(checkboxValue);
-          }
-          if (checkboxValue == true) {
-            AuthServices.SignUp(email.text, pass.text, user.text, Fname.text, Lname.text, Nphone.text, Addres.text);
-          }
-        },
-        backgroundColor: Color.fromARGB(187, 160, 7, 7),
-      ));
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Cart.dart';
+import 'package:flutter_application_1/CartSplashScreen.dart';
 import 'package:flutter_application_1/Home.dart';
 import 'package:flutter_application_1/CheckOut.dart';
 
@@ -48,7 +49,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       child: IconButton(
                         onPressed: () {
                           Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => Cart()));
+                              MaterialPageRoute(builder: (context) => CartSplashScreenPage()));
                         },
                         icon: const Icon(
                           Icons.arrow_back,

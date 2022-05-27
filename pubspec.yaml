@@ -50,6 +50,8 @@ dependencies:
   firebase_database: ^9.0.13
   webview_flutter_plus: ^0.3.0+2
   back_button_interceptor: ^6.0.0
+  image_picker: ^0.8.5+3
+  firebase_storage: ^10.2.16
   
 dev_dependencies:
   flutter_test:

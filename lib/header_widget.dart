@@ -113,11 +113,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                     ),
                     border: Border.all(width: 5, color: Colors.white),
                   ),
-                  child: Icon(
-                    _icon,
-                    color: Colors.white,
-                    size: 40.0,
-                  ),
+
                 ),
               ),
             ),

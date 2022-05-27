@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -12,34 +13,40 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Cart extends StatelessWidget {
   static const String _title = 'Flutter Code Sample';
+  late User user;
+
+  Cart(this.user);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: _title,
-      home: MyStatefulWidget(),
+      home: MyStatefulWidget(user),
     );
   }
 }
 
 class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
+  late User user;
+  MyStatefulWidget(this.user, {Key? key}) : super(key: key);
 
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState(user);
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static num TotalPrice = 1;
   static num PriceTotal = 0;
-  static String obtainedUser = '';
+  late User user;
+
+  _MyStatefulWidgetState(this.user);
 
   @override
   void OrderIncrement(String name, int price) {
     final docCart = FirebaseFirestore.instance
         .collection('Cart')
-        .doc(obtainedUser)
+        .doc(user.uid)
         .collection('UserCart')
         .doc(name);
     docCart.update({
@@ -51,7 +58,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   void OrderDecrement(String name, int count, int price) {
     final docCart = FirebaseFirestore.instance
         .collection('Cart')
-        .doc(obtainedUser)
+        .doc(user.uid)
         .collection('UserCart')
         .doc(name);
     if (count > 1) {
@@ -64,15 +71,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     }
   }
 
-  void getUserdoc() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    obtainedUser = sharedPreferences.getString('Userid').toString();
-  }
-
   @override
   void initState() {
-    getUserdoc();
-    print(obtainedUser);
     Timer(Duration(seconds: 10), () {
       CircularProgressIndicator();
     });
@@ -103,16 +103,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       body: Container(
         decoration: const BoxDecoration(
             gradient: RadialGradient(colors: [
-          Color.fromARGB(255, 0, 0, 0),
-          Color.fromARGB(255, 117, 11, 3),
-        ], radius: 2)),
+              Color.fromARGB(255, 0, 0, 0),
+              Color.fromARGB(255, 117, 11, 3),
+            ], radius: 2)),
         child: Column(
           children: [
             Expanded(
               child: StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('Cart')
-                      .doc(obtainedUser)
+                      .doc(user.uid)
                       .collection('UserCart')
                       .snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -151,7 +151,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('Cart')
-                        .doc(obtainedUser)
+                        .doc(user.uid)
                         .collection('UserCart')
                         .snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -183,19 +183,19 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         Padding(padding: EdgeInsets.only(left: 10)),
         Expanded(
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Total Belanja',
-                style: TextStyle(color: Colors.white, fontSize: 18)),
-            Padding(padding: EdgeInsets.only(left: 20)),
-            Text('${Pricetotal}',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold))
-          ],
-        )),
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Total Belanja',
+                    style: TextStyle(color: Colors.white, fontSize: 18)),
+                Padding(padding: EdgeInsets.only(left: 20)),
+                Text('${Pricetotal}',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold))
+              ],
+            )),
         Container(
             width: 160,
             child: SizedBox(
@@ -209,7 +209,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     print(Pricetotal);
                   } if (Pricetotal > 0) {
                     Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CheckOutPage()));
+                        MaterialPageRoute(builder: (context) => CheckOutPage(user)));
                   }
                 },
                 child: CartButton(),
@@ -229,13 +229,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         padding: const EdgeInsets.all(10),
         child: SizedBox(
             child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.shopping_cart_checkout, color: Colors.white),
-            Padding(padding: EdgeInsets.only(left: 20)),
-            Text('Checkout', style: TextStyle(color: Colors.white)),
-          ],
-        )),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.shopping_cart_checkout, color: Colors.white),
+                Padding(padding: EdgeInsets.only(left: 20)),
+                Text('Checkout', style: TextStyle(color: Colors.white)),
+              ],
+            )),
       ),
     );
   }

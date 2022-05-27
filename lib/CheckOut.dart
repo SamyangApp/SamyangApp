@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/CartSplashScreen.dart';
 import 'package:flutter_application_1/Home.dart';
 import 'package:flutter_application_1/BCA.dart';
 import 'package:flutter_application_1/BRI.dart';
@@ -8,39 +10,42 @@ import 'package:flutter_application_1/Cart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckOutPage extends StatelessWidget {
-  static const String _title = 'Flutter Code Sample';
+  late User user;
+
+  CheckOutPage(this.user);
+
+  static String _title = 'Flutter Code Sample';
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: _title,
-      home: MyStatefulWidget(),
+      home: MyStatefulWidget(user),
     );
   }
 }
 
 class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
+
+  late User user;
+
+  MyStatefulWidget(this.user, {Key? key}) : super(key: key);
 
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState(user);
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  late User user;
   int BankPointer = 0;
   static String obtainedUser = '';
   final String Bank = '';
 
-  void getUserdoc() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    obtainedUser = sharedPreferences.getString('Userid').toString();
-  }
+  _MyStatefulWidgetState(this.user);
 
   @override
   void initState() {
-    getUserdoc();
-    print(obtainedUser);
     super.initState();
   }
 
@@ -76,7 +81,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 child: IconButton(
                   onPressed: () {
                     Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) => Cart()));
+                        .push(MaterialPageRoute(builder: (context) => CartSplashScreenPage()));
                   },
                   icon: const Icon(
                     Icons.arrow_back,
@@ -92,9 +97,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       body: Container(
           decoration: const BoxDecoration(
               gradient: RadialGradient(colors: [
-            Color.fromARGB(255, 0, 0, 0),
-            Color.fromARGB(255, 117, 11, 3),
-          ], radius: 2)),
+                Color.fromARGB(255, 0, 0, 0),
+                Color.fromARGB(255, 117, 11, 3),
+              ], radius: 2)),
           child: Column(
             children: [
               Divider(
@@ -112,7 +117,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('Cart')
-                        .doc(obtainedUser)
+                        .doc(user.uid)
                         .collection('UserCart')
                         .snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -152,7 +157,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
                           .collection('Cart')
-                          .doc(obtainedUser)
+                          .doc(user.uid)
                           .collection('UserCart')
                           .snapshots(),
                       builder:
@@ -185,22 +190,22 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         Padding(padding: EdgeInsets.only(left: 10)),
         Expanded(
             child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Total Belanja',
-                style: TextStyle(color: Colors.white, fontSize: 18)),
-            Padding(padding: EdgeInsets.only(left: 20)),
-            Text('${Pricetotal}',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold)),
-            SizedBox(
-              width: 0,
-            ),
-          ],
-        )),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Total Belanja',
+                    style: TextStyle(color: Colors.white, fontSize: 18)),
+                Padding(padding: EdgeInsets.only(left: 20)),
+                Text('${Pricetotal}',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold)),
+                SizedBox(
+                  width: 0,
+                ),
+              ],
+            )),
       ],
     );
   }
@@ -208,53 +213,53 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Widget ExpansiveList() {
     return ListTileTheme(
         child: ExpansionTile(
-      collapsedIconColor: Colors.white,
-      iconColor: Colors.white,
-      title: Text(
-        'Pilihan Pembayaran',
-        style: TextStyle(
-            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
-      ),
-      children: [
-        Padding(padding: EdgeInsets.only(bottom: 8)),
-        ElevatedButton(
-          style:
+          collapsedIconColor: Colors.white,
+          iconColor: Colors.white,
+          title: Text(
+            'Pilihan Pembayaran',
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          children: [
+            Padding(padding: EdgeInsets.only(bottom: 8)),
+            ElevatedButton(
+              style:
               ElevatedButton.styleFrom(primary: Colors.black.withOpacity(0.3)),
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => BCAPage()));
-            BankListBCA();
-            print(BankPointer);
-          },
-          child: BCAExpandedList(),
-        ),
-        Padding(padding: EdgeInsets.only(bottom: 8)),
-        ElevatedButton(
-          style:
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => BCAPage()));
+                BankListBCA();
+                print(BankPointer);
+              },
+              child: BCAExpandedList(),
+            ),
+            Padding(padding: EdgeInsets.only(bottom: 8)),
+            ElevatedButton(
+              style:
               ElevatedButton.styleFrom(primary: Colors.black.withOpacity(0.3)),
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => BRIPage()));
-            BankListBNI();
-            print(BankPointer);
-          },
-          child: BRIExpandedList(),
-        ),
-        Padding(padding: EdgeInsets.only(bottom: 8)),
-        ElevatedButton(
-          style:
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => BRIPage()));
+                BankListBNI();
+                print(BankPointer);
+              },
+              child: BRIExpandedList(),
+            ),
+            Padding(padding: EdgeInsets.only(bottom: 8)),
+            ElevatedButton(
+              style:
               ElevatedButton.styleFrom(primary: Colors.black.withOpacity(0.3)),
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => BNIPage()));
-            BankListBRI();
-            print(BankPointer);
-          },
-          child: BNIExpandedList(),
-        ),
-        Padding(padding: EdgeInsets.only(bottom: 8)),
-      ],
-    ));
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => BNIPage()));
+                BankListBRI();
+                print(BankPointer);
+              },
+              child: BNIExpandedList(),
+            ),
+            Padding(padding: EdgeInsets.only(bottom: 8)),
+          ],
+        ));
   }
 
   Widget BCAExpandedList() {

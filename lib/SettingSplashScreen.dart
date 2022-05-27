@@ -54,6 +54,6 @@ class _SplashScreenStateSetting extends State<SplashScreenPageSetting> with Tick
               child: Image(image: AssetImage('Assets/10.png'), width: 100,),
               )
           ),
-          ) : (firebaseUser == null ) ? LoginPage() : Settings();
+          ) : (firebaseUser == null ) ? LoginPage() : Settings(firebaseUser);
   }
 }

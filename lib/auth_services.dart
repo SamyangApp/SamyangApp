@@ -20,25 +20,35 @@ class AuthServices {
     }
   }
 
-  static Future<User?> SignUp (String email, String password, String user, String Fname, String Lname, String Pnum, String Addres) async {
+  static Future<User?> SignUp (String email, String password, String user, String Fname, String Lname, String Pnum, String Addres, String img) async {
     try{
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
 
       UserCredential results = await _auth.signInWithEmailAndPassword( email: email, password: password);
       User? firebaseUser = results.user;
 
-      final UserDatabase =  FirebaseFirestore.instance.collection('User').doc(firebaseUser!.uid);
+      final UserDatabase =  FirebaseFirestore.instance
+                            .collection('User')
+                            .doc(firebaseUser!.uid)
+                            .collection('UserList')
+                            .doc();
 
       final json = {
         'Username' : user,
         'Fname' : Fname,
         'Lname' : Lname,
         'Pnum' : Pnum,
+        'Email' : email,
+        'img' : img,
       };
 
       await UserDatabase.set(json);
 
-      final UserDatabaseaddres =  FirebaseFirestore.instance.collection('User').doc(firebaseUser.uid).collection('AddresList').doc();
+      final UserDatabaseaddres =  FirebaseFirestore.instance
+                                  .collection('User')
+                                  .doc(firebaseUser.uid)
+                                  .collection('AddresList')
+                                  .doc();
 
       final json2 = {
         'Fname' : Fname,
@@ -48,6 +58,8 @@ class AuthServices {
       };
 
       await UserDatabaseaddres.set(json2);
+
+      SignOut();
 
     } catch (e) {
       print(e.toString());

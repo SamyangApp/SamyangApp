@@ -1,14 +1,10 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Home.dart';
-import 'package:flutter_application_1/Login.dart';
-import 'package:flutter_application_1/LoginSuccess.dart';
 import 'package:flutter_application_1/Signup2.dart';
-import 'package:get/get.dart';
+import 'package:flutter_application_1/main.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_application_1/auth_services.dart';
+
 class SplashScreenPageSignup extends StatefulWidget {
   SplashScreenPageSignup({Key? key}) : super(key: key);
 
@@ -54,6 +50,6 @@ class _SplashScreenSignupState extends State<SplashScreenPageSignup> with Ticker
               child: Image(image: AssetImage('Assets/10.png'), width: 100,),
               )
           ),
-          ) : (firebaseUser == null ) ? SignUpPage() : LoginPageSuccess(firebaseUser);
+          ) : (firebaseUser == null ) ? SignUpPage() : MyApp();
   }
 }

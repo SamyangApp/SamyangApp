@@ -1,17 +1,25 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Pengaturan_Akun.dart';
 import 'package:flutter_application_1/Pengaturan_Rekening.dart';
 import 'package:flutter_application_1/Daftar_Alamat.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({Key? key}) : super(key: key);
+  late User user;
+
+  Settings(this.user, {Key? key}) : super(key: key);
 
   @override
-  State<Settings> createState() => _SettingsState();
+  State<Settings> createState() => _SettingsState(user);
 }
 
 class _SettingsState extends State<Settings> {
+  late User user;
+
+  _SettingsState(this.user);
+
   final ImageList = [
     'Assets/s1.png',
     'Assets/s2.png',
@@ -34,7 +42,7 @@ class _SettingsState extends State<Settings> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Center(
+            Center(
               child: Text('My Account'),
             ),
             Padding(
@@ -51,42 +59,41 @@ class _SettingsState extends State<Settings> {
             const Padding(padding: EdgeInsets.all(5)),
             SizedBox(
               height: 120,
-              child: Row(
-                children: [
-                  const Padding(padding: EdgeInsets.all(10)),
-                  CircleAvatar(
-                      backgroundColor: Colors.blue,
-                      radius: 45,
-                      child: SizedBox(
-                          width: 80,
-                          height: 80,
-                          child: ClipOval(
-                            child: Image.asset(
-                              "Assets/10.png",
-                            ),
-                          ))),
-                  const Padding(padding: EdgeInsets.all(10)),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Padding(padding: EdgeInsets.only(bottom: 4)),
-                      Text('Username',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.white)),
-                      Text('+08129299188',
-                          style: TextStyle(fontSize: 15, color: Colors.white)),
-                      Text('Username@gmail.com',
-                          style: TextStyle(fontSize: 15, color: Colors.white)),
-                      Padding(padding: EdgeInsets.only(top: 4, bottom: 4)),
-                    ],
-                  ),
-                ],
-              ),
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('User')
+                      .doc(user.uid)
+                      .collection('UserList')
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasData) {
+                      print('aaaa');
+                      final User = snapshot.data!.docs;
+                      print(User);
+
+                      return GridView.builder(
+                        itemCount: 1,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1,
+                          childAspectRatio: 4,
+                        ),
+                        itemBuilder: (BuildContext context, int index) {
+                          return BuildUser(
+                            User[index]['img'],
+                            User[index]['Username'],
+                            User[index]['Email'],
+                            User[index]['Pnum'],
+                          );
+                        },
+                      );
+                    } else {
+                      print('error');
+                      return Text('error');
+                    }
+                  }),
             ),
-            const Padding(padding: EdgeInsets.all(5)),
+            Padding(padding: EdgeInsets.all(5)),
             Container(
               child: CarouselSlider.builder(
                   itemCount: ImageList.length,
@@ -118,7 +125,7 @@ class _SettingsState extends State<Settings> {
               child: InkWell(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AturAkun()));
+                        MaterialPageRoute(builder: (context) => AturAkun(user)));
                   },
                   borderRadius: BorderRadius.circular(10),
                   child: Row(
@@ -251,6 +258,39 @@ class _SettingsState extends State<Settings> {
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 39, 1, 1),
+    );
+  }
+
+  Widget BuildUser(String url, String Username, String Email, String Pnum) {
+    return Row(
+      children: [
+        Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+        CircleAvatar(
+            backgroundColor: Colors.blue,
+            radius: 45,
+            child: SizedBox(
+                width: 80,
+                height: 80,
+                child: ClipOval(
+                  child: Image.network(url),
+                ))),
+        Padding(padding: EdgeInsets.all(10)),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(padding: EdgeInsets.only(bottom: 4)),
+            Text(Username,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white)),
+            Text(Pnum, style: TextStyle(fontSize: 15, color: Colors.white)),
+            Text(Email, style: TextStyle(fontSize: 15, color: Colors.white)),
+            Padding(padding: EdgeInsets.only(top: 4, bottom: 4)),
+          ],
+        ),
+      ],
     );
   }
 
