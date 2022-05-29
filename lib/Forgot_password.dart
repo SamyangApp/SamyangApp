@@ -78,7 +78,7 @@ class ResetPasswordPage extends StatelessWidget {
                                 color: Colors.white,
                               ), // myIcon is a 48px-wide widget.
                             ),
-                            hintText: 'Username',
+                            hintText: 'Email',
                             hintStyle: const TextStyle(color: Colors.white)),
                       ),
                     ),
