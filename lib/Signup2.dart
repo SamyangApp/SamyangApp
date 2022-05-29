@@ -404,7 +404,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: TextField(
                             maxLines: 3,
                             controller: Addres,
-                            keyboardType: TextInputType.number,
                             style: TextStyle(color: Colors.white),
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
