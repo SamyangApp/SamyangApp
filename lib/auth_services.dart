@@ -23,7 +23,7 @@ class AuthServices {
       final ref = FirebaseStorage.instance
         .ref()
         .child('UserImage')
-        .child(firebaseUser!.uid + '.jpg');
+        .child(firebaseUser!.uid);
         await ref.putFile(_image!);
         url = await ref.getDownloadURL();
         print(url);
@@ -32,7 +32,7 @@ class AuthServices {
                             .collection('User')
                             .doc(firebaseUser.uid)
                             .collection('UserList')
-                            .doc();
+                            .doc(firebaseUser.uid);
 
       final json = {
         'Username' : user,
@@ -40,7 +40,8 @@ class AuthServices {
         'Lname' : Lname,
         'Pnum' : Pnum,
         'Email' : email,
-        'img' : (url == null) ? url2 : url,
+        'img' : url,
+        'id' : firebaseUser.uid
       };
 
       await UserDatabase.set(json);

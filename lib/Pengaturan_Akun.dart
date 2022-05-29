@@ -35,7 +35,7 @@ class _AturAkunState extends State<AturAkun> {
     final ref = FirebaseStorage.instance
         .ref()
         .child('UserImage')
-        .child(user.uid  + '.jpg');
+        .child(user.uid);
     await ref.putFile(_image!);
     url2 = await ref.getDownloadURL();
     print(url2);
@@ -54,7 +54,7 @@ class _AturAkunState extends State<AturAkun> {
         .collection('User')
         .doc(user.uid)
         .collection('UserList')
-        .doc('44Tc00KHxUuduJ2m8FsM');
+        .doc(user.uid);
     UserList.update({
       'Username' : (NewUsername == '') ? OldUsername : NewUsername,
       'Email' : (NewEmail == '') ? OldEmail : NewEmail,
