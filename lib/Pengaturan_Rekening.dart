@@ -117,40 +117,39 @@ class _nameState extends State<AturRekening> {
           ),
         ),
         Padding(
-                      padding: const EdgeInsets.only(
-                          left: 10, right: 10, top: 200),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Stack(
-                          children: <Widget>[
-                            Positioned.fill(
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: <Color>[
-                                      Color.fromARGB(255, 255, 0, 0),
-                                      Color.fromARGB(255, 134, 11, 11),
-                                      Color.fromARGB(255, 88, 3, 3),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.transparent,
-                                minimumSize: const Size.fromHeight(50), // NEW
-                              ),
-                              onPressed: (){},
-                              child: const Text(
-                                'Login',
-                                style: TextStyle(fontSize: 24),
-                              ),
-                            )
-                          ],
-                        ),
+          padding: const EdgeInsets.only(left: 10, right: 10, top: 200),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color.fromARGB(255, 255, 0, 0),
+                          Color.fromARGB(255, 134, 11, 11),
+                          Color.fromARGB(255, 88, 3, 3),
+                        ],
                       ),
                     ),
+                  ),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.transparent,
+                    minimumSize: const Size.fromHeight(50), // NEW
+                  ),
+                  onPressed: () {},
+                  child: const Text(
+                    'Save',
+                    style: TextStyle(fontSize: 24),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
       ]),
       backgroundColor: const Color.fromARGB(255, 39, 1, 1),
     );

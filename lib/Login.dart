@@ -92,11 +92,11 @@ class _LoginPageState extends State<LoginPage> {
                             prefixIcon: const Padding(
                               padding: EdgeInsets.only(left: 20),
                               child: Icon(
-                                Icons.person,
+                                Icons.email,
                                 color: Colors.white,
                               ), // myIcon is a 48px-wide widget.
                             ),
-                            hintText: 'Username',
+                            hintText: 'Email',
                             hintStyle: const TextStyle(color: Colors.white)),
                       ),
                     ),
@@ -191,7 +191,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    
                     Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Row(
