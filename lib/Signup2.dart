@@ -190,7 +190,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 prefixIcon: const Padding(
                                   padding: EdgeInsets.only(left: 20),
                                   child: Icon(
-                                    Icons.person,
+                                    Icons.mail,
                                     color: Colors.white,
                                   ), // myIcon is a 48px-wide widget.
                                 ),

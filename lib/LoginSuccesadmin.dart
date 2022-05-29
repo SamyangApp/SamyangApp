@@ -162,7 +162,7 @@ class LoginPageSuccessadmin extends StatelessWidget {
                                             const Size.fromHeight(50), // NEW
                                       ),
                                       onPressed: () async {
-                                        AuthServices.SignInAnonymous();
+                                        AuthServices.SignOut();
                                       },
                                       child: const Text(
                                         'Log Out',

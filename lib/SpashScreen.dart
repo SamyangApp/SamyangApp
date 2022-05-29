@@ -54,6 +54,6 @@ class _SplashScreenState extends State<SplashScreenPage> with TickerProviderStat
               child: Image(image: AssetImage('Assets/10.png'), width: 100,),
               )
           ),
-          ) : (firebaseUser != null && firebaseUser.uid == 'MhaCWXyi9DOA0DGPVPdMYgg6Snj1') ? LoginPageSuccessadmin(firebaseUser) : (firebaseUser != null) ? LoginPageSuccess(firebaseUser) : LoginPage();
+          ) : (firebaseUser != null && firebaseUser.uid == 'MhaCWXyi9DOA0DGPVPdMYgg6Snj1') ? LoginPageSuccessadmin(firebaseUser) : (firebaseUser != null && firebaseUser !='MhaCWXyi9DOA0DGPVPdMYgg6Snj1') ? LoginPageSuccess(firebaseUser) : LoginPage();
 }
 }
