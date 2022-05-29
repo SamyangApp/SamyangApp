@@ -17,17 +17,18 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  TextEditingController Addres = new TextEditingController();
   int Count = 0;
+  bool checkboxValue = false;
+
+  TextEditingController Addres = new TextEditingController();  
   TextEditingController Fname = new TextEditingController();
   TextEditingController Lname = new TextEditingController();
   TextEditingController Nphone = new TextEditingController();
-  bool checkboxValue = false;
   TextEditingController pass = new TextEditingController();
   TextEditingController user = new TextEditingController();
+  TextEditingController email = new TextEditingController();
 
   @override
-  TextEditingController email = new TextEditingController();
 
    late File? _image = null;
    late String url;
@@ -44,16 +45,6 @@ class _SignUpPageState extends State<SignUpPage> {
       _image = pickedImageFile;
       print('Image Path $_image');
     });
-  }
-
-  Future uploadPic() async{
-    final ref = FirebaseStorage.instance
-        .ref()
-        .child('UserImage')
-        .child(user.text + '.jpg');
-    await ref.putFile(_image!);
-    url = await ref.getDownloadURL();
-    print(url);
   }
 
   Future openCard() => showDialog<String>(
@@ -84,8 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     print(checkboxValue);
                   }
                   if (checkboxValue == true) {
-                    await uploadPic();
-                    await AuthServices.SignUp(email.text, pass.text, user.text, Fname.text, Lname.text, Nphone.text, Addres.text, url);
+                    await AuthServices.SignUp(email.text, pass.text, user.text, Fname.text, Lname.text, Nphone.text, Addres.text, _image);
                     Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
 
                   }
@@ -146,7 +136,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
                                   border:
-                                      Border.all(width: 1, color: Colors.white),
+                                      Border.all(width: 1, color: Color.fromARGB(0, 0, 0, 0)),
                                   color: Color.fromARGB(255, 154, 26, 26),
                                   boxShadow: [
                                     BoxShadow(
@@ -158,7 +148,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                                 child:CircleAvatar(
                                   radius: 70,
-                                  backgroundColor: Color(0xff476cfb),
+                                  backgroundColor: Color.fromARGB(255, 253, 21, 21),
                                   child: ClipOval(
                                     child: new SizedBox(
                                       width: 140.0,
@@ -166,9 +156,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                       child: (_image != null) ? Image.file(
                                         _image!,
                                         fit: BoxFit.fill,
-                                      ) : Image.network(
-                                        "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-                                        fit: BoxFit.fill,
+                                      ) : Image.asset('Assets/18.png',
+                                        fit: BoxFit.fitWidth,
                                       ),
                                     ),
                                   ),
@@ -385,6 +374,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           padding:
                               EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                           child: TextField(
+                            maxLines: 3,
                             controller: Addres,
                             keyboardType: TextInputType.number,
                             style: TextStyle(color: Colors.white),

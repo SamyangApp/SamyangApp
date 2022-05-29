@@ -35,7 +35,7 @@ class _AturAkunState extends State<AturAkun> {
     final ref = FirebaseStorage.instance
         .ref()
         .child('UserImage')
-        .child(Username + '.jpg');
+        .child(user.uid  + '.jpg');
     await ref.putFile(_image!);
     url2 = await ref.getDownloadURL();
     print(url2);
@@ -262,8 +262,15 @@ class _AturAkunState extends State<AturAkun> {
                                 primary: Colors.transparent,
                                 minimumSize: const Size.fromHeight(50), // NEW
                               ),
-                              onPressed: () {
-                                UpdateUser(Username, Email, Pnum, UsernameController.text, EmailController.text, PnumController.text, url);
+                              onPressed: () async {
+                                if (_image == null) {
+                                  UpdateUser(Username, Email, Pnum, UsernameController.text, EmailController.text, PnumController.text, url);
+                                  Navigator.pop(context);
+                                } else {
+                                  await uploadPic(Username);
+                                  UpdateUser(Username, Email, Pnum, UsernameController.text, EmailController.text, PnumController.text, url);
+                                  Navigator.pop(context);
+                                }
                               },
                               child: const Text(
                                 'Save',

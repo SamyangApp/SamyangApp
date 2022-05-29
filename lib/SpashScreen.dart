@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Home.dart';
 import 'package:flutter_application_1/Login.dart';
+import 'package:flutter_application_1/LoginSuccesadmin.dart';
 import 'package:flutter_application_1/LoginSuccess.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -53,6 +54,6 @@ class _SplashScreenState extends State<SplashScreenPage> with TickerProviderStat
               child: Image(image: AssetImage('Assets/10.png'), width: 100,),
               )
           ),
-          ) : (firebaseUser == null ) ? LoginPage() : LoginPageSuccess(firebaseUser);
-  }
+          ) : (firebaseUser != null && firebaseUser.uid == 'MhaCWXyi9DOA0DGPVPdMYgg6Snj1') ? LoginPageSuccessadmin(firebaseUser) : (firebaseUser != null) ? LoginPageSuccess(firebaseUser) : LoginPage();
+}
 }

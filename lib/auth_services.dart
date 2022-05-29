@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,16 +23,27 @@ class AuthServices {
     }
   }
 
-  static Future<User?> SignUp (String email, String password, String user, String Fname, String Lname, String Pnum, String Addres, String img) async {
+  static Future<User?> SignUp (String email, String password, String user, String Fname, String Lname, String Pnum, String Addres, File? _image) async {
     try{
+      
+      String url = '';
+
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
 
       UserCredential results = await _auth.signInWithEmailAndPassword( email: email, password: password);
       User? firebaseUser = results.user;
 
+      final ref = FirebaseStorage.instance
+        .ref()
+        .child('UserImage')
+        .child(firebaseUser!.uid + '.jpg');
+        await ref.putFile(_image!);
+        url = await ref.getDownloadURL();
+        print(url);
+
       final UserDatabase =  FirebaseFirestore.instance
                             .collection('User')
-                            .doc(firebaseUser!.uid)
+                            .doc(firebaseUser.uid)
                             .collection('UserList')
                             .doc();
 
@@ -39,7 +53,7 @@ class AuthServices {
         'Lname' : Lname,
         'Pnum' : Pnum,
         'Email' : email,
-        'img' : img,
+        'img' : url,
       };
 
       await UserDatabase.set(json);
@@ -48,13 +62,16 @@ class AuthServices {
                                   .collection('User')
                                   .doc(firebaseUser.uid)
                                   .collection('AddresList')
-                                  .doc();
+                                  .doc('Rumah');
 
       final json2 = {
         'Fname' : Fname,
         'Lname' : Lname,
         'Pnum' : Pnum,
-        'Addres' : Addres
+        'Addres' : Addres,
+        'AddresName' : 'Rumah',
+        'UidAddres' : 'Rumah',
+        'Chosen' : true
       };
 
       await UserDatabaseaddres.set(json2);

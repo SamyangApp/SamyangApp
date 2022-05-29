@@ -80,6 +80,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     super.initState();
   }
 
+  
+  Future<String> getAddress() async {
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getString('Address') ?? "Rumah";
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -176,46 +182,52 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   Widget TotalPriceTab(num Pricetotal) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(padding: EdgeInsets.only(left: 10)),
-        Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Total Belanja',
-                    style: TextStyle(color: Colors.white, fontSize: 18)),
-                Padding(padding: EdgeInsets.only(left: 20)),
-                Text('${Pricetotal}',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold))
-              ],
-            )),
-        Container(
-            width: 160,
-            child: SizedBox(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(183, 87, 3, 3),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(padding: EdgeInsets.only(left: 10)),
+          Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Total Belanja',
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  Padding(padding: EdgeInsets.only(left: 20)),
+                  Text('${Pricetotal}',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold))
+                ],
+              )),
+          Container(
+              width: 160,
+              child: SizedBox(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(183, 87, 3, 3),
+                  ),
+                  onPressed: () {
+                    if (Pricetotal == 0 ) {
+                      showtoast();
+                      print(Pricetotal);
+                    } if (Pricetotal > 0) {
+                      getAddress().then((
+                        address) {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CheckOutPage(user, address) ));
+                        }
+                      );
+                    }
+                  },
+                  child: CartButton(),
                 ),
-                onPressed: () {
-                  if (Pricetotal == 0 ) {
-                    showtoast();
-                    print(Pricetotal);
-                  } if (Pricetotal > 0) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CheckOutPage(user)));
-                  }
-                },
-                child: CartButton(),
-              ),
-            )),
-      ],
+              )),
+        ],
+      ),
     );
   }
 

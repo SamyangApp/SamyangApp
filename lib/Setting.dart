@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/History.dart';
 import 'package:flutter_application_1/Pengaturan_Akun.dart';
 import 'package:flutter_application_1/Pengaturan_Rekening.dart';
 import 'package:flutter_application_1/Daftar_Alamat.dart';
@@ -37,13 +38,17 @@ class _SettingsState extends State<Settings> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Center(
-              child: Text('My Account'),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text('My Account'),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(right: 5.0),
@@ -215,7 +220,7 @@ class _SettingsState extends State<Settings> {
               child: InkWell(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Alamat()));
+                        MaterialPageRoute(builder: (context) => Alamat(user)));
                   },
                   borderRadius: BorderRadius.circular(10),
                   child: Row(
@@ -254,6 +259,48 @@ class _SettingsState extends State<Settings> {
                   )),
             ),
             const Padding(padding: EdgeInsets.all(5)),
+            SizedBox(
+              height: 70,
+              child: InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => History(user)));
+                  },
+                  borderRadius: BorderRadius.circular(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(padding: EdgeInsets.all(5)),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.history,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                          const Padding(padding: EdgeInsets.only(left: 10)),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text('Histori Belanja',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 17)),
+                              Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 10, bottom: 2)),
+                              Text('Histori pembelanjaan mu',
+                                  style: TextStyle(color: Colors.white)),
+                              Padding(padding: EdgeInsets.all(2)),
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  )),
+            ),
           ],
         ),
       ),
@@ -266,11 +313,11 @@ class _SettingsState extends State<Settings> {
       children: [
         Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
         CircleAvatar(
-            backgroundColor: Colors.blue,
+            backgroundColor: Color.fromARGB(255, 243, 33, 33),
             radius: 45,
             child: SizedBox(
-                width: 80,
-                height: 80,
+                width: 85,
+                height: 85,
                 child: ClipOval(
                   child: Image.network(url),
                 ))),
