@@ -21,7 +21,7 @@ class _SignUpPageState extends State<SignUpPage> {
   int Count = 0;
   bool checkboxValue = false;
 
-  TextEditingController Addres = new TextEditingController();  
+  TextEditingController Addres = new TextEditingController();
   TextEditingController Fname = new TextEditingController();
   TextEditingController Lname = new TextEditingController();
   TextEditingController Nphone = new TextEditingController();
@@ -30,14 +30,13 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController email = new TextEditingController();
 
   @override
-
-   late File? _image = null;
-   late String url = 'https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60';
+  late File? _image = null;
+  late String url =
+      'https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60';
 
   void initState() {
     bool _passwordVisible = false;
   }
-
 
   Future getImage() async {
     var image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -50,21 +49,21 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Future openCard() => showDialog<String>(
       context: context,
-      builder: (BuildContext context) =>
-          AlertDialog(
+      builder: (BuildContext context) => AlertDialog(
             backgroundColor: Color.fromARGB(255, 160, 7, 7),
             title: Center(
-              child: Text(
-                  'Your account have been sign up !!!', style: TextStyle(color: Colors.white)
-              ),
+              child: Text('Your account have been sign up !!!',
+                  style: TextStyle(color: Colors.white)),
             ),
             content: Container(
               height: 80,
               child: Center(
                 child: Column(
                   children: [
-                    Text('Please Sign in again', style: TextStyle(color: Colors.white)),
-                    Text('to do purchase at SamyangApp', style: TextStyle(color: Colors.white)),
+                    Text('Please Sign in again',
+                        style: TextStyle(color: Colors.white)),
+                    Text('to do purchase at SamyangApp',
+                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
@@ -76,21 +75,40 @@ class _SignUpPageState extends State<SignUpPage> {
                     print(checkboxValue);
                   }
                   if (checkboxValue == true) {
-                    if ( Fname.text != '' && Lname.text != '' && Addres.text != '' && Nphone.text != '' && pass.text != '' && user.text != '' && email.text != '' && _image != null) {
-                        await AuthServices.SignUp(email.text, pass.text, user.text, Fname.text, Lname.text, Nphone.text, Addres.text, _image, url);
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
-                    } else {
+                    if (_image != null) {
+                      if (Fname.text != '' &&
+                          Lname.text != '' &&
+                          Addres.text != '' &&
+                          Nphone.text != '' &&
+                          pass.text != '' &&
+                          user.text != '' &&
+                          email.text != '') {
+                        await AuthServices.SignUp(
+                            email.text,
+                            pass.text,
+                            user.text,
+                            Fname.text,
+                            Lname.text,
+                            Nphone.text,
+                            Addres.text,
+                            _image,
+                            url);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MyApp()));
+                      } else {
                         Fluttertoast.showToast(msg: 'Textfield not filled');
+                      }
+                    } else {
+                      Fluttertoast.showToast(msg: 'Profile image not filled');
                     }
                   } else {
-                     Fluttertoast.showToast(msg: 'Chekbox not filled');
+                    Fluttertoast.showToast(msg: 'Chekbox not filled');
                   }
                 },
                 child: Text('OK', style: TextStyle(color: Colors.white)),
               ),
             ],
-          )
-  );
+          ));
 
   Widget BuildNavigateButton(context) => SizedBox(
       width: 75,
@@ -117,8 +135,7 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             Container(
               height: 450,
-              child:
-              HeaderWidget(200, false, Icons.abc),
+              child: HeaderWidget(200, false, Icons.abc),
             ),
             Container(
               child: Scaffold(
@@ -141,8 +158,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                 padding: EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
-                                  border:
-                                      Border.all(width: 1, color: Color.fromARGB(0, 0, 0, 0)),
+                                  border: Border.all(
+                                      width: 1,
+                                      color: Color.fromARGB(0, 0, 0, 0)),
                                   color: Color.fromARGB(255, 154, 26, 26),
                                   boxShadow: [
                                     BoxShadow(
@@ -152,19 +170,23 @@ class _SignUpPageState extends State<SignUpPage> {
                                     ),
                                   ],
                                 ),
-                                child:CircleAvatar(
+                                child: CircleAvatar(
                                   radius: 70,
-                                  backgroundColor: Color.fromARGB(255, 253, 21, 21),
+                                  backgroundColor:
+                                      Color.fromARGB(255, 253, 21, 21),
                                   child: ClipOval(
                                     child: new SizedBox(
                                       width: 140.0,
                                       height: 140.0,
-                                      child: (_image != null) ? Image.file(
-                                        _image!,
-                                        fit: BoxFit.fill,
-                                      ) : Image.asset('Assets/18.png',
-                                        fit: BoxFit.fitWidth,
-                                      ),
+                                      child: (_image != null)
+                                          ? Image.file(
+                                              _image!,
+                                              fit: BoxFit.fill,
+                                            )
+                                          : Image.asset(
+                                              'Assets/18.png',
+                                              fit: BoxFit.fitWidth,
+                                            ),
                                     ),
                                   ),
                                 ),
@@ -198,7 +220,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   child: Icon(
                                     Icons.mail,
                                     color: Colors.white,
-                                  ),  // myIcon is a 48px-wide widget.
+                                  ), // myIcon is a 48px-wide widget.
                                 ),
                                 hintText: 'Email',
                                 hintStyle:
