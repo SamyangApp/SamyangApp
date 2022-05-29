@@ -7,6 +7,7 @@ import 'package:flutter_application_1/auth_services.dart';
 import 'package:flutter_application_1/header_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_application_1/main.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -31,7 +32,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
 
    late File? _image = null;
-   late String url;
+   late String url = 'https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60';
 
   void initState() {
     bool _passwordVisible = false;
@@ -75,9 +76,14 @@ class _SignUpPageState extends State<SignUpPage> {
                     print(checkboxValue);
                   }
                   if (checkboxValue == true) {
-                    await AuthServices.SignUp(email.text, pass.text, user.text, Fname.text, Lname.text, Nphone.text, Addres.text, _image);
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
-
+                    if ( Fname.text != '' && Lname.text != '' && Addres.text != '' && Nphone.text != '' && pass.text != '' && user.text != '' && email.text != '' && _image != null) {
+                        await AuthServices.SignUp(email.text, pass.text, user.text, Fname.text, Lname.text, Nphone.text, Addres.text, _image, url);
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
+                    } else {
+                        Fluttertoast.showToast(msg: 'Textfield not filled');
+                    }
+                  } else {
+                     Fluttertoast.showToast(msg: 'Chekbox not filled');
                   }
                 },
                 child: Text('OK', style: TextStyle(color: Colors.white)),
@@ -192,7 +198,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   child: Icon(
                                     Icons.mail,
                                     color: Colors.white,
-                                  ), // myIcon is a 48px-wide widget.
+                                  ),  // myIcon is a 48px-wide widget.
                                 ),
                                 hintText: 'Email',
                                 hintStyle:

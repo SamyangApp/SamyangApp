@@ -10,20 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthServices {
   static FirebaseAuth _auth = FirebaseAuth.instance;
 
-  static Future<User?> SignInAnonymous() async {
-    try {
-      UserCredential results = await _auth.signInAnonymously();
-      User? firebaseUser = results.user;
-
-      return firebaseUser;
-    } catch (e) {
-      print(e.toString());
-
-      return null;
-    }
-  }
-
-  static Future<User?> SignUp (String email, String password, String user, String Fname, String Lname, String Pnum, String Addres, File? _image) async {
+  static Future<User?> SignUp (String email, String password, String user, String Fname, String Lname, String Pnum, String Addres, File? _image, String url2) async {
     try{
       
       String url = '';
@@ -53,7 +40,7 @@ class AuthServices {
         'Lname' : Lname,
         'Pnum' : Pnum,
         'Email' : email,
-        'img' : url,
+        'img' : (url == null) ? url2 : url,
       };
 
       await UserDatabase.set(json);

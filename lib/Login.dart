@@ -191,43 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 1),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Stack(
-                          children: <Widget>[
-                            Positioned.fill(
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: <Color>[
-                                      Color.fromARGB(255, 255, 0, 0),
-                                      Color.fromARGB(255, 134, 11, 11),
-                                      Color.fromARGB(255, 88, 3, 3),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.transparent,
-                                minimumSize: const Size.fromHeight(50), // NEW
-                              ),
-                              onPressed: () async {
-                                AuthServices.SignInAnonymous();
-                              },
-                              child: const Text(
-                                'Login (debug only)',
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                    
                     Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Row(
