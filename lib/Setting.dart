@@ -161,7 +161,7 @@ class _SettingsState extends State<Settings> {
                                   padding:
                                       EdgeInsets.only(left: 10, bottom: 2)),
                               Text(
-                                  'Atur Display Picture, Username dan Nomor Telepon',
+                                  'Atur Akun, Username, Email dan Nomor Telepon',
                                   style: TextStyle(color: Colors.white)),
                               Padding(padding: EdgeInsets.all(2)),
                             ],
