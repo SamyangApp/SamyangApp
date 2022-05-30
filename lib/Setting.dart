@@ -129,8 +129,10 @@ class _SettingsState extends State<Settings> {
               height: 70,
               child: InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AturAkun(user)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AturAkun(user)));
                   },
                   borderRadius: BorderRadius.circular(10),
                   child: Row(
@@ -158,7 +160,7 @@ class _SettingsState extends State<Settings> {
                               Padding(
                                   padding:
                                       EdgeInsets.only(left: 10, bottom: 2)),
-                              Text('Atur Akun, Username, Password',
+                              Text('Atur Username dan Nomor Telepon',
                                   style: TextStyle(color: Colors.white)),
                               Padding(padding: EdgeInsets.all(2)),
                             ],
@@ -263,7 +265,8 @@ class _SettingsState extends State<Settings> {
               height: 70,
               child: InkWell(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => History(user)));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => History(user)));
                   },
                   borderRadius: BorderRadius.circular(10),
                   child: Row(
