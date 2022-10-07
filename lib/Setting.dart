@@ -43,15 +43,15 @@ class _SettingsState extends State<Settings> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          children: const [
             Center(
               child: Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding: EdgeInsets.only(left: 10),
                 child: Text('My Account'),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 5.0),
+              padding: EdgeInsets.only(right: 5.0),
             ),
           ],
         ),
@@ -78,8 +78,9 @@ class _SettingsState extends State<Settings> {
 
                       return GridView.builder(
                         itemCount: 1,
-                        physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 1,
                           childAspectRatio: 4,
                         ),
@@ -94,11 +95,11 @@ class _SettingsState extends State<Settings> {
                       );
                     } else {
                       print('error');
-                      return Text('error');
+                      return const Text('error');
                     }
                   }),
             ),
-            Padding(padding: EdgeInsets.all(5)),
+            const Padding(padding: EdgeInsets.all(5)),
             Container(
               child: CarouselSlider.builder(
                   itemCount: ImageList.length,
@@ -315,9 +316,9 @@ class _SettingsState extends State<Settings> {
   Widget BuildUser(String url, String Username, String Email, String Pnum) {
     return Row(
       children: [
-        Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+        const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
         CircleAvatar(
-            backgroundColor: Color.fromARGB(255, 243, 33, 33),
+            backgroundColor: const Color.fromARGB(255, 243, 33, 33),
             radius: 45,
             child: SizedBox(
                 width: 85,
@@ -325,20 +326,22 @@ class _SettingsState extends State<Settings> {
                 child: ClipOval(
                   child: Image.network(url),
                 ))),
-        Padding(padding: EdgeInsets.all(10)),
+        const Padding(padding: EdgeInsets.all(10)),
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(padding: EdgeInsets.only(bottom: 4)),
+            const Padding(padding: EdgeInsets.only(bottom: 4)),
             Text(Username,
-                style: TextStyle(
+                style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                     color: Colors.white)),
-            Text(Pnum, style: TextStyle(fontSize: 15, color: Colors.white)),
-            Text(Email, style: TextStyle(fontSize: 15, color: Colors.white)),
-            Padding(padding: EdgeInsets.only(top: 4, bottom: 4)),
+            Text(Pnum,
+                style: const TextStyle(fontSize: 15, color: Colors.white)),
+            Text(Email,
+                style: const TextStyle(fontSize: 15, color: Colors.white)),
+            const Padding(padding: EdgeInsets.only(top: 4, bottom: 4)),
           ],
         ),
       ],

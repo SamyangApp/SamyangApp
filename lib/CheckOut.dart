@@ -17,7 +17,7 @@ class CheckOutPage extends StatelessWidget {
 
   CheckOutPage(this.user, this.ad);
 
-  static String _title = 'Flutter Code Sample';
+  static final String _title = 'Flutter Code Sample';
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +73,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -86,7 +87,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 child: IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CartSplashScreenPage()));
+                        builder: (context) => const CartSplashScreenPage()));
                   },
                   icon: const Icon(
                     Icons.arrow_back,
@@ -94,7 +95,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   ),
                   alignment: const Alignment(0, 0),
                 )),
-            Text('Checkout')
+            const Text('Checkout')
           ],
         ),
         backgroundColor: const Color.fromARGB(0, 0, 0, 0),
@@ -107,11 +108,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ], radius: 2)),
           child: Column(
             children: [
-              Divider(
+              const Divider(
                 color: Colors.white,
                 thickness: 1,
               ),
-              Padding(padding: EdgeInsets.all(5)),
+              const Padding(padding: EdgeInsets.all(5)),
               StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('User')
@@ -128,8 +129,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       return GridView.builder(
                         itemCount: 1,
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 1,
                           childAspectRatio: 5,
                         ),
@@ -145,11 +147,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       );
                     } else {
                       print('error');
-                      return Text('error');
+                      return const Text('error');
                     }
                   }),
-              Padding(padding: EdgeInsets.all(5)),
-              Divider(
+              const Padding(padding: EdgeInsets.all(5)),
+              const Divider(
                 color: Colors.white,
                 thickness: 1,
               ),
@@ -180,13 +182,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         );
                       } else if (snapshot.hasError) {
                         print('error');
-                        return Text('error');
+                        return const Text('error');
                       } else {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
                     }),
               ),
-              Divider(
+              const Divider(
                 color: Colors.white,
                 thickness: 1,
               ),
@@ -202,15 +204,17 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         if (snapshot.hasData) {
                           var ds = snapshot.data!.docs;
                           num sum = 0;
-                          for (int i = 0; i < ds.length; i++)
+                          for (int i = 0; i < ds.length; i++) {
                             sum += (ds[i]['TotalPrice']);
+                          }
                           return (TotalPriceTab(sum));
                         } else {
-                          return Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
                       })),
-              Padding(padding: EdgeInsets.all(10)),
-              SizedBox(
+              const Padding(padding: EdgeInsets.all(10)),
+              const SizedBox(
                 height: 70,
               )
             ],
@@ -221,37 +225,41 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   Widget TotalPriceTab(num Pricetotal) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(padding: EdgeInsets.only(left: 10)),
+          const Padding(padding: EdgeInsets.only(left: 10)),
           Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Total Belanja',
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  Padding(padding: EdgeInsets.only(left: 20)),
-                  Text('${Pricetotal}',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold))
-                ],
-              )),
-          Container(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Total Belanja',
+                  style: TextStyle(color: Colors.white, fontSize: 18)),
+              const Padding(padding: EdgeInsets.only(left: 20)),
+              Text('$Pricetotal',
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold))
+            ],
+          )),
+          SizedBox(
               width: 160,
               child: SizedBox(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Color.fromARGB(183, 87, 3, 3),
+                    backgroundColor: Color.fromARGB(183, 87, 3, 3),
                   ),
                   onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentList(Pricetotal, user)));
-                        },
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PaymentList(Pricetotal, user)));
+                  },
                   child: CartButton(),
                 ),
               )),
@@ -267,13 +275,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         padding: const EdgeInsets.all(10),
         child: SizedBox(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.shopping_cart_checkout, color: Colors.white),
-                Padding(padding: EdgeInsets.only(left: 20)),
-                Text('Payment', style: TextStyle(color: Colors.white)),
-              ],
-            )),
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.shopping_cart_checkout, color: Colors.white),
+            Padding(padding: EdgeInsets.only(left: 20)),
+            Text('Payment', style: TextStyle(color: Colors.white)),
+          ],
+        )),
       ),
     );
   }
@@ -281,27 +289,28 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Widget ListAddres(String AddressName, String Fname, String Lname, String Pnum,
       String Address) {
     return Container(
-      padding: EdgeInsets.only(left: 10),
+      padding: const EdgeInsets.only(left: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Alamat Pengiriman',
             style: TextStyle(color: Colors.white),
           ),
           Row(
             children: [
-              Text('$Fname $Lname', style: TextStyle(color: Colors.white)),
-              Text('($Pnum)', style: TextStyle(color: Colors.white))
+              Text('$Fname $Lname',
+                  style: const TextStyle(color: Colors.white)),
+              Text('($Pnum)', style: const TextStyle(color: Colors.white))
             ],
           ),
           Container(
-            child: new Container(
-              padding: new EdgeInsets.only(right: 13.0),
+            child: Container(
+              padding: const EdgeInsets.only(right: 13.0),
               width: 380,
-              child: new Text(Address,
-                  maxLines: 10, style: TextStyle(color: Colors.white)),
+              child: Text(Address,
+                  maxLines: 10, style: const TextStyle(color: Colors.white)),
             ),
           ),
         ],
@@ -311,13 +320,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   Widget CartList(String url, String name, int price, int Count) {
     return Container(
-        padding: EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(bottom: 10),
         child: Container(
           width: 400,
           height: 90,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color.fromARGB(120, 233, 110, 110)),
+              color: const Color.fromARGB(120, 233, 110, 110)),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.max,
@@ -326,24 +335,24 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   url,
                   width: 110,
                 ),
-                Container(
+                SizedBox(
                   width: 120,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(name,
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           maxLines: 3,
                           textAlign: TextAlign.center),
-                      Padding(padding: EdgeInsets.only(bottom: 10)),
-                      Text('Rp ${price}',
-                          style: TextStyle(color: Colors.white)),
+                      const Padding(padding: EdgeInsets.only(bottom: 10)),
+                      Text('Rp $price',
+                          style: const TextStyle(color: Colors.white)),
                     ],
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(bottom: 10)),
-                Text('x ${Count}', style: TextStyle(color: Colors.white))
+                const Padding(padding: EdgeInsets.only(bottom: 10)),
+                Text('x $Count', style: const TextStyle(color: Colors.white))
               ]),
         ));
   }

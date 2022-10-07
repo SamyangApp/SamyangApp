@@ -73,19 +73,20 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   void initState() {
-    Timer(Duration(seconds: 10), () {
-      CircularProgressIndicator();
+    Timer(const Duration(seconds: 10), () {
+      const CircularProgressIndicator();
     });
 
     super.initState();
   }
 
-  
   Future<String> getAddress() async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
     return sharedPreferences.getString('Address') ?? "Rumah";
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -109,9 +110,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       body: Container(
         decoration: const BoxDecoration(
             gradient: RadialGradient(colors: [
-              Color.fromARGB(255, 0, 0, 0),
-              Color.fromARGB(255, 117, 11, 3),
-            ], radius: 2)),
+          Color.fromARGB(255, 0, 0, 0),
+          Color.fromARGB(255, 117, 11, 3),
+        ], radius: 2)),
         child: Column(
           children: [
             Expanded(
@@ -132,7 +133,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
-                          print('${TotalPrice}');
+                          print('$TotalPrice');
                           return CartList(
                               product[index]['Product_Img'],
                               product[index]['ProductName'],
@@ -142,17 +143,17 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       );
                     } else if (snapshot.hasError) {
                       print('error');
-                      return Text('error');
+                      return const Text('error');
                     } else {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     }
                   }),
             ),
-            Divider(
+            const Divider(
               color: Colors.white,
               thickness: 1,
             ),
-            Padding(padding: EdgeInsets.all(10)),
+            const Padding(padding: EdgeInsets.all(10)),
             Container(
                 child: StreamBuilder(
                     stream: FirebaseFirestore.instance
@@ -164,14 +165,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       if (snapshot.hasData) {
                         var ds = snapshot.data!.docs;
                         num sum = 0;
-                        for (int i = 0; i < ds.length; i++)
+                        for (int i = 0; i < ds.length; i++) {
                           sum += (ds[i]['TotalPrice']);
+                        }
                         return (TotalPriceTab(sum));
                       } else {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
                     })),
-            SizedBox(
+            const SizedBox(
               height: 100,
             )
           ],
@@ -183,44 +185,47 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   Widget TotalPriceTab(num Pricetotal) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(padding: EdgeInsets.only(left: 10)),
+          const Padding(padding: EdgeInsets.only(left: 10)),
           Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Total Belanja',
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  Padding(padding: EdgeInsets.only(left: 20)),
-                  Text('${Pricetotal}',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold))
-                ],
-              )),
-          Container(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Total Belanja',
+                  style: TextStyle(color: Colors.white, fontSize: 18)),
+              const Padding(padding: EdgeInsets.only(left: 20)),
+              Text('$Pricetotal',
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold))
+            ],
+          )),
+          SizedBox(
               width: 160,
               child: SizedBox(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Color.fromARGB(183, 87, 3, 3),
+                    backgroundColor: Color.fromARGB(183, 87, 3, 3),
                   ),
                   onPressed: () {
-                    if (Pricetotal == 0 ) {
+                    if (Pricetotal == 0) {
                       showtoast();
                       print(Pricetotal);
-                    } if (Pricetotal > 0) {
-                      getAddress().then((
-                        address) {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CheckOutPage(user, address) ));
-                        }
-                      );
+                    }
+                    if (Pricetotal > 0) {
+                      getAddress().then((address) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    CheckOutPage(user, address)));
+                      });
                     }
                   },
                   child: CartButton(),
@@ -231,8 +236,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 
-  void showtoast() => Fluttertoast.showToast(
-      msg: 'You dont have any item in the cart');
+  void showtoast() =>
+      Fluttertoast.showToast(msg: 'You dont have any item in the cart');
 
   Widget CartButton() {
     return ClipRRect(
@@ -241,24 +246,24 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         padding: const EdgeInsets.all(10),
         child: SizedBox(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.shopping_cart_checkout, color: Colors.white),
-                Padding(padding: EdgeInsets.only(left: 20)),
-                Text('Checkout', style: TextStyle(color: Colors.white)),
-              ],
-            )),
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.shopping_cart_checkout, color: Colors.white),
+            Padding(padding: EdgeInsets.only(left: 20)),
+            Text('Checkout', style: TextStyle(color: Colors.white)),
+          ],
+        )),
       ),
     );
   }
 
   Widget CartList(String url, String name, int price, int Count) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Image.network(url, width: 90),
-        Container(
+        SizedBox(
           width: 170,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -266,14 +271,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             children: [
               Text(
                 name,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                 ),
                 maxLines: 3,
                 textAlign: TextAlign.center,
               ),
-              Padding(padding: EdgeInsets.only(bottom: 10)),
-              Text('Rp ${price}', style: TextStyle(color: Colors.white))
+              const Padding(padding: EdgeInsets.only(bottom: 10)),
+              Text('Rp $price', style: const TextStyle(color: Colors.white))
             ],
           ),
         ),
@@ -286,12 +291,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   onPressed: () {
                     OrderIncrement(name, price);
                   },
-                  icon: Icon(Icons.add, size: 18),
+                  icon: const Icon(Icons.add, size: 18),
                   color: Colors.white),
             ),
             Text(
-              '${Count}',
-              style: TextStyle(color: Colors.white, fontSize: 15),
+              '$Count',
+              style: const TextStyle(color: Colors.white, fontSize: 15),
             ),
             Material(
               type: MaterialType.transparency,
@@ -300,7 +305,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 onPressed: () {
                   OrderDecrement(name, Count, price);
                 },
-                icon: Icon(Icons.remove, color: Colors.white, size: 18),
+                icon: const Icon(Icons.remove, color: Colors.white, size: 18),
               ),
             )
           ],

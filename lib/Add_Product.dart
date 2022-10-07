@@ -1,28 +1,17 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Home.dart';
-import 'package:flutter_application_1/Login.dart';
-import 'package:flutter_application_1/SpashScreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class addProduct extends StatefulWidget {
-
-
-  addProduct(
-      {Key? key})
-      : super(key: key);
+  addProduct({Key? key}) : super(key: key);
 
   @override
-  State<addProduct> createState() =>
-      _addProductState();
+  State<addProduct> createState() => _addProductState();
 }
 
 class _addProductState extends State<addProduct> {
-
   late File? _image = null;
 
   Future getImage() async {
@@ -81,11 +70,10 @@ class _addProductState extends State<addProduct> {
               children: [
                 Expanded(
                     child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  child: SingleChildScrollView(
-                    child: buildBurger1(),
-                  )
-                )),
+                        height: MediaQuery.of(context).size.height,
+                        child: SingleChildScrollView(
+                          child: buildBurger1(),
+                        ))),
                 Padding(padding: EdgeInsets.symmetric(horizontal: 0)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
