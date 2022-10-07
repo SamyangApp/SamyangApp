@@ -6,30 +6,31 @@ import 'package:flutter_application_1/Login.dart';
 import 'package:provider/provider.dart';
 
 class CartSplashScreenPage extends StatefulWidget {
-  CartSplashScreenPage({Key? key}) : super(key: key);
+  const CartSplashScreenPage({Key? key}) : super(key: key);
 
   @override
   State<CartSplashScreenPage> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<CartSplashScreenPage> with TickerProviderStateMixin {
+class _SplashScreenState extends State<CartSplashScreenPage>
+    with TickerProviderStateMixin {
   late bool isLoading = true;
   late AnimationController _controller;
   late Animation<double> _animation;
 
   @override
   dispose() {
-  _controller.dispose(); // you need this
-  super.dispose();
+    _controller.dispose(); // you need this
+    super.dispose();
   }
 
   @override
   void initState() {
-    _controller = AnimationController(vsync: this, duration: Duration(seconds: 1));
-    _animation = CurvedAnimation(parent: _controller, 
-    curve: Curves.ease);
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.ease);
     _controller.repeat(reverse: true);
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         isLoading = false;
       });
@@ -39,17 +40,22 @@ class _SplashScreenState extends State<CartSplashScreenPage> with TickerProvider
 
   @override
   Widget build(BuildContext context) {
-    User? firebaseUser = Provider.of<User?>(context); 
+    User? firebaseUser = Provider.of<User?>(context);
 
-    return isLoading ? 
-          Scaffold(
+    return isLoading
+        ? Scaffold(
             backgroundColor: const Color.fromARGB(255, 0, 0, 0),
             body: Center(
-            child: FadeTransition(
+                child: FadeTransition(
               opacity: _animation,
-              child: Image(image: AssetImage('Assets/10.png'), width: 100,),
-              )
-          ),
-          ) : (firebaseUser == null ) ? LoginPage() : Cart(firebaseUser);
+              child: const Image(
+                image: AssetImage('Assets/10.png'),
+                width: 100,
+              ),
+            )),
+          )
+        : (firebaseUser == null)
+            ? LoginPage()
+            : Cart(firebaseUser);
   }
 }

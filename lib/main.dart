@@ -9,10 +9,9 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); 
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -21,36 +20,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return StreamProvider.value(
-     value: AuthServices.firebaseUserStream, 
-      initialData: null,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-      title: _title,
-      home: MyStatefulWidget(),
-   ));
+    return StreamProvider.value(
+        value: AuthServices.firebaseUserStream,
+        initialData: null,
+        child: const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: _title,
+          home: MyStatefulWidget(),
+        ));
   }
 }
 
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
-  
+
   @override
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-
   late bool isLoading;
 
   @override
   int currenIndex = 0;
   List<Widget> screens = [
     Page1(),
-    SplashScreenPageSetting(),
+    const SplashScreenPageSetting(),
     Product_List(),
-    CartSplashScreenPage(),
-    SplashScreenPage(),
+    const CartSplashScreenPage(),
+    const SplashScreenPage(),
   ];
 
   PageStorageBucket bucket = PageStorageBucket();
@@ -58,31 +56,29 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final bool showFab = MediaQuery.of(context).viewInsets.bottom==0.0;
+    final bool showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: PageStorage(
-        bucket: bucket, 
-        child: currentscreen),
+      body: PageStorage(bucket: bucket, child: currentscreen),
       floatingActionButton: BuildNavigateButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
-       bottomNavigationBar: BottomAppBar(
-          color: Color.fromARGB(178, 14, 0, 0),
+      bottomNavigationBar: BottomAppBar(
+          color: const Color.fromARGB(178, 14, 0, 0),
           shape: const CircularNotchedRectangle(),
           child: SizedBox(
             height: 55,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                  Row(
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MaterialButton(
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       minWidth: 40,
-                      onPressed: () {    
+                      onPressed: () {
                         setState(() {
                           currentscreen = Page1();
                           currenIndex = 0;
@@ -91,14 +87,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            Icons.house_outlined,
-                            color: currenIndex == 0 ? Colors.white : Colors.grey
-                          ),
+                          Icon(Icons.house_outlined,
+                              color: currenIndex == 0
+                                  ? Colors.white
+                                  : Colors.grey),
                           Text(
                             'Home',
                             style: TextStyle(
-                              color: currenIndex == 0 ? Colors.white : Colors.grey,
+                              color:
+                                  currenIndex == 0 ? Colors.white : Colors.grey,
                             ),
                           )
                         ],
@@ -114,23 +111,23 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       highlightColor: Colors.transparent,
                       minWidth: 40,
                       onPressed: () {
-                        
                         setState(() {
-                          currentscreen = SplashScreenPageSetting();
+                          currentscreen = const SplashScreenPageSetting();
                           currenIndex = 1;
                         });
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            Icons.settings,
-                            color: currenIndex == 1 ? Colors.white : Colors.grey
-                          ),
+                          Icon(Icons.settings,
+                              color: currenIndex == 1
+                                  ? Colors.white
+                                  : Colors.grey),
                           Text(
                             'Settings',
                             style: TextStyle(
-                              color: currenIndex == 1 ? Colors.white : Colors.grey,
+                              color:
+                                  currenIndex == 1 ? Colors.white : Colors.grey,
                             ),
                           )
                         ],
@@ -147,23 +144,23 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       highlightColor: Colors.transparent,
                       minWidth: 40,
                       onPressed: () {
-                        
                         setState(() {
-                          currentscreen = CartSplashScreenPage();
+                          currentscreen = const CartSplashScreenPage();
                           currenIndex = 3;
                         });
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            Icons.shopping_cart_checkout_outlined,
-                            color: currenIndex == 3 ? Colors.white : Colors.grey
-                          ),
+                          Icon(Icons.shopping_cart_checkout_outlined,
+                              color: currenIndex == 3
+                                  ? Colors.white
+                                  : Colors.grey),
                           Text(
                             'Cart',
                             style: TextStyle(
-                              color: currenIndex == 3 ? Colors.white : Colors.grey,
+                              color:
+                                  currenIndex == 3 ? Colors.white : Colors.grey,
                             ),
                           )
                         ],
@@ -180,23 +177,23 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       highlightColor: Colors.transparent,
                       minWidth: 40,
                       onPressed: () {
-                        
                         setState(() {
-                          currentscreen = SplashScreenPage();
+                          currentscreen = const SplashScreenPage();
                           currenIndex = 4;
                         });
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            Icons.person,
-                            color: currenIndex == 4 ? Colors.white : Colors.grey
-                          ),
+                          Icon(Icons.person,
+                              color: currenIndex == 4
+                                  ? Colors.white
+                                  : Colors.grey),
                           Text(
                             'Login',
                             style: TextStyle(
-                              color: currenIndex == 4 ? Colors.white : Colors.grey,
+                              color:
+                                  currenIndex == 4 ? Colors.white : Colors.grey,
                             ),
                           )
                         ],
@@ -206,8 +203,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
               ],
             ),
-          )
-        ),
+          )),
     );
   }
 

@@ -1,17 +1,8 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/CheckOut.dart';
-import 'package:flutter_application_1/Models/models_product.dart';
-import 'package:flutter_application_1/Samyang-Cheese.dart';
 import 'package:flutter_application_1/SettingSplashScreen.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class History extends StatelessWidget {
   static const String _title = 'Flutter Code Sample';
@@ -44,6 +35,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   _MyStatefulWidgetState(this.user);
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -53,16 +45,21 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreenPageSetting())), 
-              style: ElevatedButton.styleFrom(
-                primary: Colors.transparent
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SplashScreenPageSetting())),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent),
+                child: const Icon(Icons.arrow_back)),
+            const Padding(padding: EdgeInsets.only(left: 30)),
+            const Center(
+              child: Text(
+                'History',
+                style: TextStyle(fontSize: 25),
               ),
-              child: Icon(Icons.arrow_back)),
-            Padding(padding: EdgeInsets.only(left: 30)),
-            Center(
-              child: Text('History', style: TextStyle(fontSize: 25),),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(right: 5.0),
             ),
           ],
@@ -94,16 +91,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
-                        print('${TotalPrice}');
+                        print('$TotalPrice');
                         return History(product[index]['date'],
                             product[index]['Hour'], product[index]['Price']);
                       },
                     );
                   } else if (snapshot.hasError) {
                     print('error');
-                    return Center(child: Text('No History'));
+                    return const Center(child: Text('No History'));
                   } else {
-                    return Center(child: Text('No History'));
+                    return const Center(child: Text('No History'));
                   }
                 }),
           ],
@@ -117,12 +114,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         width: 400,
         height: 70,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Color.fromARGB(120, 233, 110, 110)),
+            color: const Color.fromARGB(120, 233, 110, 110)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -131,21 +128,36 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
-                    child: Text(date, style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold))),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+                    child: Text(date,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold))),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
-                    child: Text(Hour, style: TextStyle(color: Colors.white, fontSize: 15)))
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+                    child: Text(Hour,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 15)))
               ],
             ),
             Column(
               children: [
-                Padding(
+                const Padding(
                     padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
-                    child: Text('Total Price', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold))),
+                    child: Text('Total Price',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold))),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
-                    child: Text('${TotalPrice}', style: TextStyle(color: Colors.white, fontSize: 15)))
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+                    child: Text('$TotalPrice',
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 15)))
               ],
             )
           ],

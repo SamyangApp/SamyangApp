@@ -1,13 +1,11 @@
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, prefer_const_constructors_in_immutables, no_logic_in_create_state, avoid_init_to_null, avoid_print
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Home.dart';
-import 'package:flutter_application_1/Login.dart';
-import 'package:flutter_application_1/SpashScreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Edit_Product extends StatefulWidget {
   late final String Name;
@@ -74,7 +72,7 @@ class _Edit_ProductState extends State<Edit_Product> {
                         ),
                         alignment: const Alignment(0, 0),
                       )),
-                  Image(image: AssetImage('Assets/12.png'), height: 50),
+                  const Image(image: AssetImage('Assets/12.png'), height: 50),
                   Padding(
                       padding: const EdgeInsets.only(right: 1.0),
                       child: IconButton(
@@ -93,7 +91,7 @@ class _Edit_ProductState extends State<Edit_Product> {
             body: Column(
               children: [
                 Expanded(
-                    child: Container(
+                    child: SizedBox(
                   height: MediaQuery.of(context).size.height,
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
@@ -128,16 +126,16 @@ class _Edit_ProductState extends State<Edit_Product> {
                           );
                         } else {
                           print('error');
-                          return Text('error');
+                          return const Text('error');
                         }
                       }),
                 )),
-                Padding(padding: EdgeInsets.symmetric(horizontal: 0)),
+                const Padding(padding: EdgeInsets.symmetric(horizontal: 0)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [BuildNavigateButton1(context)],
                 ),
-                Padding(
+                const Padding(
                     padding: EdgeInsets.only(
                   bottom: 10,
                 ))
@@ -152,7 +150,7 @@ class _Edit_ProductState extends State<Edit_Product> {
       String Url, String Name, int Price, String Desc, bool isDark, _image) {
     return ClipRRect(
       child: Container(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,7 +179,7 @@ class _Edit_ProductState extends State<Edit_Product> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       maxLines: 2,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
@@ -213,7 +211,7 @@ class _Edit_ProductState extends State<Edit_Product> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       maxLines: 2,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
@@ -245,7 +243,7 @@ class _Edit_ProductState extends State<Edit_Product> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       maxLines: 18,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
@@ -277,7 +275,7 @@ class _Edit_ProductState extends State<Edit_Product> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       maxLines: 1,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
@@ -314,13 +312,13 @@ class _Edit_ProductState extends State<Edit_Product> {
 
   Widget BuildNavigateButton1(context) => FloatingActionButton.extended(
         heroTag: "btn1",
-        label: Text(
+        label: const Text(
           'Edit Product',
           style: TextStyle(fontSize: 15),
         ),
         onPressed: () {},
         backgroundColor: const Color.fromARGB(188, 255, 0, 0),
-        icon: Icon(
+        icon: const Icon(
           Icons.shopping_cart,
           size: 20,
         ),

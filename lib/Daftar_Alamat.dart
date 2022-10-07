@@ -16,19 +16,20 @@ class Alamat extends StatefulWidget {
 class _nameState extends State<Alamat> {
   late User user;
 
-  TextEditingController AddresName = new TextEditingController();
-  TextEditingController Fname = new TextEditingController();
-  TextEditingController Lname = new TextEditingController();
-  TextEditingController Addres = new TextEditingController();
-  TextEditingController Pnum = new TextEditingController();
+  TextEditingController AddresName = TextEditingController();
+  TextEditingController Fname = TextEditingController();
+  TextEditingController Lname = TextEditingController();
+  TextEditingController Addres = TextEditingController();
+  TextEditingController Pnum = TextEditingController();
 
   _nameState(this.user);
 
   Future PilihAlamat(String AddresName) async {
     final SharedPreferences sharedPreferences =
-      await SharedPreferences.getInstance();
-      sharedPreferences.setString('Address', AddresName);
-    print("Alamat yang dipiih " + sharedPreferences.getString('Address').toString());
+        await SharedPreferences.getInstance();
+    sharedPreferences.setString('Address', AddresName);
+    print("Alamat yang dipiih " +
+        sharedPreferences.getString('Address').toString());
   }
 
   void UpdateAddress(
@@ -61,25 +62,25 @@ class _nameState extends State<Alamat> {
   }
 
   void AddAddress(
-      String Fname,
-      String Lname,
-      String Addres,
-      String Pnum,
-      String AddresName,
-    ) {
+    String Fname,
+    String Lname,
+    String Addres,
+    String Pnum,
+    String AddresName,
+  ) {
     final AddresList = FirebaseFirestore.instance
         .collection('User')
         .doc(user.uid)
         .collection('AddresList')
         .doc(AddresName);
-    
+
     final json = ({
-       'Pnum': Pnum, // if pnum == '' pnum:oldpnum else pnum:pnum
+      'Pnum': Pnum, // if pnum == '' pnum:oldpnum else pnum:pnum
       'Addres': Addres,
       'Fname': Fname,
       'Lname': Lname,
       'AddresName': AddresName,
-      'UidAddres' : AddresName
+      'UidAddres': AddresName
     });
 
     AddresList.set(json);
@@ -90,7 +91,7 @@ class _nameState extends State<Alamat> {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          children: [
+          children: const [
             Center(
               child: Text(
                 'Pengaturan Alamat',
@@ -98,7 +99,7 @@ class _nameState extends State<Alamat> {
             ),
           ],
         ),
-        backgroundColor: Color.fromARGB(0, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
       ),
       floatingActionButton: BuildNavigateButton(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -130,7 +131,7 @@ class _nameState extends State<Alamat> {
                   },
                 );
               } else {
-                return Text('Error');
+                return const Text('Error');
               }
             },
           ),
@@ -143,12 +144,12 @@ class _nameState extends State<Alamat> {
   Widget ListAlamat(String Fname, String Lname, String Addres, String Pnum,
       String AddresName, String UidAddres) {
     return Padding(
-      padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
       child: Container(
           height: 200,
           width: 200,
           decoration: BoxDecoration(
-              gradient: RadialGradient(colors: [
+              gradient: const RadialGradient(colors: [
                 Color.fromARGB(255, 172, 6, 6),
                 Color.fromARGB(255, 0, 0, 0)
               ], radius: 0.8),
@@ -160,9 +161,9 @@ class _nameState extends State<Alamat> {
               Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(10, 20, 10, 5),
+                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 5),
                     child: Text(AddresName,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 25,
                             color: Colors.white)),
@@ -170,11 +171,11 @@ class _nameState extends State<Alamat> {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
                       child: Text(
                         '$Fname $Lname',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                             color: Colors.white),
@@ -184,11 +185,11 @@ class _nameState extends State<Alamat> {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 2, horizontal: 10),
                       child: Text(
                         Pnum,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                             color: Colors.white),
@@ -197,10 +198,12 @@ class _nameState extends State<Alamat> {
                   ),
                   Container(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
                       child: Text(
                         Addres,
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style:
+                            const TextStyle(fontSize: 18, color: Colors.white),
                       ),
                     ),
                   ),
@@ -211,60 +214,68 @@ class _nameState extends State<Alamat> {
                   left: 0,
                   right: 170,
                   child: Align(
-                    alignment: Alignment.center,
-                    child: InkWell(
-                      onTap: () {
-                        openBoxUbahAlamat(Fname, Lname, Addres, AddresName, Pnum, UidAddres);
-
-                      },
-                      child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Container(
-                        width: 150,
-                        height: 40,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: <Color>[
-                              Color.fromARGB(255, 255, 0, 0),
-                              Color.fromARGB(255, 134, 11, 11),
-                              Color.fromARGB(255, 177, 7, 7),
-                            ],
+                      alignment: Alignment.center,
+                      child: InkWell(
+                        onTap: () {
+                          openBoxUbahAlamat(Fname, Lname, Addres, AddresName,
+                              Pnum, UidAddres);
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Container(
+                            width: 150,
+                            height: 40,
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: <Color>[
+                                  Color.fromARGB(255, 255, 0, 0),
+                                  Color.fromARGB(255, 134, 11, 11),
+                                  Color.fromARGB(255, 177, 7, 7),
+                                ],
+                              ),
+                            ),
+                            child: const Center(
+                                child: Text('Ubah Alamat',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold))),
                           ),
                         ),
-                        child: Center(child: Text('Ubah Alamat', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold))),
-                      ),
-                    ),
-                    )
-                  )),
+                      ))),
               Positioned(
                   bottom: 10,
                   left: 170,
                   right: 0,
                   child: Align(
-                    alignment: Alignment.center,
-                    child: InkWell(
-                      onTap: () {
-                        PilihAlamat(UidAddres);
-                      },
-                      child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Container(
-                        width: 150,
-                        height: 40,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: <Color>[
-                              Color.fromARGB(255, 255, 0, 0),
-                              Color.fromARGB(255, 134, 11, 11),
-                              Color.fromARGB(255, 168, 8, 8),
-                            ],
+                      alignment: Alignment.center,
+                      child: InkWell(
+                        onTap: () {
+                          PilihAlamat(UidAddres);
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Container(
+                            width: 150,
+                            height: 40,
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: <Color>[
+                                  Color.fromARGB(255, 255, 0, 0),
+                                  Color.fromARGB(255, 134, 11, 11),
+                                  Color.fromARGB(255, 168, 8, 8),
+                                ],
+                              ),
+                            ),
+                            child: const Center(
+                                child: Text('Pilih Alamat',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold))),
                           ),
                         ),
-                        child: Center(child: Text('Pilih Alamat', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold))),
-                      ),
-                    ),
-                    )
-                  ))
+                      )))
             ],
           )),
     );
@@ -275,24 +286,25 @@ class _nameState extends State<Alamat> {
       showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-                backgroundColor: Color.fromARGB(162, 0, 0, 0),
-                title: Center(
+                backgroundColor: const Color.fromARGB(162, 0, 0, 0),
+                title: const Center(
                   child: Text(
                     'Change Your Address',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                content: Container(
+                content: SizedBox(
                     height: 440,
                     width: 400,
                     child: SingleChildScrollView(
                       child: Center(
                         child: Column(
                           children: [
-                            Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 5)),
+                            const Padding(
+                                padding: EdgeInsets.fromLTRB(0, 5, 0, 5)),
                             TextField(
                               controller: AddresName,
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
@@ -316,10 +328,11 @@ class _nameState extends State<Alamat> {
                                   hintStyle:
                                       const TextStyle(color: Colors.white)),
                             ),
-                            Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 5)),
+                            const Padding(
+                                padding: EdgeInsets.fromLTRB(0, 5, 0, 5)),
                             TextField(
                               controller: Fname,
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
@@ -343,10 +356,11 @@ class _nameState extends State<Alamat> {
                                   hintStyle:
                                       const TextStyle(color: Colors.white)),
                             ),
-                            Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 5)),
+                            const Padding(
+                                padding: EdgeInsets.fromLTRB(0, 5, 0, 5)),
                             TextField(
                               controller: Lname,
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
@@ -371,17 +385,17 @@ class _nameState extends State<Alamat> {
                                       const TextStyle(color: Colors.white)),
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 5, vertical: 3),
                               child: TextField(
                                 maxLines: 4,
                                 controller: Addres,
                                 keyboardType: TextInputType.number,
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 30),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 30),
                                     focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
                                         borderSide: const BorderSide(
@@ -407,12 +421,12 @@ class _nameState extends State<Alamat> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 5, vertical: 3),
                               child: TextField(
                                 controller: Pnum,
                                 keyboardType: TextInputType.number,
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
                                     focusedBorder: OutlineInputBorder(
@@ -443,9 +457,9 @@ class _nameState extends State<Alamat> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 2),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 120,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(50),
@@ -453,14 +467,15 @@ class _nameState extends State<Alamat> {
                                         children: <Widget>[
                                           Positioned.fill(
                                             child: Container(
-                                              color:
-                                                  Color.fromARGB(255, 0, 0, 0),
+                                              color: const Color.fromARGB(
+                                                  255, 0, 0, 0),
                                             ),
                                           ),
                                           ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                              primary: Color.fromARGB(
-                                                  172, 247, 6, 6),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      172, 247, 6, 6),
                                               minimumSize:
                                                   const Size.fromHeight(
                                                       50), // NEW
@@ -484,9 +499,9 @@ class _nameState extends State<Alamat> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 2),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 120,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(50),
@@ -494,14 +509,15 @@ class _nameState extends State<Alamat> {
                                         children: <Widget>[
                                           Positioned.fill(
                                             child: Container(
-                                              color:
-                                                  Color.fromARGB(255, 0, 0, 0),
+                                              color: const Color.fromARGB(
+                                                  255, 0, 0, 0),
                                             ),
                                           ),
                                           ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                              primary: Color.fromARGB(
-                                                  172, 247, 6, 6),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      172, 247, 6, 6),
                                               minimumSize:
                                                   const Size.fromHeight(
                                                       50), // NEW
@@ -526,7 +542,7 @@ class _nameState extends State<Alamat> {
                                               Pnum.clear();
                                               Navigator.pop(context);
                                               print(
-                                                  'AddresName ${oldAddresName}');
+                                                  'AddresName $oldAddresName');
                                             },
                                             child: const Text(
                                               'Ubah Alamat',
@@ -544,288 +560,278 @@ class _nameState extends State<Alamat> {
                         ),
                       ),
                     )),
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(15))),
               ));
 
-  Future openBoxTambahAlamat() =>
-      showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-                backgroundColor: Color.fromARGB(162, 0, 0, 0),
-                title: Center(
-                  child: Text(
-                    'Add Address',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                content: Container(
-                    height: 440,
-                    width: 400,
-                    child: SingleChildScrollView(
-                      child: Center(
-                        child: Column(
+  Future openBoxTambahAlamat() => showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+            backgroundColor: const Color.fromARGB(162, 0, 0, 0),
+            title: const Center(
+              child: Text(
+                'Add Address',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            content: SizedBox(
+                height: 440,
+                width: 400,
+                child: SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      children: [
+                        const Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 5)),
+                        TextField(
+                          controller: AddresName,
+                          style: const TextStyle(color: Colors.white),
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(122, 247, 5, 5),
+                                      width: 3)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(122, 247, 5, 5),
+                                      width: 3)),
+                              prefixIcon: const Padding(
+                                padding: EdgeInsets.only(left: 20),
+                                child: Icon(
+                                  Icons.person,
+                                  color: Colors.white,
+                                ), // myIcon is a 48px-wide widget.
+                              ),
+                              hintText: 'Address Name',
+                              hintStyle: const TextStyle(color: Colors.white)),
+                        ),
+                        const Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 5)),
+                        TextField(
+                          controller: Fname,
+                          style: const TextStyle(color: Colors.white),
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(122, 247, 5, 5),
+                                      width: 3)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(122, 247, 5, 5),
+                                      width: 3)),
+                              prefixIcon: const Padding(
+                                padding: EdgeInsets.only(left: 20),
+                                child: Icon(
+                                  Icons.person,
+                                  color: Colors.white,
+                                ), // myIcon is a 48px-wide widget.
+                              ),
+                              hintText: 'First Name',
+                              hintStyle: const TextStyle(color: Colors.white)),
+                        ),
+                        const Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 5)),
+                        TextField(
+                          controller: Lname,
+                          style: const TextStyle(color: Colors.white),
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(122, 247, 5, 5),
+                                      width: 3)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(122, 247, 5, 5),
+                                      width: 3)),
+                              prefixIcon: const Padding(
+                                padding: EdgeInsets.only(left: 20),
+                                child: Icon(
+                                  Icons.person,
+                                  color: Colors.white,
+                                ), // myIcon is a 48px-wide widget.
+                              ),
+                              hintText: 'Last Name',
+                              hintStyle: const TextStyle(color: Colors.white)),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 3),
+                          child: TextField(
+                            maxLines: 4,
+                            controller: Addres,
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(color: Colors.white),
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                                contentPadding:
+                                    const EdgeInsets.symmetric(vertical: 30),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(
+                                        color: Color.fromARGB(122, 247, 5, 5),
+                                        width: 3)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(
+                                        color: Color.fromARGB(122, 247, 5, 5),
+                                        width: 3)),
+                                prefixIcon: const Padding(
+                                  padding: EdgeInsets.only(left: 20),
+                                  child: Icon(
+                                    Icons.home,
+                                    color: Colors.white,
+                                  ), // myIcon is a 48px-wide widget.
+                                ),
+                                hintText: 'Address',
+                                hintStyle:
+                                    const TextStyle(color: Colors.white)),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 3),
+                          child: TextField(
+                            controller: Pnum,
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(color: Colors.white),
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: const BorderSide(
+                                        color: Color.fromARGB(122, 247, 5, 5),
+                                        width: 3)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: const BorderSide(
+                                        color: Color.fromARGB(122, 247, 5, 5),
+                                        width: 3)),
+                                prefixIcon: const Padding(
+                                  padding: EdgeInsets.only(left: 20),
+                                  child: Icon(
+                                    Icons.phone_android,
+                                    color: Colors.white,
+                                  ), // myIcon is a 48px-wide widget.
+                                ),
+                                hintText: 'Phone Number',
+                                hintStyle:
+                                    const TextStyle(color: Colors.white)),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 5)),
-                            TextField(
-                              controller: AddresName,
-                              style: TextStyle(color: Colors.white),
-                              textAlign: TextAlign.center,
-                              decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(50),
-                                      borderSide: const BorderSide(
-                                          color: Color.fromARGB(122, 247, 5, 5),
-                                          width: 3)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(50),
-                                      borderSide: const BorderSide(
-                                          color: Color.fromARGB(122, 247, 5, 5),
-                                          width: 3)),
-                                  prefixIcon: const Padding(
-                                    padding: EdgeInsets.only(left: 20),
-                                    child: Icon(
-                                      Icons.person,
-                                      color: Colors.white,
-                                    ), // myIcon is a 48px-wide widget.
-                                  ),
-                                  hintText: 'Address Name',
-                                  hintStyle:
-                                      const TextStyle(color: Colors.white)),
-                            ),
-                            Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 5)),
-                            TextField(
-                              controller: Fname,
-                              style: TextStyle(color: Colors.white),
-                              textAlign: TextAlign.center,
-                              decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(50),
-                                      borderSide: const BorderSide(
-                                          color: Color.fromARGB(122, 247, 5, 5),
-                                          width: 3)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(50),
-                                      borderSide: const BorderSide(
-                                          color: Color.fromARGB(122, 247, 5, 5),
-                                          width: 3)),
-                                  prefixIcon: const Padding(
-                                    padding: EdgeInsets.only(left: 20),
-                                    child: Icon(
-                                      Icons.person,
-                                      color: Colors.white,
-                                    ), // myIcon is a 48px-wide widget.
-                                  ),
-                                  hintText: 'First Name',
-                                  hintStyle:
-                                      const TextStyle(color: Colors.white)),
-                            ),
-                            Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 5)),
-                            TextField(
-                              controller: Lname,
-                              style: TextStyle(color: Colors.white),
-                              textAlign: TextAlign.center,
-                              decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(50),
-                                      borderSide: const BorderSide(
-                                          color: Color.fromARGB(122, 247, 5, 5),
-                                          width: 3)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(50),
-                                      borderSide: const BorderSide(
-                                          color: Color.fromARGB(122, 247, 5, 5),
-                                          width: 3)),
-                                  prefixIcon: const Padding(
-                                    padding: EdgeInsets.only(left: 20),
-                                    child: Icon(
-                                      Icons.person,
-                                      color: Colors.white,
-                                    ), // myIcon is a 48px-wide widget.
-                                  ),
-                                  hintText: 'Last Name',
-                                  hintStyle:
-                                      const TextStyle(color: Colors.white)),
-                            ),
                             Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 3),
-                              child: TextField(
-                                maxLines: 4,
-                                controller: Addres,
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(color: Colors.white),
-                                textAlign: TextAlign.center,
-                                decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 30),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: const BorderSide(
-                                            color:
-                                                Color.fromARGB(122, 247, 5, 5),
-                                            width: 3)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: const BorderSide(
-                                            color:
-                                                Color.fromARGB(122, 247, 5, 5),
-                                            width: 3)),
-                                    prefixIcon: const Padding(
-                                      padding: EdgeInsets.only(left: 20),
-                                      child: Icon(
-                                        Icons.home,
-                                        color: Colors.white,
-                                      ), // myIcon is a 48px-wide widget.
-                                    ),
-                                    hintText: 'Address',
-                                    hintStyle:
-                                        const TextStyle(color: Colors.white)),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 3),
-                              child: TextField(
-                                controller: Pnum,
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(color: Colors.white),
-                                textAlign: TextAlign.center,
-                                decoration: InputDecoration(
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        borderSide: const BorderSide(
-                                            color:
-                                                Color.fromARGB(122, 247, 5, 5),
-                                            width: 3)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        borderSide: const BorderSide(
-                                            color:
-                                                Color.fromARGB(122, 247, 5, 5),
-                                            width: 3)),
-                                    prefixIcon: const Padding(
-                                      padding: EdgeInsets.only(left: 20),
-                                      child: Icon(
-                                        Icons.phone_android,
-                                        color: Colors.white,
-                                      ), // myIcon is a 48px-wide widget.
-                                    ),
-                                    hintText: 'Phone Number',
-                                    hintStyle:
-                                        const TextStyle(color: Colors.white)),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 2),
-                                  child: Container(
-                                    width: 120,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
-                                      child: Stack(
-                                        children: <Widget>[
-                                          Positioned.fill(
-                                            child: Container(
-                                              color:
-                                                  Color.fromARGB(255, 0, 0, 0),
-                                            ),
-                                          ),
-                                          ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              primary: Color.fromARGB(
-                                                  172, 247, 6, 6),
-                                              minimumSize:
-                                                  const Size.fromHeight(
-                                                      50), // NEW
-                                            ),
-                                            onPressed: () {
-                                              Fname.clear();
-                                              Lname.clear();
-                                              Addres.clear();
-                                              AddresName.clear();
-                                              Pnum.clear();
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text(
-                                              'Close',
-                                              style: TextStyle(fontSize: 15),
-                                            ),
-                                          ),
-                                        ],
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 2),
+                              child: SizedBox(
+                                width: 120,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Positioned.fill(
+                                        child: Container(
+                                          color: const Color.fromARGB(
+                                              255, 0, 0, 0),
+                                        ),
                                       ),
-                                    ),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: const Color.fromARGB(
+                                              172, 247, 6, 6),
+                                          minimumSize:
+                                              const Size.fromHeight(50), // NEW
+                                        ),
+                                        onPressed: () {
+                                          Fname.clear();
+                                          Lname.clear();
+                                          Addres.clear();
+                                          AddresName.clear();
+                                          Pnum.clear();
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text(
+                                          'Close',
+                                          style: TextStyle(fontSize: 15),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 2),
-                                  child: Container(
-                                    width: 120,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
-                                      child: Stack(
-                                        children: <Widget>[
-                                          Positioned.fill(
-                                            child: Container(
-                                              color:
-                                                  Color.fromARGB(255, 0, 0, 0),
-                                            ),
-                                          ),
-                                          ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              primary: Color.fromARGB(
-                                                  172, 247, 6, 6),
-                                              minimumSize:
-                                                  const Size.fromHeight(
-                                                      50), // NEW
-                                            ),
-                                            onPressed: () async {
-                                              AddAddress(
-                                                  Fname.text,
-                                                  Lname.text,
-                                                  Addres.text,
-                                                  Pnum.text,
-                                                  AddresName.text,
-                                              );
-                                              Fname.clear();
-                                              Lname.clear();
-                                              Addres.clear();
-                                              AddresName.clear();
-                                              Pnum.clear();
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text(
-                                              'Tambah Alamat',
-                                              style: TextStyle(fontSize: 15),
-                                            ),
-                                          ),
-                                        ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 2),
+                              child: SizedBox(
+                                width: 120,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Positioned.fill(
+                                        child: Container(
+                                          color: const Color.fromARGB(
+                                              255, 0, 0, 0),
+                                        ),
                                       ),
-                                    ),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: const Color.fromARGB(
+                                              172, 247, 6, 6),
+                                          minimumSize:
+                                              const Size.fromHeight(50), // NEW
+                                        ),
+                                        onPressed: () async {
+                                          AddAddress(
+                                            Fname.text,
+                                            Lname.text,
+                                            Addres.text,
+                                            Pnum.text,
+                                            AddresName.text,
+                                          );
+                                          Fname.clear();
+                                          Lname.clear();
+                                          Addres.clear();
+                                          AddresName.clear();
+                                          Pnum.clear();
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text(
+                                          'Tambah Alamat',
+                                          style: TextStyle(fontSize: 15),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                )
-                              ],
+                                ),
+                              ),
                             )
                           ],
-                        ),
-                      ),
-                    )),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15))),
-              ));
+                        )
+                      ],
+                    ),
+                  ),
+                )),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15))),
+          ));
 
   Widget BuildNavigateButton(context) => FloatingActionButton.extended(
         heroTag: "btn2",
-        label: Text('Tambah Alamat', style: TextStyle(fontSize: 18)),
+        label: const Text('Tambah Alamat', style: TextStyle(fontSize: 18)),
         onPressed: () {
           openBoxTambahAlamat();
         },
-        backgroundColor: Color.fromARGB(187, 160, 7, 7),
+        backgroundColor: const Color.fromARGB(187, 160, 7, 7),
         elevation: 1000,
-        icon: Icon(Icons.add, size: 28),
+        icon: const Icon(Icons.add, size: 28),
       );
 }

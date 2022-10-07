@@ -1,22 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_application_1/Home.dart';
-import 'package:flutter_application_1/SpashScreen.dart';
 import 'package:flutter_application_1/auth_services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:get/get.dart';
-import 'package:flutter_application_1/LoginSuccess.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_application_1/auth_services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class ResetPasswordPage extends StatelessWidget {
-
   @override
-
-  TextEditingController email = new TextEditingController(); 
+  TextEditingController email = new TextEditingController();
 
   Widget build(BuildContext context) {
     return MaterialApp(

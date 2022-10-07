@@ -1,17 +1,13 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_application_1/Login.dart';
 import 'package:flutter_application_1/auth_services.dart';
 import 'package:flutter_application_1/header_widget.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_application_1/main.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SignUpPage extends StatefulWidget {
-  SignUpPage({Key? key}) : super(key: key);
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -21,19 +17,20 @@ class _SignUpPageState extends State<SignUpPage> {
   int Count = 0;
   bool checkboxValue = false;
 
-  TextEditingController Addres = new TextEditingController();
-  TextEditingController Fname = new TextEditingController();
-  TextEditingController Lname = new TextEditingController();
-  TextEditingController Nphone = new TextEditingController();
-  TextEditingController pass = new TextEditingController();
-  TextEditingController user = new TextEditingController();
-  TextEditingController email = new TextEditingController();
+  TextEditingController Addres = TextEditingController();
+  TextEditingController Fname = TextEditingController();
+  TextEditingController Lname = TextEditingController();
+  TextEditingController Nphone = TextEditingController();
+  TextEditingController pass = TextEditingController();
+  TextEditingController user = TextEditingController();
+  TextEditingController email = TextEditingController();
 
   @override
-  late File? _image = null;
+  late File? _image;
   late String url =
       'https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60';
 
+  @override
   void initState() {
     bool _passwordVisible = false;
   }
@@ -50,16 +47,16 @@ class _SignUpPageState extends State<SignUpPage> {
   Future openCard() => showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-            backgroundColor: Color.fromARGB(255, 160, 7, 7),
-            title: Center(
+            backgroundColor: const Color.fromARGB(255, 160, 7, 7),
+            title: const Center(
               child: Text('Your account have been sign up !!!',
                   style: TextStyle(color: Colors.white)),
             ),
-            content: Container(
+            content: SizedBox(
               height: 80,
               child: Center(
                 child: Column(
-                  children: [
+                  children: const [
                     Text('Please Sign in again',
                         style: TextStyle(color: Colors.white)),
                     Text('to do purchase at SamyangApp',
@@ -105,7 +102,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     Fluttertoast.showToast(msg: 'Chekbox not filled');
                   }
                 },
-                child: Text('OK', style: TextStyle(color: Colors.white)),
+                child: const Text('OK', style: TextStyle(color: Colors.white)),
               ),
             ],
           ));
@@ -114,14 +111,14 @@ class _SignUpPageState extends State<SignUpPage> {
       width: 75,
       height: 75,
       child: FloatingActionButton(
-        child: Icon(
+        child: const Icon(
           Icons.arrow_forward,
           size: 30,
         ),
         onPressed: () {
           openCard();
         },
-        backgroundColor: Color.fromARGB(187, 160, 7, 7),
+        backgroundColor: const Color.fromARGB(187, 160, 7, 7),
       ));
 
   @override
@@ -130,17 +127,17 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
         floatingActionButton: BuildNavigateButton(context),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        backgroundColor: Color.fromARGB(255, 95, 2, 2),
+        backgroundColor: const Color.fromARGB(255, 95, 2, 2),
         body: Stack(
           children: [
-            Container(
+            SizedBox(
               height: 450,
-              child: HeaderWidget(200, false, Icons.abc),
+              child: const HeaderWidget(200, false, Icons.abc),
             ),
             Container(
               child: Scaffold(
                 body: Center(
-                  child: Container(
+                  child: SizedBox(
                     width: 355,
                     child: SingleChildScrollView(
                         child: Column(
@@ -155,27 +152,27 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: Stack(
                             children: [
                               Container(
-                                padding: EdgeInsets.all(5),
+                                padding: const EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
                                   border: Border.all(
                                       width: 1,
-                                      color: Color.fromARGB(0, 0, 0, 0)),
-                                  color: Color.fromARGB(255, 154, 26, 26),
-                                  boxShadow: [
+                                      color: const Color.fromARGB(0, 0, 0, 0)),
+                                  color: const Color.fromARGB(255, 154, 26, 26),
+                                  boxShadow: const [
                                     BoxShadow(
                                       color: Colors.black12,
                                       blurRadius: 20,
-                                      offset: const Offset(5, 5),
+                                      offset: Offset(5, 5),
                                     ),
                                   ],
                                 ),
                                 child: CircleAvatar(
                                   radius: 70,
                                   backgroundColor:
-                                      Color.fromARGB(255, 253, 21, 21),
+                                      const Color.fromARGB(255, 253, 21, 21),
                                   child: ClipOval(
-                                    child: new SizedBox(
+                                    child: SizedBox(
                                       width: 140.0,
                                       height: 140.0,
                                       child: (_image != null)
@@ -194,7 +191,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Padding(
@@ -202,7 +199,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               horizontal: 8, vertical: 3),
                           child: TextField(
                             controller: email,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
@@ -233,7 +230,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: TextField(
                             controller: pass,
                             obscureText: true,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
@@ -259,11 +256,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               left: 8, right: 8, top: 3, bottom: 3),
                           child: TextField(
                             controller: user,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
@@ -291,14 +288,14 @@ class _SignUpPageState extends State<SignUpPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
+                            SizedBox(
                               width: 170,
                               child: Padding(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     right: 4, top: 3, bottom: 3),
                                 child: TextField(
                                   controller: Fname,
-                                  style: TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.white),
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(
                                       focusedBorder: OutlineInputBorder(
@@ -328,14 +325,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               width: 170,
                               child: Padding(
-                                padding:
-                                    EdgeInsets.only(left: 4, top: 3, bottom: 3),
+                                padding: const EdgeInsets.only(
+                                    left: 4, top: 3, bottom: 3),
                                 child: TextField(
                                   controller: Lname,
-                                  style: TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.white),
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(
                                       focusedBorder: OutlineInputBorder(
@@ -368,12 +365,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           ],
                         ),
                         Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 3),
                           child: TextField(
                             controller: Nphone,
                             keyboardType: TextInputType.number,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
@@ -399,16 +396,16 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 3),
                           child: TextField(
                             maxLines: 3,
                             controller: Addres,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
                                 contentPadding:
-                                    EdgeInsets.symmetric(vertical: 30),
+                                    const EdgeInsets.symmetric(vertical: 30),
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: const BorderSide(
@@ -432,7 +429,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 30),
+                          padding: const EdgeInsets.only(left: 30),
                           child: Center(
                             child: FormField<bool>(
                               builder: (state) {
@@ -448,7 +445,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                               ),
                                               side: MaterialStateBorderSide
                                                   .resolveWith(
-                                                (states) => BorderSide(
+                                                (states) => const BorderSide(
                                                     width: 1.0,
                                                     color: Color.fromARGB(
                                                         255, 255, 255, 255)),
@@ -460,7 +457,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                                   state.didChange(value);
                                                 });
                                               }),
-                                          Text(
+                                          const Text(
                                             "I accept all terms and conditions.",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
